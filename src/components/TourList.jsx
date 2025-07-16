@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SortBar from '../components/SortBar'
+import SearchBar from './SearchBar';
 import './TourList.css';
 import { BsStarFill } from 'react-icons/bs';
 
@@ -10,6 +11,7 @@ const toursPerPage = 4; // bạn có thể đổi
 const TourList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState('');
+  const [searchParams, setSearchParams] = useState({});
   const [tours, setTours] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -24,7 +26,7 @@ const TourList = () => {
         const { data } = await axios.get(
           `http://localhost:5000/api/tours`,
           {
-            params: { page: currentPage, limit: toursPerPage, sort },
+            params: { page: currentPage, limit: toursPerPage, sort, ...searchParams },
           }
         );
         setTours(data.data);
@@ -39,7 +41,12 @@ const TourList = () => {
     };
 
     fetchTours();
-  }, [currentPage, sort]);
+  }, [currentPage, sort, searchParams]);
+
+  const handleSearch = (filters) => {
+    setSearchParams(filters);
+    setCurrentPage(1); // reset về page 1
+  };
 
   /* hàm thay đổi sort (nhận từ SortBar) */
   const handleSortChange = (value) => {
@@ -53,6 +60,7 @@ const TourList = () => {
 
   return (
     <div className="container my-5">
+      <SearchBar onSearch={handleSearch} />
       <SortBar onSortChange={handleSortChange} />
 
       <h2 className="text-center fw-bold mb-4">Danh sách Tour</h2>
