@@ -1,0 +1,58 @@
+/* src/components/Banner.css */
+
+.banner {
+  width: 100vw; /* chiếm toàn bộ chiều ngang */
+  height: 60vh;
+  position: relative;
+  background-image: url('../images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.banner > * {
+  position: relative;
+  z-index: 2;
+}
+
+.banner-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.text-highlight {
+  font-style: italic;
+  color: #ffc107;
+}
+
+.search-box {
+  width: 90%;
+  border-radius: 1rem;
+  display: flex;
+  flex-wrap: nowrap; /* Ngăn input xuống dòng */
+  gap: 0.5rem;
+  overflow-x: auto; /* Tránh vỡ layout ở màn nhỏ */
+}
+
+.search-box .search-item {
+  flex: 1 1 auto; /* Các input tự co giãn đều */
+  min-width: 10px;
+  max-width: 200px;
+}
+
+/* Button giữ kích thước cố định */
+.search-box button.search-item {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+

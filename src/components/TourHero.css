@@ -1,0 +1,28 @@
+/* src/components/TourHero.css */
+
+.tour-hero {
+  position: relative;
+  height: 300px;
+  background-image: url('../images/tourhero.avif');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  margin-top: 50px !important;
+}
+
+.tour-hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Lớp tối mờ */
+  z-index: 0;
+}
+
+.tour-hero .z-1 {
+  z-index: 1;
+  position: relative;
+  max-width: 700px;
+  padding: 0 15px;
+}

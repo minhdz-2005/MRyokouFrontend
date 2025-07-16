@@ -1,0 +1,28 @@
+/* src/components/Footer.css */
+
+.footer {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.footer a {
+  color: #bbb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #ffc107;
+}
+
+.footer .social-icons a {
+  font-size: 1.2rem;
+  margin-right: 15px;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  transform: scale(1.2);
+  color: #ffc107;
+}

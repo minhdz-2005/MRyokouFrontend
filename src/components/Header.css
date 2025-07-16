@@ -1,0 +1,71 @@
+/* Biến navbar trong suốt ở đầu trang */
+.navbar {
+  transition: all 0.4s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px); /* hiệu ứng mờ nền */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 0;
+}
+
+/* Khi cuộn xuống, thêm nền trắng và đậm hơn */
+.navbar.scrolled {
+  background-color: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Brand nổi bật */
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #007bff !important;
+}
+
+/* Link menu */
+.navbar-nav .nav-link {
+  font-weight: 500;
+  margin-right: 15px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Hover underline effect */
+.navbar-nav .nav-link::before, .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #007bff;
+  right: 50%;
+  bottom: -4px;
+  transition: width 0.3s ease;
+}
+.navbar-nav .nav-link::after {
+  left: 50%;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+.navbar-nav .nav-link:hover::before {
+  width: 50%;
+}
+.navbar-nav .nav-link:hover::after {
+  width: 50%;
+}
+
+/* Nút sign in/up */
+.navbar .btn {
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.navbar .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.navbar .btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}

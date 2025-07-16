@@ -1,0 +1,26 @@
+/* src/components/AboutHero.css */
+
+.about-hero {
+  height: 300px;
+  background-image: url('../images/abouthero.avif');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-top: 40px;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* overlay tối */
+  z-index: 1;
+}
+
+.about-hero .container {
+  position: relative;
+  z-index: 2;
+}
