@@ -1,4 +1,5 @@
 // src/components/TourList.jsx
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SortBar from '../components/SortBar'
@@ -6,7 +7,7 @@ import SearchBar from './SearchBar';
 import './TourList.css';
 import { BsStarFill } from 'react-icons/bs';
 
-const toursPerPage = 4; // bạn có thể đổi
+const toursPerPage = 8; // bạn có thể đổi
 
 const TourList = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +34,7 @@ const TourList = () => {
         setTotalPages(data.totalPages);
       } catch (err) {
         const msg =
-          err.response?.data?.message || 'Đăng nhập thất bại, thử lại sau!';
+          err.response?.data?.message || 'Failed!';
           setErrMsg(msg);
       } finally {
         setLoading(false);
@@ -91,12 +92,9 @@ const TourList = () => {
                       {tour.price.toLocaleString()}đ
                     </span>
                   </div>
-                  <button
-                    className="btn btn-outline-primary w-100 mt-3"
-                    disabled
-                  >
+                  <Link to={`/tours/${tour._id}`} className="btn btn-outline-primary w-100 mt-3">
                     Xem chi tiết
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
