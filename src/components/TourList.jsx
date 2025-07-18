@@ -92,7 +92,7 @@ const TourList = () => {
                       {tour.price.toLocaleString()}đ
                     </span>
                   </div>
-                  <Link to={`/tours/${tour._id}`} className="btn btn-outline-primary w-100 mt-3">
+                  <Link target='blank' to={`/tours/${tour._id}`} className="btn btn-outline-primary w-100 mt-3">
                     Xem chi tiết
                   </Link>
                 </div>
