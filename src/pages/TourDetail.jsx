@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
-import TourReviews from '../components/TourRating';
 import Footer from '../components/Footer';
 import { Modal } from 'react-bootstrap';
 
 const TourDetail = () => {
   const { id } = useParams();
   const [tour, setTour] = useState(null);
+  const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errMsg, setErrMsg] = useState('');
   const [showBookingForm, setShowBookingForm] = useState(false);
@@ -24,19 +24,21 @@ const TourDetail = () => {
   const [note, setNote] = useState('');
 
   useEffect(() => {
-    const fetchTour = async () => {
+    const fetchData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/tours/${id}`);
-        setTour(data);
+        const [tourRes, detailRes] = await Promise.all([
+          axios.get(`http://localhost:5000/api/tours/${id}`),
+          axios.get(`http://localhost:5000/api/tour-details/${id}`),
+        ]);
+        setTour(tourRes.data);
+        setDetail(detailRes.data);
       } catch (err) {
-        const msg = err.response?.data?.message || 'Không tìm thấy tour!';
-        setErrMsg(msg);
+        setErrMsg(err.response?.data?.message || 'Không tìm thấy thông tin!');
       } finally {
         setLoading(false);
       }
     };
-
-    fetchTour();
+    fetchData();
   }, [id]);
 
   const handleSubmit = async (e) => {
@@ -97,6 +99,56 @@ const TourDetail = () => {
           </div>
         </div>
 
+        {/* Hình ảnh */}
+        <div className="row g-3 mb-4">
+          {detail.image.map((img, i) => (
+            <div className="col-md-4" key={i}>
+              <img src={img} alt={`img-${i}`} className="img-fluid rounded shadow" />
+            </div>
+          ))}
+        </div>
+
+        <div className="row">
+          {/* Highlights & Itinerary */}
+          <div className="col-md-6">
+            <h4>✨ Trải nghiệm thú vị</h4>
+            <ul>
+              {detail.highlights.map((h, i) => <li key={i}>{h}</li>)}
+            </ul>
+            <h4>📋 Chương trình tour</h4>
+            <ol>
+              {detail.itinerary.map((it, i) => <li key={i}>{it}</li>)}
+            </ol>
+          </div>
+
+          {/* Schedules & Notes */}
+          <div className="col-md-6">
+            <h4>📆 Lịch khởi hành</h4>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Bắt đầu</th><th>Kết thúc</th><th>Trạng thái</th><th>Giá (đ)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {detail.schedules.map((s, i) => (
+                  <tr key={i}>
+                    <td>{new Date(s.startDate).toLocaleDateString()}</td>
+                    <td>{new Date(s.endDate).toLocaleDateString()}</td>
+                    <td>{s.status}</td>
+                    <td>{s.price.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <h4>⚠️ Lưu ý</h4>
+            <ul>
+              {detail.notes.map((n, i) => <li key={i}>{n}</li>)}
+            </ul>
+          </div>
+        </div>
+
         {/* Nút đặt tour */}
         <div className="text-center mt-5">
           <button onClick={() => setShowBookingForm(!showBookingForm)} className="btn btn-success">
@@ -151,7 +203,6 @@ const TourDetail = () => {
           </div>
         )}
 
-        <TourReviews />
       </div>
       <Footer />
 
