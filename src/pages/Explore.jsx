@@ -2,20 +2,17 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ExploreHero from '../components/ExploreHero'; // <== thêm dòng này
-import ExploreByDestination from '../components/ExploreByDestination';
-import ExploreBySeason from '../components/ExploreBySeason';
+import ExploreHero from '../components/ExploreHero';
+import ExploreVN from '../components/ExploreVN'
+import TravelGuide from '../components/TravelGuide'
 
 const Explore = () => {
   return (
     <>
       <Header />
-      <ExploreHero /> {/* <== gọi ở đây */}
-      <div className="container my-5">
-        <ExploreByDestination />
-        <hr className="my-5" />
-        <ExploreBySeason />
-      </div>
+      <ExploreHero />
+      <ExploreVN></ExploreVN>
+      <TravelGuide></TravelGuide>
       <Footer />
     </>
   );
