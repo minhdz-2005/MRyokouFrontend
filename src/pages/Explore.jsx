@@ -10,7 +10,6 @@ const Explore = () => {
   return (
     <>
       <Header />
-      <ExploreHero />
       <ExploreVN></ExploreVN>
       <TravelGuide></TravelGuide>
       <Footer />
