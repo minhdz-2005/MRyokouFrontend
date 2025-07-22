@@ -1,24 +1,50 @@
-// src/components/SortBar.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './SortBar.css';
+import { 
+  FaSortAmountDownAlt, 
+  FaSortAmountUp, 
+  FaStar,
+  FaCalendarAlt,
+  FaFilter,
+  FaChevronDown
+} from 'react-icons/fa';
+import { GiPriceTag } from 'react-icons/gi';
 
 const SortBar = ({ onSortChange }) => {
-  const handleChange = (e) => {
-    const value = e.target.value;
-    if (onSortChange) onSortChange(value); // Gửi giá trị về parent nếu có callback
+  const [activeSort, setActiveSort] = useState('');
+
+  const sortOptions = [
+    { value: 'price-asc', label: 'Giá thấp đến cao', icon: <FaSortAmountDownAlt /> },
+    { value: 'price-desc', label: 'Giá cao đến thấp', icon: <FaSortAmountUp /> },
+    { value: 'rating', label: 'Đánh giá cao nhất', icon: <FaStar /> },
+    { value: 'newest', label: 'Mới nhất', icon: <FaCalendarAlt /> }
+  ];
+
+  const handleSortChange = (value) => {
+    setActiveSort(value);
+    if (onSortChange) onSortChange(value);
   };
 
   return (
-    <div className="sortbar py-3 bg-light border-bottom">
-      <div className="container d-flex justify-content-between align-items-center flex-wrap">
-        <h5 className="mb-2 mb-md-0 fw-semibold">Sắp xếp tour:</h5>
-        <select className="form-select w-auto" onChange={handleChange}>
-          <option value="">-- Chọn tiêu chí --</option>
-          <option value="price-asc">Giá tăng dần</option>
-          <option value="price-desc">Giá giảm dần</option>
-          <option value="rating">Đánh giá cao nhất</option>
-          <option value="newest">Mới nhất</option>
-        </select>
+    <div className="sortbar">
+      <div className="container">
+        <div className="sortbar-container">
+          <div className="sortbar-main">
+            <h5 className="sortbar-title">Sắp xếp theo:</h5>
+            <div className="sortbar-options">
+              {sortOptions.map((option) => (
+                <button
+                  key={option.value}
+                  className={`sortbar-option ${activeSort === option.value ? 'active' : ''}`}
+                  onClick={() => handleSortChange(option.value)}
+                >
+                  <span className="option-icon">{option.icon}</span>
+                  <span className="option-label">{option.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

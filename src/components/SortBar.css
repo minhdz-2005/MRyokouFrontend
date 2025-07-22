@@ -1,5 +1,107 @@
-/* src/components/SortBar.css */
-
+/* Base styles */
 .sortbar {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.sortbar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sortbar-main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sortbar-title {
+  margin: 0;
   font-size: 0.95rem;
+  font-weight: 600;
+  color: #495057;
+  white-space: nowrap;
+}
+
+.sortbar-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.sortbar-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.sortbar-option:hover {
+  border-color: #adb5bd;
+  transform: translateY(-2px);
+}
+
+.sortbar-option.active {
+  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+  color: white;
+  border-color: #0b5ed7;
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.2);
+}
+
+.option-icon {
+  font-size: 0.9rem;
+}
+
+.option-label {
+  font-size: 1rem;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.chevron.rotate {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 480px) {
+  .sortbar-options {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+  }
+  
+  .sortbar-options::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .sortbar-options::-webkit-scrollbar-thumb {
+    background-color: #adb5bd;
+    border-radius: 2px;
+  }
+  
+  .sortbar-option {
+    flex-shrink: 0;
+  }
 }

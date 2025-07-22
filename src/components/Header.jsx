@@ -2,10 +2,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { TbPlaneDeparture } from 'react-icons/tb';
-import { FaUserCircle, FaChevronDown } from 'react-icons/fa';
+import { FaUserCircle, FaChevronDown, FaInfoCircle } from 'react-icons/fa';
 import { MdOutlineTravelExplore } from 'react-icons/md';
 import { BiLogIn, BiUserPlus } from 'react-icons/bi';
+import { PiPaperPlaneTilt} from 'react-icons/pi';
 import './Header.css';
+import { RiHome4Line } from 'react-icons/ri';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -69,11 +71,13 @@ const Header = () => {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
             <li className="nav-item">
               <Link className="nav-link" to="/">
+                <RiHome4Line className='nav-icon' />      
                 <span className="nav-link-content">Home</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/tour">
+                <PiPaperPlaneTilt className='nav-icon' />
                 <span className="nav-link-content">Tours</span>
               </Link>
             </li>
@@ -85,6 +89,7 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">
+                <FaInfoCircle className='nav-icon' />
                 <span className="nav-link-content">About</span>
               </Link>
             </li>

@@ -11,7 +11,6 @@ const Tour = () => {
   return (
     <>
       <Header />
-      <TourHero></TourHero>
       <TourList />
       <Footer />
     </>

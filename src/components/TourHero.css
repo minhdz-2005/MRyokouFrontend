@@ -2,27 +2,73 @@
 
 .tour-hero {
   position: relative;
-  height: 300px;
-  background-image: url('../images/tourhero.avif');
-  background-size: cover;
-  background-position: center;
+  min-height: 340px;
+  background: url('../images/tourhero.avif') center center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
   overflow: hidden;
-  margin-top: 50px !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  margin-bottom: 2rem;
+  margin-top: 5rem;;
 }
 
-.tour-hero .overlay {
+.tour-hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Lớp tối mờ */
-  z-index: 0;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0,0,0,0.55) 60%, rgba(37,99,235,0.25) 100%);
+  z-index: 1;
 }
 
-.tour-hero .z-1 {
-  z-index: 1;
+.tour-hero-content {
   position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  width: 100%;
   max-width: 700px;
-  padding: 0 15px;
+  animation: fadeInUp 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.tour-hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  animation: fadeInUp 1.2s 0.1s both;
+}
+
+.tour-hero-subtitle {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.12);
+  animation: fadeInUp 1.3s 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .tour-hero {
+    min-height: 220px;
+    border-radius: 10px;
+  }
+  .tour-hero-title {
+    font-size: 1.5rem;
+  }
+  .tour-hero-content {
+    padding: 1.2rem 0.5rem;
+  }
 }

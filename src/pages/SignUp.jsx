@@ -49,7 +49,7 @@ const SignUp = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+      await axios.post(`http://localhost:5000/api/auth/register`, {
         fullname: formData.fullname,
         email: formData.email,
         password: formData.password

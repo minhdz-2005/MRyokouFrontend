@@ -6,6 +6,7 @@ import SortBar from '../components/SortBar'
 import SearchBar from './SearchBar';
 import './TourList.css';
 import { BsStarFill } from 'react-icons/bs';
+import fallbackImg from '../images/banner.jpg';
 
 const toursPerPage = 8; // bạn có thể đổi
 
@@ -64,31 +65,34 @@ const TourList = () => {
       <SearchBar onSearch={handleSearch} />
       <SortBar onSortChange={handleSortChange} />
 
-      <h2 className="text-center fw-bold mb-4">Danh sách Tour</h2>
+      <h2 className="text-center fw-bold mb-4 tourlist-title">Danh sách Tour</h2>
 
       {/* Loading / Error */}
-      {loading && <p className="text-center">Đang tải dữ liệu…</p>}
-      {errMsg && <p className="text-center text-danger">{errMsg}</p>}
+      {loading && <div className="tourlist-loading"><div className="spinner"></div><span>Đang tải dữ liệu…</span></div>}
+      {errMsg && <div className="tourlist-error"><span>{errMsg}</span></div>}
 
       {/* Danh sách tour */}
       <div className="row">
         {!loading &&
           tours.map((tour) => (
             <div className="col-md-3 col-sm-6 mb-4" key={tour._id}>
-              <div className="card h-100 tour-card shadow-sm">
-                <img
-                  src={tour.image}
-                  className="card-img-top"
-                  alt={tour.title}
-                />
+              <div className="card h-100 tour-card shadow-sm animate-fadein">
+                <div className="tour-card-img-wrapper">
+                  <img
+                    src={tour.image || fallbackImg}
+                    className="card-img-top"
+                    alt={tour.title}
+                  />
+                  {tour.isHot && <span className="tour-badge">Hot</span>}
+                </div>
                 <div className="card-body">
                   <h5 className="card-title">{tour.title}</h5>
-                  <p className="card-text text-muted">{tour.location}</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <span className="text-warning">
+                  <span className="tour-location badge bg-info mb-2">{tour.location}</span>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="text-warning tour-rating" aria-label={`Đánh giá: ${tour.rating}`}>
                       <BsStarFill /> {tour.rating}
                     </span>
-                    <span className="fw-bold text-primary">
+                    <span className="fw-bold text-primary tour-price">
                       {tour.price.toLocaleString()}đ
                     </span>
                   </div>
@@ -103,27 +107,27 @@ const TourList = () => {
 
       {/* Pagination */}
       {!loading && totalPages > 1 && (
-        <nav className="d-flex justify-content-center mt-4">
-          <ul className="pagination">
+        <nav className="d-flex justify-content-center mt-4" aria-label="Pagination">
+          <ul className="pagination tourlist-pagination">
             <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
               <button
                 className="page-link"
                 onClick={() => handlePageChange(currentPage - 1)}
+                aria-label="Previous page"
               >
-                Previous
+                &laquo;
               </button>
             </li>
 
             {Array.from({ length: totalPages }, (_, index) => (
               <li
                 key={index}
-                className={`page-item ${
-                  currentPage === index + 1 ? 'active' : ''
-                }`}
+                className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
               >
                 <button
                   className="page-link"
                   onClick={() => handlePageChange(index + 1)}
+                  aria-label={`Page ${index + 1}`}
                 >
                   {index + 1}
                 </button>
@@ -131,15 +135,14 @@ const TourList = () => {
             ))}
 
             <li
-              className={`page-item ${
-                currentPage === totalPages ? 'disabled' : ''
-              }`}
+              className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}
             >
               <button
                 className="page-link"
                 onClick={() => handlePageChange(currentPage + 1)}
+                aria-label="Next page"
               >
-                Next
+                &raquo;
               </button>
             </li>
           </ul>

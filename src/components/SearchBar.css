@@ -1,6 +1,244 @@
-/* src/components/SearchBar.css */
-
+/* Base styles */
 .searchbar-section {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background: linear-gradient(135deg, #3b8aff, #5599ff);
+  padding: 2rem 0;
+  color: white;
+  position: relative;
+  margin-top: 80px;
+  z-index: 1;
+}
+
+.searchbar-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../images/tourhero.avif') center/cover no-repeat;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.searchbar-container {
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Main search form */
+.searchbar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.searchbar-main {
+  width: 100%;
+}
+
+.searchbar-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.searchbar-icon {
+  position: absolute;
+  left: 1.5rem;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+.searchbar-input {
+  flex: 1;
+  padding: 1rem 1rem 1rem 3.5rem;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.searchbar-input::placeholder {
+  color: #adb5bd;
+}
+
+.searchbar-btn {
+  background: linear-gradient(135deg, #ff7675, #d63031);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.searchbar-btn:hover {
+  background: linear-gradient(135deg, #d63031, #ff7675);
+  transform: translateY(-2px);
+}
+
+/* Advanced filters */
+.searchbar-advanced {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.searchbar-advanced.show {
+  max-height: 200px;
+  transition: max-height 0.3s ease-in;
+}
+
+.advanced-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.filter-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+}
+
+.filter-icon {
+  color: #0d6efd;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.filter-select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  outline: none;
+  color: #495057;
+  cursor: pointer;
+}
+
+.filter-select option {
+  color: #495057;
+}
+
+/* Toggle advanced button */
+.toggle-advanced-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+
+.toggle-advanced-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.chevron.rotate {
+  transform: rotate(180deg);
+}
+
+/* Popular destinations */
+.popular-destinations {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.popular-destinations h3 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.destinations-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.destination-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.destination-tag:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .searchbar-input-group {
+    flex-direction: column;
+    border-radius: 12px;
+  }
+
+  .searchbar-icon {
+    display: none;
+  }
+
+  .searchbar-input {
+    padding: 1rem;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+  }
+
+  .searchbar-btn {
+    width: 100%;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .advanced-filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchbar-section {
+    padding: 1.5rem 0;
+  }
+
+  .searchbar-input {
+    font-size: 0.9rem;
+  }
+
+  .searchbar-btn {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
 }
