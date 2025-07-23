@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Modal } from 'react-bootstrap';
 import './TourDetail.css'; // Import CSS tùy chỉnh
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 const TourDetail = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const TourDetail = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeTab, setActiveTab] = useState('highlights');
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   // Form data
   const [fullName, setFullName] = useState('');
@@ -140,6 +142,7 @@ const TourDetail = () => {
           <div className="row align-items-center min-vh-50">
             <div className="col-lg-8">
               <div className="hero-content">
+                <h1 className="hero-title">{tour.title}</h1>
                 <div className="tour-badges">
                   <span className="badge bg-primary me-2">
                     <i className="fas fa-map-marker-alt me-1"></i>
@@ -150,8 +153,6 @@ const TourDetail = () => {
                     {tour.rating}/5
                   </span>
                 </div>
-                <h1 className="hero-title">{tour.title}</h1>
-                <p className="hero-description">{tour.description || 'Khám phá những trải nghiệm tuyệt vời cùng chúng tôi.'}</p>
                 <div className="price-section">
                   <span className="price-label">Chỉ từ</span>
                   <span className="price-value">{tour.price.toLocaleString()}đ</span>
@@ -178,31 +179,68 @@ const TourDetail = () => {
         </div>
 
         {/* Image Gallery */}
-        <div className="row mb-5">
-          <div className="col-12">
-            <h3 className="section-title mb-4">
-              <i className="fas fa-images text-primary me-2"></i>
-              Thư viện ảnh
-            </h3>
-            <div className="image-gallery">
-              <div className="main-image-container mb-3">
-                <img 
-                  src={detail.image[selectedImage]} 
-                  alt={`Tour image ${selectedImage + 1}`}
-                  className="img-fluid rounded-4 shadow main-gallery-image"
-                />
+        <div className="tour-gallery-section">
+          <h3 className="gallery-title">
+            <i className="fas fa-images text-primary me-2"></i>
+            Thư viện ảnh
+          </h3>
+          <div className="gallery-container">
+            {/* Main image with navigation */}
+            <div className="main-image-wrapper">
+              <button 
+                className="nav-btn prev-btn"
+                onClick={() => setSelectedImage((prev) => (prev === 0 ? detail.image.length - 1 : prev - 1))}
+                aria-label="Ảnh trước"
+                type="button"
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <div className="main-image-container">
+                <div className={`main-image-inner ${isImageLoading ? 'loading' : 'loaded'}`}> 
+                  <img 
+                    src={detail.image[selectedImage]} 
+                    alt={`Tour image ${selectedImage + 1}`} 
+                    className="main-image"
+                    loading="lazy"
+                    onLoad={() => setIsImageLoading(false)}
+                    onError={() => setIsImageLoading(false)}
+                    style={{opacity: isImageLoading ? 0.5 : 1, transition: 'opacity 0.5s'}}
+                  />
+                  {isImageLoading && <div className="image-loading-spinner"></div>}
+                </div>
+                <div className="image-counter">
+                  {selectedImage + 1} / {detail.image.length}
+                </div>
               </div>
-              <div className="thumbnail-container">
-                {detail.image.map((img, i) => (
-                  <div 
-                    key={i} 
-                    className={`thumbnail-item ${i === selectedImage ? 'active' : ''}`}
-                    onClick={() => setSelectedImage(i)}
-                  >
-                    <img src={img} alt={`Thumbnail ${i + 1}`} className="img-fluid rounded" />
-                  </div>
-                ))}
-              </div>
+              <button 
+                className="nav-btn next-btn"
+                onClick={() => setSelectedImage((prev) => (prev === detail.image.length - 1 ? 0 : prev + 1))}
+                aria-label="Ảnh tiếp theo"
+                type="button"
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            {/* Thumbnail navigation */}
+            <div className="thumbnail-gallery">
+              {detail.image.map((img, i) => (
+                <div 
+                  key={i}
+                  className={`thumbnail-item ${i === selectedImage ? 'active' : ''}`}
+                  onClick={() => setSelectedImage(i)}
+                  tabIndex={0}
+                  aria-label={`Chọn ảnh ${i + 1}`}
+                  role="button"
+                  onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && setSelectedImage(i)}
+                >
+                  <img 
+                    src={img} 
+                    alt={`Thumbnail ${i + 1}`} 
+                    className="thumbnail-image"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -352,7 +390,7 @@ const TourDetail = () => {
             <div className="booking-form-card">
               <div className="form-header">
                 <h4><i className="fas fa-edit me-2"></i>Thông tin đặt tour</h4>
-                <p>Vui lòng điền đầy đủ thông tin để chúng tôi có thể hỗ trợ bạn tốt nhất</p>
+                <p className='text-white'>Vui lòng điền đầy đủ thông tin để chúng tôi có thể hỗ trợ bạn tốt nhất</p>
               </div>
               
               <form onSubmit={handleSubmit}>
@@ -405,13 +443,18 @@ const TourDetail = () => {
                     <label className="form-label">
                       <i className="fas fa-calendar-alt me-1"></i>Ngày khởi hành *
                     </label>
-                    <input 
-                      type="date" 
-                      className={`form-control ${formErrors.departureDate ? 'is-invalid' : ''}`}
-                      value={departureDate} 
-                      onChange={(e) => setDepartureDate(e.target.value)}
-                      min={new Date().toISOString().split('T')[0]}
-                    />
+                    <select
+                      className={`form-select ${formErrors.departureDate ? 'is-invalid' : ''}`}
+                      value={departureDate}
+                      onChange={e => setDepartureDate(e.target.value)}
+                    >
+                      <option value="">-- Chọn ngày khởi hành --</option>
+                      {detail.schedules.map((schedule, idx) => (
+                        <option key={idx} value={schedule.startDate}>
+                          {new Date(schedule.startDate).toLocaleDateString('vi-VN')}
+                        </option>
+                      ))}
+                    </select>
                     {formErrors.departureDate && <div className="invalid-feedback">{formErrors.departureDate}</div>}
                   </div>
                 </div>
@@ -427,7 +470,7 @@ const TourDetail = () => {
                         className="btn btn-outline-secondary"
                         onClick={() => setAdults(Math.max(1, adults - 1))}
                       >
-                        <i className="fas fa-minus"></i>
+                        <i className='fas fa-minus'></i>
                       </button>
                       <input 
                         type="number" 
@@ -441,7 +484,7 @@ const TourDetail = () => {
                         className="btn btn-outline-secondary"
                         onClick={() => setAdults(adults + 1)}
                       >
-                        <i className="fas fa-plus"></i>
+                        <i className='fas fa-plus'></i>
                       </button>
                     </div>
                   </div>
@@ -456,7 +499,7 @@ const TourDetail = () => {
                         className="btn btn-outline-secondary"
                         onClick={() => setChildren(Math.max(0, children - 1))}
                       >
-                        <i className="fas fa-minus"></i>
+                        <i className='fas fa-minus'></i>
                       </button>
                       <input 
                         type="number" 
@@ -470,7 +513,7 @@ const TourDetail = () => {
                         className="btn btn-outline-secondary"
                         onClick={() => setChildren(children + 1)}
                       >
-                        <i className="fas fa-plus"></i>
+                        <i className='fas fa-plus'></i>
                       </button>
                     </div>
                   </div>

@@ -38,7 +38,7 @@
   /* ===== HERO SECTION ===== */
   .tour-hero {
     position: relative;
-    min-height: 60vh;
+    min-height: 30vh;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     align-items: center;
@@ -84,19 +84,12 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     line-height: 1.2;
   }
-  
-  .hero-description {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-    line-height: 1.6;
-  }
+
   
   .price-section {
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
-    margin-top: 2rem;
   }
   
   .price-label {
@@ -151,59 +144,224 @@
     transform: translateY(-2px);
   }
   
-  /* Image Gallery */
-  .image-gallery {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+  /* Gallery section */
+  .tour-gallery-section {
+    margin: 2.5rem 0;
   }
-  
-  .main-gallery-image {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    transition: var(--transition);
-    cursor: pointer;
-  }
-  
-  .main-gallery-image:hover {
-    transform: scale(1.02);
-  }
-  
-  .thumbnail-container {
+
+  .gallery-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 1.2rem;
     display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    padding: 1rem 0;
+    align-items: center;
+    gap: 0.5rem;
   }
-  
-  .thumbnail-item {
-    flex-shrink: 0;
-    width: 100px;
-    height: 70px;
-    border-radius: 8px;
+
+  .gallery-title i {
+    font-size: 1.2rem;
+  }
+
+  /* Main image container */
+  .gallery-container {
+    background: #f8fafc;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+
+  .main-image-container {
+    position: relative;
+    border-radius: 16px;
     overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: var(--transition);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    background: #fff;
+    min-width: 320px;
+    min-height: 220px;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
-  .thumbnail-item.active {
-    border-color: var(--primary-color);
-    transform: scale(1.1);
+
+  .main-image-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  
-  .thumbnail-item img {
+
+  .main-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: var(--transition);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: opacity 0.5s;
   }
-  
-  .thumbnail-item:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-medium);
+
+  .image-loading-spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    border: 4px solid #e0e7ef;
+    border-top: 4px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .image-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 18px;
+    background: rgba(37,99,235,0.85);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.25em 0.9em;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.13);
+    z-index: 3;
+  }
+
+  /* Navigation buttons */
+  .nav-btn {
+    background: #fff;
+    color: #2563eb;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+    z-index: 4;
+  }
+
+  .nav-btn:hover, .nav-btn:focus {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+    transform: scale(1.08);
+    outline: none;
+  }
+
+  .prev-btn, .next-btn {
+    left: 1.5rem;
+    height: 3.8rem;
+  }
+
+
+  /* Thumbnail gallery */
+  .thumbnail-gallery {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 0.7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .thumbnail-gallery::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .thumbnail-gallery::-webkit-scrollbar-thumb {
+    background-color: #adb5bd;
+    border-radius: 3px;
+  }
+
+  .thumbnail-gallery::-webkit-scrollbar-track {
+    background-color: #f1f3f5;
+  }
+
+  .thumbnail-item {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border 0.2s, box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  }
+
+  .thumbnail-item.active, .thumbnail-item:hover, .thumbnail-item:focus {
+    border: 2px solid #2563eb;
+    box-shadow: 0 2px 12px rgba(37,99,235,0.13);
+    transform: scale(1.07);
+    outline: none;
+  }
+
+  .thumbnail-image {
+    width: 60px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .main-image-wrapper {
+      aspect-ratio: 4/3;
+    }
+    
+    .nav-btn {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+    
+    .thumbnail-item {
+      flex: 0 0 70px;
+      height: 50px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-title {
+      font-size: 1.3rem;
+    }
+    
+    .main-image-wrapper {
+      aspect-ratio: 1/1;
+    }
+    
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .thumbnail-item {
+      flex: 0 0 60px;
+      height: 45px;
+    }
   }
   
   /* Tour Details Card */
@@ -240,7 +398,7 @@
   
   .custom-tabs .nav-link.active {
     background: var(--primary-color);
-    color: white;
+    color: white !important;
     transform: translateY(-2px);
   }
   
