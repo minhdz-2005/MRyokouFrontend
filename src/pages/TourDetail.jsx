@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Modal } from 'react-bootstrap';
+import './TourDetail.css'; // Import CSS tùy chỉnh
 
 const TourDetail = () => {
   const { id } = useParams();
@@ -13,6 +14,8 @@ const TourDetail = () => {
   const [errMsg, setErrMsg] = useState('');
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [activeTab, setActiveTab] = useState('highlights');
 
   // Form data
   const [fullName, setFullName] = useState('');
@@ -22,6 +25,7 @@ const TourDetail = () => {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [note, setNote] = useState('');
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,8 +45,28 @@ const TourDetail = () => {
     fetchData();
   }, [id]);
 
+  const validateForm = () => {
+    const errors = {};
+    if (!fullName.trim()) errors.fullName = 'Vui lòng nhập họ tên';
+    if (!email.trim()) errors.email = 'Vui lòng nhập email';
+    if (!phone.trim()) errors.phone = 'Vui lòng nhập số điện thoại';
+    if (!departureDate) errors.departureDate = 'Vui lòng chọn ngày khởi hành';
+    
+    const selectedDate = new Date(departureDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (selectedDate < today) {
+      errors.departureDate = 'Ngày khởi hành phải từ hôm nay trở đi';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) return;
 
     const bookingData = {
       tour: tour._id,
@@ -57,7 +81,8 @@ const TourDetail = () => {
 
     try {
       await axios.post('http://localhost:5000/api/bookings', bookingData);
-      setShowModal(true); // Hiện modal cảm ơn
+      setShowModal(true);
+      setShowBookingForm(false);
       // Reset form
       setFullName('');
       setEmail('');
@@ -66,157 +91,460 @@ const TourDetail = () => {
       setAdults(1);
       setChildren(0);
       setNote('');
+      setFormErrors({});
     } catch (error) {
       alert('Đặt tour thất bại! Vui lòng thử lại sau.');
-      console.error(error)
+      console.error(error);
     }
   };
 
-  if (loading) return <p className="text-center mt-5">Đang tải thông tin tour…</p>;
-  if (errMsg) return <p className="text-center text-danger mt-5">{errMsg}</p>;
-  if (!tour) return null;
+  const calculateTotalPrice = () => {
+    if (!tour) return 0;
+    const adultPrice = tour.price * adults;
+    const childPrice = tour.price * 0.7 * children; // Giảm 30% cho trẻ em
+    return adultPrice + childPrice;
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-3">Đang tải thông tin tour...</p>
+      </div>
+    );
+  }
+
+  if (errMsg) {
+    return (
+      <div className="error-container">
+        <div className="alert alert-danger" role="alert">
+          <i className="fas fa-exclamation-triangle me-2"></i>
+          {errMsg}
+        </div>
+      </div>
+    );
+  }
+
+  if (!tour || !detail) return null;
 
   return (
     <>
       <Header />
-      <div className="container my-5">
-        <div className="row g-4 align-items-center">
-          <div className="col-md-6">
-            <img
-              src={tour.image}
-              alt={tour.title}
-              className="img-fluid rounded shadow"
-              style={{ maxHeight: '400px', objectFit: 'cover', width: '100%' }}
-            />
-          </div>
-          <div className="col-md-6">
-            <h2 className="mb-3 text-primary">{tour.title}</h2>
-            <p><strong>📍 Địa điểm:</strong> {tour.location}</p>
-            <p><strong>💰 Giá:</strong> {tour.price.toLocaleString()}đ</p>
-            <p><strong>⭐ Đánh giá:</strong> {tour.rating}/5</p>
-            <p className="mt-3"><strong>📝 Mô tả:</strong></p>
-            <p>{tour.description || 'Chưa có mô tả.'}</p>
-          </div>
-        </div>
-
-        {/* Hình ảnh */}
-        <div className="row g-3 mb-4">
-          {detail.image.map((img, i) => (
-            <div className="col-md-4" key={i}>
-              <img src={img} alt={`img-${i}`} className="img-fluid rounded shadow" />
+      
+      {/* Hero Section */}
+      <div className="tour-hero">
+        <div className="hero-overlay"></div>
+        <div className="container">
+          <div className="row align-items-center min-vh-50">
+            <div className="col-lg-8">
+              <div className="hero-content">
+                <div className="tour-badges">
+                  <span className="badge bg-primary me-2">
+                    <i className="fas fa-map-marker-alt me-1"></i>
+                    {tour.location}
+                  </span>
+                  <span className="badge bg-warning">
+                    <i className="fas fa-star me-1"></i>
+                    {tour.rating}/5
+                  </span>
+                </div>
+                <h1 className="hero-title">{tour.title}</h1>
+                <p className="hero-description">{tour.description || 'Khám phá những trải nghiệm tuyệt vời cùng chúng tôi.'}</p>
+                <div className="price-section">
+                  <span className="price-label">Chỉ từ</span>
+                  <span className="price-value">{tour.price.toLocaleString()}đ</span>
+                  <span className="price-unit">/người</span>
+                </div>
+              </div>
             </div>
-          ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="container my-5">
+        {/* Tour Description */}
+        <div className="row mb-5">
+          <div className="col-12">
+            <div className="description-card">
+              <h3 className="section-title">
+                <i className="fas fa-info-circle text-primary me-2"></i>
+                Về chuyến du lịch này
+              </h3>
+              <p className="lead">{tour.description || 'Trải nghiệm tuyệt vời đang chờ đón bạn!'}</p>
+            </div>
+          </div>
         </div>
 
-        <div className="row">
-          {/* Highlights & Itinerary */}
-          <div className="col-md-6">
-            <h4>✨ Trải nghiệm thú vị</h4>
-            <ul>
-              {detail.highlights.map((h, i) => <li key={i}>{h}</li>)}
-            </ul>
-            <h4>📋 Chương trình tour</h4>
-            <ol>
-              {detail.itinerary.map((it, i) => <li key={i}>{it}</li>)}
-            </ol>
-          </div>
-
-          {/* Schedules & Notes */}
-          <div className="col-md-6">
-            <h4>📆 Lịch khởi hành</h4>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Bắt đầu</th><th>Kết thúc</th><th>Trạng thái</th><th>Giá (đ)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {detail.schedules.map((s, i) => (
-                  <tr key={i}>
-                    <td>{new Date(s.startDate).toLocaleDateString()}</td>
-                    <td>{new Date(s.endDate).toLocaleDateString()}</td>
-                    <td>{s.status}</td>
-                    <td>{s.price.toLocaleString()}</td>
-                  </tr>
+        {/* Image Gallery */}
+        <div className="row mb-5">
+          <div className="col-12">
+            <h3 className="section-title mb-4">
+              <i className="fas fa-images text-primary me-2"></i>
+              Thư viện ảnh
+            </h3>
+            <div className="image-gallery">
+              <div className="main-image-container mb-3">
+                <img 
+                  src={detail.image[selectedImage]} 
+                  alt={`Tour image ${selectedImage + 1}`}
+                  className="img-fluid rounded-4 shadow main-gallery-image"
+                />
+              </div>
+              <div className="thumbnail-container">
+                {detail.image.map((img, i) => (
+                  <div 
+                    key={i} 
+                    className={`thumbnail-item ${i === selectedImage ? 'active' : ''}`}
+                    onClick={() => setSelectedImage(i)}
+                  >
+                    <img src={img} alt={`Thumbnail ${i + 1}`} className="img-fluid rounded" />
+                  </div>
                 ))}
-              </tbody>
-            </table>
-
-            <h4>⚠️ Lưu ý</h4>
-            <ul>
-              {detail.notes.map((n, i) => <li key={i}>{n}</li>)}
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Nút đặt tour */}
-        <div className="text-center mt-5">
-          <button onClick={() => setShowBookingForm(!showBookingForm)} className="btn btn-success">
-            {showBookingForm ? 'Ẩn form đặt tour' : 'Đặt tour ngay'}
-          </button>
+        {/* Tour Details Tabs */}
+        <div className="row mb-5">
+          <div className="col-12">
+            <div className="tour-details-card">
+              <ul className="nav nav-pills custom-tabs mb-4" role="tablist">
+                <li className="nav-item" role="presentation">
+                  <button 
+                    className={`nav-link ${activeTab === 'highlights' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('highlights')}
+                  >
+                    <i className="fas fa-star me-2"></i>Điểm nổi bật
+                  </button>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <button 
+                    className={`nav-link ${activeTab === 'itinerary' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('itinerary')}
+                  >
+                    <i className="fas fa-route me-2"></i>Lịch trình
+                  </button>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <button 
+                    className={`nav-link ${activeTab === 'schedule' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('schedule')}
+                  >
+                    <i className="fas fa-calendar me-2"></i>Lịch khởi hành
+                  </button>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <button 
+                    className={`nav-link ${activeTab === 'notes' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('notes')}
+                  >
+                    <i className="fas fa-exclamation-triangle me-2"></i>Lưu ý
+                  </button>
+                </li>
+              </ul>
+
+              <div className="tab-content">
+                {activeTab === 'highlights' && (
+                  <div className="tab-pane-content">
+                    <h4 className="mb-3">✨ Trải nghiệm thú vị</h4>
+                    <div className="row">
+                      {detail.highlights.map((highlight, i) => (
+                        <div key={i} className="col-md-6 mb-3">
+                          <div className="highlight-item">
+                            <i className="fas fa-check-circle text-success me-2"></i>
+                            {highlight}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'itinerary' && (
+                  <div className="tab-pane-content">
+                    <h4 className="mb-3">📋 Chương trình tour</h4>
+                    <div className="itinerary-timeline">
+                      {detail.itinerary.map((item, i) => (
+                        <div key={i} className="timeline-item">
+                          <div className="timeline-marker">
+                            <span className="timeline-number">{i + 1}</span>
+                          </div>
+                          <div className="timeline-content">
+                            <p>{item}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'schedule' && (
+                  <div className="tab-pane-content">
+                    <h4 className="mb-3">📆 Lịch khởi hành</h4>
+                    <div className="table-responsive">
+                      <table className="table table-hover custom-table">
+                        <thead>
+                          <tr>
+                            <th><i className="fas fa-play text-success me-1"></i>Bắt đầu</th>
+                            <th><i className="fas fa-stop text-danger me-1"></i>Kết thúc</th>
+                            <th><i className="fas fa-info text-info me-1"></i>Trạng thái</th>
+                            <th><i className="fas fa-money-bill text-warning me-1"></i>Giá (đ)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {detail.schedules.map((schedule, i) => (
+                            <tr key={i}>
+                              <td>{new Date(schedule.startDate).toLocaleDateString('vi-VN')}</td>
+                              <td>{new Date(schedule.endDate).toLocaleDateString('vi-VN')}</td>
+                              <td>
+                                <span className={`badge ${schedule.status === 'Available' ? 'bg-success' : 'bg-danger'}`}>
+                                  {schedule.status}
+                                </span>
+                              </td>
+                              <td className="fw-bold text-primary">{schedule.price.toLocaleString()}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'notes' && (
+                  <div className="tab-pane-content">
+                    <h4 className="mb-3">⚠️ Lưu ý quan trọng</h4>
+                    <div className="notes-list">
+                      {detail.notes.map((note, i) => (
+                        <div key={i} className="note-item">
+                          <i className="fas fa-info-circle text-warning me-2"></i>
+                          {note}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Form đặt tour */}
+        {/* Booking CTA */}
+        <div className="booking-cta-section">
+          <div className="booking-cta-card text-center">
+            <h3 className="mb-3">Sẵn sàng cho chuyến phiêu lưu?</h3>
+            <p className="lead mb-4">Đừng bỏ lỡ cơ hội trải nghiệm những khoảnh khắc tuyệt vời!</p>
+            <button 
+              onClick={() => setShowBookingForm(!showBookingForm)} 
+              className="btn btn-primary btn-lg px-5 py-3"
+            >
+              <i className="fas fa-paper-plane me-2"></i>
+              {showBookingForm ? 'Ẩn form đặt tour' : 'Đặt tour ngay'}
+            </button>
+          </div>
+        </div>
+
+        {/* Enhanced Booking Form */}
         {showBookingForm && (
-          <div className="card shadow mt-4 p-4">
-            <h4 className="mb-4 text-success">🧾 Form đặt tour</h4>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label className="form-label">Họ tên</label>
-                <input type="text" className="form-control" required
-                  value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          <div className="booking-form-container mt-5">
+            <div className="booking-form-card">
+              <div className="form-header">
+                <h4><i className="fas fa-edit me-2"></i>Thông tin đặt tour</h4>
+                <p>Vui lòng điền đầy đủ thông tin để chúng tôi có thể hỗ trợ bạn tốt nhất</p>
               </div>
-              <div className="mb-3">
-                <label className="form-label">Email</label>
-                <input type="email" className="form-control" required
-                  value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Số điện thoại</label>
-                <input type="tel" className="form-control" required
-                  value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Ngày khởi hành</label>
-                <input type="date" className="form-control" required
-                  value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} />
-              </div>
-              <div className="mb-3 row">
-                <div className="col-md-6">
-                  <label className="form-label">👨‍🦰 Số người lớn</label>
-                  <input type="number" min="1" className="form-control" required
-                    value={adults} onChange={(e) => setAdults(Number(e.target.value))} />
+              
+              <form onSubmit={handleSubmit}>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-user me-1"></i>Họ và tên *
+                    </label>
+                    <input 
+                      type="text" 
+                      className={`form-control ${formErrors.fullName ? 'is-invalid' : ''}`}
+                      value={fullName} 
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="Nhập họ và tên của bạn"
+                    />
+                    {formErrors.fullName && <div className="invalid-feedback">{formErrors.fullName}</div>}
+                  </div>
+                  
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-envelope me-1"></i>Email *
+                    </label>
+                    <input 
+                      type="email" 
+                      className={`form-control ${formErrors.email ? 'is-invalid' : ''}`}
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="example@email.com"
+                    />
+                    {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
+                  </div>
                 </div>
-                <div className="col-md-6">
-                  <label className="form-label">🧒 Số trẻ em</label>
-                  <input type="number" min="0" className="form-control"
-                    value={children} onChange={(e) => setChildren(Number(e.target.value))} />
+
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-phone me-1"></i>Số điện thoại *
+                    </label>
+                    <input 
+                      type="tel" 
+                      className={`form-control ${formErrors.phone ? 'is-invalid' : ''}`}
+                      value={phone} 
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="0123 456 789"
+                    />
+                    {formErrors.phone && <div className="invalid-feedback">{formErrors.phone}</div>}
+                  </div>
+                  
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-calendar-alt me-1"></i>Ngày khởi hành *
+                    </label>
+                    <input 
+                      type="date" 
+                      className={`form-control ${formErrors.departureDate ? 'is-invalid' : ''}`}
+                      value={departureDate} 
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                      min={new Date().toISOString().split('T')[0]}
+                    />
+                    {formErrors.departureDate && <div className="invalid-feedback">{formErrors.departureDate}</div>}
+                  </div>
                 </div>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Ghi chú (tuỳ chọn)</label>
-                <textarea className="form-control" rows="3"
-                  value={note} onChange={(e) => setNote(e.target.value)} />
-              </div>
-              <button type="submit" className="btn btn-primary w-100">📨 Gửi yêu cầu đặt tour</button>
-            </form>
+
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-users me-1"></i>Số người lớn
+                    </label>
+                    <div className="input-group">
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-secondary"
+                        onClick={() => setAdults(Math.max(1, adults - 1))}
+                      >
+                        <i className="fas fa-minus"></i>
+                      </button>
+                      <input 
+                        type="number" 
+                        min="1" 
+                        className="form-control text-center"
+                        value={adults} 
+                        onChange={(e) => setAdults(Math.max(1, Number(e.target.value)))}
+                      />
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-secondary"
+                        onClick={() => setAdults(adults + 1)}
+                      >
+                        <i className="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">
+                      <i className="fas fa-child me-1"></i>Số trẻ em
+                    </label>
+                    <div className="input-group">
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-secondary"
+                        onClick={() => setChildren(Math.max(0, children - 1))}
+                      >
+                        <i className="fas fa-minus"></i>
+                      </button>
+                      <input 
+                        type="number" 
+                        min="0" 
+                        className="form-control text-center"
+                        value={children} 
+                        onChange={(e) => setChildren(Math.max(0, Number(e.target.value)))}
+                      />
+                      <button 
+                        type="button" 
+                        className="btn btn-outline-secondary"
+                        onClick={() => setChildren(children + 1)}
+                      >
+                        <i className="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <label className="form-label">
+                    <i className="fas fa-sticky-note me-1"></i>Ghi chú (tùy chọn)
+                  </label>
+                  <textarea 
+                    className="form-control" 
+                    rows="3"
+                    value={note} 
+                    onChange={(e) => setNote(e.target.value)}
+                    placeholder="Có điều gì đặc biệt bạn muốn chúng tôi biết không?"
+                  />
+                </div>
+
+                {/* Price Summary */}
+                <div className="price-summary mb-4">
+                  <h6>Chi tiết giá:</h6>
+                  <div className="d-flex justify-content-between">
+                    <span>Người lớn ({adults} x {tour.price.toLocaleString()}đ):</span>
+                    <span>{(adults * tour.price).toLocaleString()}đ</span>
+                  </div>
+                  {children > 0 && (
+                    <div className="d-flex justify-content-between">
+                      <span>Trẻ em ({children} x {(tour.price * 0.7).toLocaleString()}đ):</span>
+                      <span>{(children * tour.price * 0.7).toLocaleString()}đ</span>
+                    </div>
+                  )}
+                  <hr />
+                  <div className="d-flex justify-content-between fw-bold text-primary fs-5">
+                    <span>Tổng cộng:</span>
+                    <span>{calculateTotalPrice().toLocaleString()}đ</span>
+                  </div>
+                </div>
+
+                <button type="submit" className="btn btn-success btn-lg w-100">
+                  <i className="fas fa-paper-plane me-2"></i>
+                  Gửi yêu cầu đặt tour
+                </button>
+              </form>
+            </div>
           </div>
         )}
-
       </div>
+
       <Footer />
 
-      {/* Modal cảm ơn */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>🎉 Đặt tour thành công!</Modal.Title>
+      {/* Enhanced Success Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
+        <Modal.Header closeButton className="border-0 pb-0">
+          <Modal.Title className="text-success">
+            <i className="fas fa-check-circle me-2"></i>
+            Đặt tour thành công!
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p>Cảm ơn bạn đã đặt tour tại hệ thống của chúng tôi.</p>
-          <p>Nhân viên của chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận thông tin.</p>
+        <Modal.Body className="text-center py-4">
+          <div className="success-animation mb-4">
+            <i className="fas fa-check-circle text-success" style={{fontSize: '4rem'}}></i>
+          </div>
+          <h5 className="mb-3">Cảm ơn bạn đã tin tưởng dịch vụ của chúng tôi!</h5>
+          <p className="mb-3">Yêu cầu đặt tour của bạn đã được ghi nhận thành công.</p>
+          <div className="alert alert-info">
+            <i className="fas fa-info-circle me-2"></i>
+            Nhân viên tư vấn sẽ liên hệ với bạn trong vòng <strong>24 giờ</strong> để xác nhận thông tin và hướng dẫn các bước tiếp theo.
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <button className="btn btn-secondary" onClick={() => setShowModal(false)}>Đóng</button>
+        <Modal.Footer className="border-0 justify-content-center">
+          <button className="btn btn-primary px-4" onClick={() => setShowModal(false)}>
+            <i className="fas fa-home me-2"></i>
+            Về trang chủ
+          </button>
         </Modal.Footer>
       </Modal>
     </>

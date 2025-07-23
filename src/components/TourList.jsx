@@ -65,7 +65,7 @@ const TourList = () => {
       <SearchBar onSearch={handleSearch} />
       <SortBar onSortChange={handleSortChange} />
 
-      <h2 className="text-center fw-bold mb-4 tourlist-title">Danh sách Tour</h2>
+      <h2 className="text-center fw-bold my-4 tourlist-title">Danh sách Tour</h2>
 
       {/* Loading / Error */}
       {loading && <div className="tourlist-loading"><div className="spinner"></div><span>Đang tải dữ liệu…</span></div>}
