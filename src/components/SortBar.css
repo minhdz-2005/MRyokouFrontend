@@ -1,6 +1,6 @@
 /* Base styles */
 .sortbar {
-  background-color: #f8f9fa;
+  background-color: transparent;
   border-bottom: 1px solid #e9ecef;
   padding: 1rem 0;
   position: sticky;

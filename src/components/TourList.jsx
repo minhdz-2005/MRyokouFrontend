@@ -8,7 +8,7 @@ import './TourList.css';
 import { BsStarFill } from 'react-icons/bs';
 import fallbackImg from '../images/banner.jpg';
 
-const toursPerPage = 8; // bạn có thể đổi
+const toursPerPage = 6; // bạn có thể đổi
 
 const TourList = () => {
   const [currentPage, setCurrentPage] = useState(1);
