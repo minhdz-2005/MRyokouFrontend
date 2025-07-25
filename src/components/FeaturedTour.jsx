@@ -1,60 +1,85 @@
 // src/components/FeaturedTours.jsx
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './FeaturedTour.css';
+import axios from 'axios';
 
-const tours = [
-  {
-    title: 'Hội An',
-    location: 'Hội An, Quảng Nam',
-    description: 'Khám phá phố cổ với những ngôi nhà cổ kính, đèn lồng rực rỡ và văn hóa độc đáo.',
-    price: 4800000,
-    duration: 3,
-    image: 'https://images.unsplash.com/photo-1559592413-7cec4d0d9b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    rating: 4.7,
-    reviews: 234,
-    tags: [
-      'Văn hóa',
-      'Phố cổ',
-      'Đèn lồng',
-      'Ẩm thực'
-    ],
-  },
-  {
-    title: 'Nha Trang',
-    location: 'Nha Trang, Khánh Hòa',
-    description: 'Tận hưởng bãi biển tuyệt đẹp, hoạt động thể thao dưới nước và cuộc sống về đêm sôi động.',
-    price: 4800000,
-    duration: 4,
-    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    rating: 4.5,
-    reviews: 186,
-    tags: [
-      'Biển',
-      'Lặn biển',
-      'Resort',
-      'Thể thao nước'
-    ],
-  },
-  {
-    title: 'Phú Quốc',
-    location: 'Phú Quốc, Kiên Giang',
-    description: 'Đảo ngọc với những bãi biển hoang sơ, rừng nhiệt đới và hải sản tươi ngon.',
-    price: 5200000,
-    duration: 5,
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    rating: 4.8,
-    reviews: 312,
-    tags: [
-      'Đảo',
-      'Nghỉ dưỡng',
-      'Hải sản',
-      'Thiên nhiên'
-    ],
-  },
-];
+// const tours = [
+//   {
+//     title: 'Hội An',
+//     location: 'Hội An, Quảng Nam',
+//     description: 'Khám phá phố cổ với những ngôi nhà cổ kính, đèn lồng rực rỡ và văn hóa độc đáo.',
+//     price: 4800000,
+//     duration: 3,
+//     image: 'https://images.unsplash.com/photo-1559592413-7cec4d0d9b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+//     rating: 4.7,
+//     reviews: 234,
+//     tags: [
+//       'Văn hóa',
+//       'Phố cổ',
+//       'Đèn lồng',
+//       'Ẩm thực'
+//     ],
+//   },
+//   {
+//     title: 'Nha Trang',
+//     location: 'Nha Trang, Khánh Hòa',
+//     description: 'Tận hưởng bãi biển tuyệt đẹp, hoạt động thể thao dưới nước và cuộc sống về đêm sôi động.',
+//     price: 4800000,
+//     duration: 4,
+//     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+//     rating: 4.5,
+//     reviews: 186,
+//     tags: [
+//       'Biển',
+//       'Lặn biển',
+//       'Resort',
+//       'Thể thao nước'
+//     ],
+//   },
+//   {
+//     title: 'Phú Quốc',
+//     location: 'Phú Quốc, Kiên Giang',
+//     description: 'Đảo ngọc với những bãi biển hoang sơ, rừng nhiệt đới và hải sản tươi ngon.',
+//     price: 5200000,
+//     duration: 5,
+//     image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+//     rating: 4.8,
+//     reviews: 312,
+//     tags: [
+//       'Đảo',
+//       'Nghỉ dưỡng',
+//       'Hải sản',
+//       'Thiên nhiên'
+//     ],
+//   },
+// ];
 
 const FeaturedTours = () => {
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTopRatedTours = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/tours', {
+          params: {
+            limit: 3,
+            sort: 'rating' // Sort by rating descending
+          }
+        });
+        setTours(response.data.data);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Failed to load featured tours');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTopRatedTours();
+  }, []);
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -82,6 +107,32 @@ const FeaturedTours = () => {
 
     return stars;
   };
+
+  if (loading) {
+    return (
+      <section className="featured-tours-section py-5">
+        <div className="container text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-3 text-muted">Đang tải tour nổi bật...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="featured-tours-section py-5">
+        <div className="container text-center py-5">
+          <div className="alert alert-warning">
+            <i className="fas fa-exclamation-triangle me-2"></i>
+            {error}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="featured-tours-section">
@@ -139,7 +190,9 @@ const FeaturedTours = () => {
                   </p>
 
                   <p className="tour-description text-muted mb-3">
-                    {tour.description}
+                    {tour.description.length > 80
+                      ? tour.description.slice(0, 80) + '...'
+                      : tour.description}
                   </p>
 
                   <div className="rating-section mb-3">
@@ -161,7 +214,7 @@ const FeaturedTours = () => {
                           <small className="text-muted"> /người</small>
                         </div>
                       </div>
-                      <Link target='blank' to='#'>
+                      <Link target='blank' to={`/tours/${tour._id}`}>
                         <button className="btn btn-primary btn-book px-4 py-2">
                           <i className="fas fa-calendar-check me-2"></i>
                           Đặt Tour
