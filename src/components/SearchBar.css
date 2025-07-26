@@ -22,23 +22,23 @@
   z-index: -1;
 }
 
-.searchbar-container {
+.searchbar-section .searchbar-container {
   margin: 0 auto;
   padding: 0 1rem;
 }
 
 /* Main search form */
-.searchbar-form {
+.searchbar-section .searchbar-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.searchbar-main {
+.searchbar-section .searchbar-main {
   width: 100%;
 }
 
-.searchbar-input-group {
+.searchbar-section .searchbar-input-group {
   position: relative;
   display: flex;
   align-items: center;
@@ -48,14 +48,14 @@
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-.searchbar-icon {
+.searchbar-section .searchbar-icon {
   position: absolute;
   left: 1.5rem;
   color: #6c757d;
   font-size: 1.1rem;
 }
 
-.searchbar-input {
+.searchbar-section .searchbar-input {
   flex: 1;
   padding: 1rem 1rem 1rem 3.5rem;
   border: none;
@@ -63,11 +63,11 @@
   outline: none;
 }
 
-.searchbar-input::placeholder {
+.searchbar-section .searchbar-input::placeholder {
   color: #adb5bd;
 }
 
-.searchbar-btn {
+.searchbar-section .searchbar-btn {
   background: linear-gradient(135deg, #ff7675, #d63031);
   color: white;
   border: none;
@@ -79,31 +79,31 @@
   white-space: nowrap;
 }
 
-.searchbar-btn:hover {
+.searchbar-section .searchbar-btn:hover {
   background: linear-gradient(135deg, #d63031, #ff7675);
   transform: translateY(-2px);
 }
 
 /* Advanced filters */
-.searchbar-advanced {
+.searchbar-section .searchbar-advanced {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
 }
 
-.searchbar-advanced.show {
+.searchbar-section .searchbar-advanced.show {
   max-height: 200px;
   transition: max-height 0.3s ease-in;
 }
 
-.advanced-filters {
+.searchbar-section .advanced-filters {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   padding: 1rem 0;
 }
 
-.filter-group {
+.searchbar-section .filter-group {
   position: relative;
   display: flex;
   align-items: center;
@@ -112,13 +112,13 @@
   padding: 0.5rem 1rem;
 }
 
-.filter-icon {
+.searchbar-section .filter-icon {
   color: #0d6efd;
   margin-right: 0.5rem;
   font-size: 1.2rem;
 }
 
-.filter-select {
+.searchbar-section .filter-select {
   flex: 1;
   border: none;
   background: transparent;
@@ -129,12 +129,12 @@
   cursor: pointer;
 }
 
-.filter-select option {
+.searchbar-section .filter-select option {
   color: #495057;
 }
 
 /* Toggle advanced button */
-.toggle-advanced-btn {
+.searchbar-section .toggle-advanced-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,41 +150,41 @@
   margin: 0 auto;
 }
 
-.toggle-advanced-btn:hover {
+.searchbar-section .toggle-advanced-btn:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.chevron {
+.searchbar-section .chevron {
   transition: transform 0.3s ease;
   font-size: 0.8rem;
 }
 
-.chevron.rotate {
+.searchbar-section .chevron.rotate {
   transform: rotate(180deg);
 }
 
 /* Popular destinations */
-.popular-destinations {
+.searchbar-section .popular-destinations {
   text-align: center;
   margin-top: 1rem;
 }
 
-.popular-destinations h3 {
+.searchbar-section .popular-destinations h3 {
   font-size: 1.1rem;
   font-weight: 400;
   margin-bottom: 0.5rem;
   color: rgba(255, 255, 255, 0.8);
 }
 
-.destinations-list {
+.searchbar-section .destinations-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.destination-tag {
+.searchbar-section .destination-tag {
   display: flex;
   align-items: center;
   gap: 0.3rem;
@@ -198,34 +198,34 @@
   transition: all 0.3s ease;
 }
 
-.destination-tag:hover {
+.searchbar-section .destination-tag:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .searchbar-input-group {
+  .searchbar-section .searchbar-input-group {
     flex-direction: column;
     border-radius: 12px;
   }
 
-  .searchbar-icon {
+  .searchbar-section .searchbar-icon {
     display: none;
   }
 
-  .searchbar-input {
+  .searchbar-section .searchbar-input {
     padding: 1rem;
     width: 100%;
     border-bottom: 1px solid #eee;
   }
 
-  .searchbar-btn {
+  .searchbar-section .searchbar-btn {
     width: 100%;
     border-radius: 0 0 12px 12px;
   }
 
-  .advanced-filters {
+  .searchbar-section .advanced-filters {
     grid-template-columns: 1fr;
   }
 }
@@ -235,11 +235,11 @@
     padding: 1.5rem 0;
   }
 
-  .searchbar-input {
+  .searchbar-section .searchbar-input {
     font-size: 0.9rem;
   }
 
-  .searchbar-btn {
+  .searchbar-section .searchbar-btn {
     padding: 0.8rem 1rem;
     font-size: 0.9rem;
   }

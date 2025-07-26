@@ -1,0 +1,470 @@
+/* MyBooking.css */
+
+.mybooking-page {
+  min-height: 100vh;
+  padding-top: 80px;
+  position: relative;
+}
+
+.mybooking-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.mybooking-page .title {
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.mybooking-page .title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #906bff, #4ecdc4);
+  border-radius: 2px;
+}
+
+.mybooking-page .loading-booking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: #ffffff;
+}
+
+.mybooking-page .loading-booking .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.25rem;
+  border-color: #ffffff;
+  border-right-color: transparent;
+}
+
+.mybooking-page .loading-booking p {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.mybooking-page .booking-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.1),
+    0 2px 8px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255,255,255,0.3);
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.mybooking-page .booking-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 24px 24px 0 0;
+}
+
+.mybooking-page .booking-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.15),
+    0 8px 16px rgba(0,0,0,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.mybooking-page .booking-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.mybooking-page .tour-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.mybooking-page .status-badge {
+  font-size: 0.85rem;
+  padding: 0.5em 1.2em;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mybooking-page .status-badge.bg-success {
+  background: linear-gradient(135deg, #48bb78, #38a169) !important;
+  color: white;
+  box-shadow: 0 2px 8px rgba(72,187,120,0.3);
+}
+
+.mybooking-page .status-badge.bg-secondary {
+  background: linear-gradient(135deg, #a0aec0, #718096) !important;
+  color: white;
+  box-shadow: 0 2px 8px rgba(160,174,192,0.3);
+}
+
+.mybooking-page .booking-card-body {
+  flex: 1;
+}
+
+.mybooking-page .tour-info {
+  font-size: 0.95rem;
+  color: #4a5568;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.mybooking-page .tour-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.mybooking-page .info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 150px;
+}
+
+.mybooking-page .info-label {
+  font-weight: 600;
+  color: #2d3748;
+  white-space: nowrap;
+}
+
+.mybooking-page .info-value {
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.mybooking-page .tour-info span {
+  display: block;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.mybooking-page .tour-info span:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.mybooking-page .tour-info b {
+  color: #2d3748;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.mybooking-page .tour-rating {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.mybooking-page .rated {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.mybooking-page .rated .text-warning {
+  filter: drop-shadow(0 2px 4px rgba(255,193,7,0.3));
+  animation: starTwinkle 2s infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.mybooking-page .btn-outline-primary {
+  border: 2px solid #667eea;
+  color: #667eea;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.mybooking-page .btn-outline-primary:hover {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-color: transparent;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+}
+
+.mybooking-page .text-muted.small {
+  font-size: 0.85rem;
+  color: #718096;
+  font-style: italic;
+}
+
+.mybooking-page .rating-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mybooking-page .rating-modal {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(0,0,0,0.2),
+    0 8px 24px rgba(0,0,0,0.1);
+  padding: 2.5rem 3rem 2rem 3rem;
+  min-width: 380px;
+  max-width: 95vw;
+  animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mybooking-page .rating-modal h5 {
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.mybooking-page .rating-stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.mybooking-page .rating-stars span {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.mybooking-page .rating-stars span:hover {
+  transform: scale(1.2);
+  background: rgba(255,193,7,0.1);
+}
+
+.mybooking-page .rating-stars .text-warning {
+  filter: drop-shadow(0 2px 6px rgba(255,193,7,0.4));
+}
+
+.mybooking-page .rating-stars .text-muted {
+  color: #cbd5e0;
+}
+
+.mybooking-page .rating-modal .d-flex {
+  gap: 1rem;
+}
+
+.mybooking-page .rating-modal .btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.mybooking-page .rating-modal .btn-secondary {
+  background: linear-gradient(135deg, #a0aec0, #718096);
+  color: white;
+}
+
+.mybooking-page .rating-modal .btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.mybooking-page .rating-modal .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.mybooking-page .rating-success-msg {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  z-index: 9999;
+  min-width: 280px;
+  font-weight: 600;
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  box-shadow: 0 8px 24px rgba(72,187,120,0.3);
+  animation: slideInRight 0.4s ease;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mybooking-page .alert {
+  border-radius: 16px;
+  border: none;
+  padding: 1.2rem 1.5rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.mybooking-page .alert-danger {
+  background: linear-gradient(135deg, #fed7d7, #feb2b2);
+  color: #742a2a;
+}
+
+.mybooking-page .alert-info {
+  background: linear-gradient(135deg, #bee3f8, #90cdf4);
+  color: #2a4365;
+}
+
+@media (max-width: 991.98px) {
+  .mybooking-page .title {
+    font-size: 2rem;
+  }
+  
+  .mybooking-page .booking-card {
+    min-height: 240px;
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  }
+  
+  .mybooking-page .tour-info-row {
+    gap: 1rem;
+  }
+  
+  .mybooking-page .info-item {
+    min-width: 120px;
+  }
+  
+  .mybooking-page .rating-modal {
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 576px) {
+  .mybooking-page {
+    padding-top: 60px;
+  }
+  
+  .mybooking-page .title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .mybooking-page .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mybooking-page .booking-card {
+    min-height: 200px;
+    padding: 1.2rem 1rem 1rem 1rem;
+  }
+  
+  .mybooking-page .tour-title {
+    font-size: 1.1rem;
+  }
+  
+  .mybooking-page .tour-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .mybooking-page .info-item {
+    min-width: auto;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .mybooking-page .rating-modal {
+    padding: 1.5rem 2rem 1.2rem 2rem;
+    min-width: 280px;
+    margin: 1rem;
+  }
+  
+  .mybooking-page .rating-success-msg {
+    right: 15px;
+    left: 15px;
+    min-width: auto;
+  }
+}

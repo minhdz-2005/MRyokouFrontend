@@ -24,6 +24,10 @@ const Profile = () => {
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [user, setUser] = useState(null);
   const [userForm, setUserForm] = useState({});
+  const [ratings, setRatings] = useState([]);
+  const [ratingsLoading, setRatingsLoading] = useState(false);
+  const [bookings, setBookings] = useState([]);
+  const [bookingsLoading, setBookingsLoading] = useState(false);
 
   useEffect(() => {
     // Lấy thông tin user từ localStorage
@@ -32,6 +36,8 @@ const Profile = () => {
       const userData = JSON.parse(userFromStorage);
       setUser(userData);
       fetchProfile(userData._id || userData.id);
+      fetchUserRatings(userData._id || userData.id);
+      fetchUserBookings(userData._id || userData.id);
     } else {
       setError('Không tìm thấy thông tin đăng nhập. Vui lòng đăng nhập lại.');
       setLoading(false);
@@ -63,6 +69,30 @@ const Profile = () => {
       setError(err.response?.data?.message || 'Không thể tải thông tin profile');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchUserRatings = async (userId) => {
+    try {
+      setRatingsLoading(true);
+      const response = await axios.get(`http://localhost:5000/api/ratings/user/${userId}`);
+      setRatings(response.data);
+    } catch (err) {
+      console.log('Không thể tải đánh giá:', err);
+    } finally {
+      setRatingsLoading(false);
+    }
+  };
+
+  const fetchUserBookings = async (userId) => {
+    try {
+      setBookingsLoading(true);
+      const response = await axios.get(`http://localhost:5000/api/bookings/user/${userId}`);
+      setBookings(response.data);
+    } catch (err) {
+      console.log('Không thể tải bookings:', err);
+    } finally {
+      setBookingsLoading(false);
     }
   };
 
@@ -372,34 +402,42 @@ const Profile = () => {
                   
                   <div className="stats-grid">
                     <div className="stat-item">
-                      <div className="stat-number">{profile.rating?.count || 0}</div>
+                      <div className="stat-number">
+                        {ratingsLoading ? (
+                          <div className="spinner-border spinner-border-sm" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                        ) : (
+                          ratings.length
+                        )}
+                      </div>
                       <div className="stat-label">Đánh giá</div>
                     </div>
                     
                     <div className="stat-item">
-                      <div className="stat-number">0</div>
-                      <div className="stat-label">Tour đã đi</div>
+                      <div className="stat-number">
+                        {bookingsLoading ? (
+                          <div className="spinner-border spinner-border-sm" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                        ) : (
+                          bookings.length
+                        )}
+                      </div>
+                      <div className="stat-label">Tour đã đặt</div>
                     </div>
                     
                     <div className="stat-item">
-                      <div className="stat-number">0</div>
+                      <div className="stat-number">
+                        {ratingsLoading ? (
+                          <div className="spinner-border spinner-border-sm" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                        ) : (
+                          ratings.filter(rating => rating.star >= 4).length
+                        )}
+                      </div>
                       <div className="stat-label">Đánh giá hữu ích</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Recent Activity */}
-                <div className="recent-activity">
-                  <h4 className="activity-title">Hoạt động gần đây</h4>
-                  <div className="activity-list">
-                    <div className="activity-item">
-                      <div className="activity-icon">
-                        <BsStarFill />
-                      </div>
-                      <div className="activity-content">
-                        <p>Chưa có hoạt động nào</p>
-                        <small className="text-muted">Chưa có dữ liệu</small>
-                      </div>
                     </div>
                   </div>
                 </div>

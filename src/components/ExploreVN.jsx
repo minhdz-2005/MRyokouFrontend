@@ -213,7 +213,7 @@ const ExploreVietnam = () => {
                   <div className="d-flex align-items-center justify-content-center mb-2">
                     <MapPin size={24} className="text-primary me-2" />
                     <h4 className="mb-0 fw-bold text-primary">
-                      {Object.values(locationData).flat().length}
+                      100 +
                     </h4>
                   </div>
                   <small className="text-muted">Điểm du lịch</small>
@@ -221,7 +221,7 @@ const ExploreVietnam = () => {
                 <div className="col-md-4">
                   <div className="d-flex align-items-center justify-content-center mb-2">
                     <Users size={24} className="text-success me-2" />
-                    <h4 className="mb-0 fw-bold text-success">1M+</h4>
+                    <h4 className="mb-0 fw-bold text-success">10 000+</h4>
                   </div>
                   <small className="text-muted">Du khách đã ghé thăm</small>
                 </div>
