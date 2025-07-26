@@ -8,10 +8,12 @@ import { BiLogIn, BiUserPlus } from 'react-icons/bi';
 import { PiPaperPlaneTilt} from 'react-icons/pi';
 import './Header.css';
 import { RiHome4Line } from 'react-icons/ri';
+import axios from 'axios';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [userAccount, setUserAccount] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
 
@@ -22,12 +24,35 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  /* ───────────────── 2. Lấy user từ localStorage ───────────────── */
+  /* ───────────────── 2. Lấy user từ localStorage và fetch account ───────────────── */
   useEffect(() => {
     const stored = localStorage.getItem('user');
-    if (stored) setCurrentUser(JSON.parse(stored));
+    if (stored) {
+      const userData = JSON.parse(stored);
+      setCurrentUser(userData);
+      fetchUserAccount(userData._id || userData.id);
+    }
   }, []);
 
+  /* ───────────────── 3. Lắng nghe thay đổi user ───────────────── */
+  useEffect(() => {
+    const handleUserUpdate = (event) => {
+      setCurrentUser(event.detail);
+    };
+
+    window.addEventListener('userUpdated', handleUserUpdate);
+    return () => window.removeEventListener('userUpdated', handleUserUpdate);
+  }, []);
+
+  /* ───────────────── 3. Fetch user account ───────────────── */
+  const fetchUserAccount = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/accounts/by-user/${userId}`);
+      setUserAccount(response.data);
+    } catch (err) {
+      console.log('Không thể tải thông tin account:', err);
+    }
+  };
   /* ───────────────── 3. Đăng xuất ───────────────── */
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -113,16 +138,27 @@ const Header = () => {
                 className="d-flex align-items-center user-info"
                 onClick={toggleDropdown}
               >
-                {currentUser.avatar ? (
+                {userAccount?.avatar ? (
                   <img 
-                    src={currentUser.avatar} 
+                    src={`http://localhost:5000/${userAccount.avatar}`} 
                     alt="User avatar" 
                     className="user-avatar rounded-circle"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
                   />
-                ) : (
-                  <FaUserCircle className="user-avatar" size={28} />
-                )}
-                <span className="user-name ms-2">{currentUser.fullname}</span>
+                ) : null}
+                <FaUserCircle 
+                  className="user-avatar" 
+                  size={28} 
+                  style={{ display: userAccount?.avatar ? 'none' : 'block' }}
+                />
+                <span className="user-name ms-2" title={currentUser.fullname}>
+                  {currentUser.fullname.length > 20 
+                    ? currentUser.fullname.slice(0, 20) + '...' 
+                    : currentUser.fullname}
+                </span>
                 <FaChevronDown className={`dropdown-arrow ms-1 ${showDropdown ? 'rotate' : ''}`} />
               </div>
               
