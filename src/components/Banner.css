@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px
+  margin-top: 80px;
 }
 
 .banner-container .banner-video {
@@ -109,7 +109,6 @@
 
 .banner-container .search-box {
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.95) !important;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -416,54 +415,3 @@
   }
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .banner-container .search-box {
-    background: rgba(33, 37, 41, 0.95) !important;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .banner-container .search-label {
-    color: #dee2e6;
-  }
-  
-  .banner-container .search-input, 
-  .banner-container .form-select {
-    background: #495057;
-    color: #fff;
-    border-color: #6c757d;
-  }
-  
-  .banner-container .search-input:focus, 
-  .banner-container .form-select:focus {
-    background: #6c757d;
-    color: #fff;
-  }
-}
-
-/* Performance optimizations */
-.banner-container * {
-  will-change: transform;
-}
-
-.banner-container .search-box {
-  contain: layout style paint;
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .banner-container *,
-  .banner-container *::before,
-  .banner-container *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-.banner-container .search-input:focus-visible,
-.banner-container .search-btn:focus-visible,
-.banner-container .form-select:focus-visible {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
-}

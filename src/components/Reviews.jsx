@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Reviews.css';
 import { BsStarFill, BsStar, BsQuote, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const reviews = [
   {
@@ -294,13 +295,15 @@ const CustomerReviews = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="reviews-cta text-center mt-5">
+        <div className="reviews-cta text-center my-5">
           <h4>Bạn đã từng trải nghiệm dịch vụ của chúng tôi?</h4>
           <p>Chia sẻ cảm nhận của bạn để giúp những khách hàng khác</p>
-          <button className="btn btn-primary btn-lg cta-btn">
-            <i className="bi bi-star-fill me-2"></i>
-            Viết đánh giá
-          </button>
+          <Link to='/bookings' >
+            <button className="btn btn-primary btn-lg cta-btn">
+              <i className="bi bi-star-fill me-2"></i>
+              Viết đánh giá
+            </button>
+          </Link>
         </div>
 
       </div>

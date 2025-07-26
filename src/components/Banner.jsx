@@ -30,7 +30,7 @@ const Banner = () => {
           <h2 className="banner-subtitle animate-fade-in-delay">
             Cùng Chúng Tôi
           </h2>
-          <p className="banner-description animate-fade-in-delay-2">
+          <p className="banner-description text-muted animate-fade-in-delay-2">
             Trải nghiệm những chuyến du lịch tuyệt vời với dịch vụ chuyên nghiệp
           </p>
         </div>
@@ -116,20 +116,20 @@ const Banner = () => {
           <div className="row text-center">
             <div className="col-md-4 col-6 mb-3">
               <div className="stat-item">
-                <h3 className="stat-number">1000+</h3>
-                <p className="stat-label">Điểm đến</p>
+                <h3 className="stat-number text-danger">1000+</h3>
+                <p className="stat-label text-muted">Điểm đến</p>
               </div>
             </div>
             <div className="col-md-4 col-6 mb-3">
               <div className="stat-item">
-                <h3 className="stat-number">50K+</h3>
-                <p className="stat-label">Khách hài lòng</p>
+                <h3 className="stat-number text-danger">50K+</h3>
+                <p className="stat-label text-muted">Khách hài lòng</p>
               </div>
             </div>
             <div className="col-md-4 col-6 mb-3">
               <div className="stat-item">
-                <h3 className="stat-number">24/7</h3>
-                <p className="stat-label">Hỗ trợ</p>
+                <h3 className="stat-number text-danger">24/7</h3>
+                <p className="stat-label text-muted">Hỗ trợ</p>
               </div>
             </div>
           </div>

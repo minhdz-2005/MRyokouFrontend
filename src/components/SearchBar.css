@@ -1,12 +1,55 @@
-/* Base styles */
+/* SearchBar.css - Modern Travel Search Design */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --secondary-color: #10b981;
+  --accent-color: #f59e0b;
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --danger-color: #dc2626;
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-2xl: 20px;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-travel: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+/* SearchBar Section */
 .searchbar-section {
-  background: linear-gradient(135deg, #485d7c, #2f3d54);
-  padding: 2rem 0;
-  color: white;
+  background: var(--gradient-travel);
+  padding: 3rem 0;
   position: relative;
-  margin-top: 80px;
-  border-radius: 10px;
-  z-index: 1;
+  overflow: hidden;
 }
 
 .searchbar-section::before {
@@ -14,233 +57,558 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('../images/tourhero.avif') center/cover no-repeat;
-  border-radius: 10px;
-  opacity: 0.4;
-  z-index: -1;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="%23ffffff10" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+  pointer-events: none;
 }
 
-.searchbar-section .searchbar-container {
+.searchbar-section::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: drift 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(30px, 30px);
+  }
+}
+
+/* SearchBar Container */
+.searchbar-container {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
-}
-
-/* Main search form */
-.searchbar-section .searchbar-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.searchbar-section .searchbar-main {
-  width: 100%;
-}
-
-.searchbar-section .searchbar-input-group {
   position: relative;
+  z-index: 2;
+}
+
+/* SearchBar Form */
+.searchbar-form {
+  background: var(--white);
+  border-radius: var(--border-radius-2xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-2xl);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.8s ease-out;
+}
+
+.searchbar-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-2xl) var(--border-radius-2xl) 0 0;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Main Search Bar */
+.searchbar-main {
+  margin-bottom: 1.5rem;
+}
+
+.searchbar-input-group {
   display: flex;
   align-items: center;
-  background: white;
-  border-radius: 50px;
+  background: var(--gray-50);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--border-radius-xl);
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-.searchbar-section .searchbar-icon {
+.searchbar-input-group::before {
+  content: '';
   position: absolute;
-  left: 1.5rem;
-  color: #6c757d;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.searchbar-input-group:focus-within::before {
+  left: 100%;
+}
+
+.searchbar-input-group:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  background: var(--white);
+}
+
+.searchbar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  color: var(--gray-400);
   font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
 
-.searchbar-section .searchbar-input {
+.searchbar-input-group:focus-within .searchbar-icon {
+  color: var(--primary-color);
+}
+
+.searchbar-input {
   flex: 1;
-  padding: 1rem 1rem 1rem 3.5rem;
   border: none;
-  font-size: 1rem;
   outline: none;
+  background: transparent;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-800);
+  font-family: 'Poppins', sans-serif;
 }
 
-.searchbar-section .searchbar-input::placeholder {
-  color: #adb5bd;
+.searchbar-input::placeholder {
+  color: var(--gray-400);
+  font-weight: 400;
 }
 
-.searchbar-section .searchbar-btn {
-  background: linear-gradient(135deg, #ff7675, #d63031);
-  color: white;
+.searchbar-btn {
+  background: var(--gradient-primary);
+  color: var(--white);
   border: none;
-  padding: 1rem 2rem;
+  padding: 0.75rem 2rem;
+  border-radius: var(--border-radius-lg);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
-.searchbar-section .searchbar-btn:hover {
-  background: linear-gradient(135deg, #d63031, #ff7675);
+.searchbar-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.searchbar-btn:hover::before {
+  left: 100%;
+}
+
+.searchbar-btn:hover {
   transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
-/* Advanced filters */
-.searchbar-section .searchbar-advanced {
+.searchbar-btn:active {
+  transform: translateY(0);
+}
+
+/* Advanced Filters */
+.searchbar-advanced {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  transition: all 0.4s ease;
+  opacity: 0;
 }
 
-.searchbar-section .searchbar-advanced.show {
+.searchbar-advanced.show {
   max-height: 200px;
-  transition: max-height 0.3s ease-in;
+  opacity: 1;
+  margin-bottom: 1.5rem;
 }
 
-.searchbar-section .advanced-filters {
+.advanced-filters {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1.5rem;
+  background: var(--gray-50);
+  border-radius: var(--border-radius-xl);
+  border: 1px solid var(--gray-200);
+  margin-top: 1rem;
 }
 
-.searchbar-section .filter-group {
-  position: relative;
+.filter-group {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--border-radius-lg);
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.searchbar-section .filter-icon {
-  color: #0d6efd;
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
+.filter-group:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
 }
 
-.searchbar-section .filter-select {
+.filter-group:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.filter-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.filter-group:focus-within .filter-icon {
+  color: var(--primary-color);
+}
+
+.filter-select {
   flex: 1;
   border: none;
-  background: transparent;
-  padding: 0.5rem 0;
-  font-size: 1rem;
   outline: none;
-  color: #495057;
+  background: transparent;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
 }
 
-.searchbar-section .filter-select option {
-  color: #495057;
+.filter-select:focus {
+  color: var(--gray-800);
 }
 
-/* Toggle advanced button */
-.searchbar-section .toggle-advanced-btn {
+/* Toggle Advanced Button */
+.toggle-advanced-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
+  border: 2px solid var(--gray-200);
+  color: var(--gray-600);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-lg);
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 0 auto;
+  margin: 0 auto 1.5rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-.searchbar-section .toggle-advanced-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+.toggle-advanced-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background: rgba(37, 99, 235, 0.05);
 }
 
-.searchbar-section .chevron {
+.chevron {
   transition: transform 0.3s ease;
   font-size: 0.8rem;
 }
 
-.searchbar-section .chevron.rotate {
+.chevron.rotate {
   transform: rotate(180deg);
 }
 
-/* Popular destinations */
-.searchbar-section .popular-destinations {
+/* Popular Destinations */
+.popular-destinations {
   text-align: center;
-  margin-top: 1rem;
 }
 
-.searchbar-section .popular-destinations h3 {
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
+.popular-destinations h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
-.searchbar-section .destinations-list {
+.destinations-list {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  justify-content: center;
 }
 
-.searchbar-section .destination-tag {
+.destination-tag {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.8rem;
+  gap: 0.5rem;
+  background: var(--white);
+  border: 2px solid var(--gray-200);
+  color: var(--gray-600);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius-2xl);
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
-.searchbar-section .destination-tag:hover {
-  background: rgba(255, 255, 255, 0.2);
+.destination-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-travel);
+  transition: left 0.3s;
+  z-index: -1;
+}
+
+.destination-tag:hover::before {
+  left: 0;
+}
+
+.destination-tag:hover {
+  color: var(--white);
+  border-color: transparent;
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-/* Responsive adjustments */
+.destination-tag:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .searchbar-section .searchbar-input-group {
+  .searchbar-section {
+    padding: 2rem 0;
+  }
+  
+  .searchbar-form {
+    padding: 1.5rem;
+    border-radius: var(--border-radius-xl);
+  }
+  
+  .searchbar-input-group {
     flex-direction: column;
-    border-radius: 12px;
-  }
-
-  .searchbar-section .searchbar-icon {
-    display: none;
-  }
-
-  .searchbar-section .searchbar-input {
+    gap: 0.75rem;
     padding: 1rem;
-    width: 100%;
-    border-bottom: 1px solid #eee;
   }
-
-  .searchbar-section .searchbar-btn {
-    width: 100%;
-    border-radius: 0 0 12px 12px;
+  
+  .searchbar-input {
+    padding: 0.75rem;
+    text-align: center;
   }
-
-  .searchbar-section .advanced-filters {
+  
+  .searchbar-btn {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .advanced-filters {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  
+  .destinations-list {
+    gap: 0.5rem;
+  }
+  
+  .destination-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .popular-destinations h3 {
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
+  .searchbar-container {
+    padding: 0 0.75rem;
+  }
+  
+  .searchbar-form {
+    padding: 1rem;
+  }
+  
+  .searchbar-input {
+    font-size: 0.9rem;
+  }
+  
+  .searchbar-btn {
+    font-size: 0.9rem;
+    padding: 0.875rem;
+  }
+  
+  .destinations-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .destination-tag {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+}
+
+/* Animation for destination tags */
+.destination-tag {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.destination-tag:nth-child(1) { animation-delay: 0.1s; }
+.destination-tag:nth-child(2) { animation-delay: 0.2s; }
+.destination-tag:nth-child(3) { animation-delay: 0.3s; }
+.destination-tag:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading state */
+.searchbar-btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.searchbar-btn.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--white);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Focus states for accessibility */
+.searchbar-input:focus,
+.filter-select:focus {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.searchbar-btn:focus,
+.toggle-advanced-btn:focus,
+.destination-tag:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Dark mode support */
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --white: #1f2937;
+    --gray-50: #374151;
+    --gray-100: #4b5563;
+    --gray-200: #6b7280;
+    --gray-300: #9ca3af;
+    --gray-400: #d1d5db;
+    --gray-500: #e5e7eb;
+    --gray-600: #f3f4f6;
+    --gray-700: #f9fafb;
+    --gray-800: #ffffff;
+    --gray-900: #ffffff;
+  }
+  
+  .searchbar-input::placeholder {
+    color: var(--gray-400);
+  }
+} */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .searchbar-input-group {
+    border-width: 3px;
+  }
+  
+  .filter-group {
+    border-width: 2px;
+  }
+  
+  .destination-tag {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
   .searchbar-section {
-    padding: 1.5rem 0;
+    background: var(--white);
+    box-shadow: none;
   }
-
-  .searchbar-section .searchbar-input {
-    font-size: 0.9rem;
+  
+  .searchbar-section::before,
+  .searchbar-section::after {
+    display: none;
   }
-
-  .searchbar-section .searchbar-btn {
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
+  
+  .searchbar-form {
+    box-shadow: none;
+    border: 1px solid var(--gray-300);
   }
 }

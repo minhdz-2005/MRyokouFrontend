@@ -1,9 +1,10 @@
 // src/pages/Login.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FaUser, FaLock, FaEye, FaEyeSlash, FaGoogle, FaFacebookF } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import { FaUser, FaLock, FaEye, FaEyeSlash, FaGoogle, FaFacebookF, FaPlane, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
+import { MdEmail, MdTravelExplore } from 'react-icons/md';
+import { BiWorld } from 'react-icons/bi';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Login.css';
@@ -15,7 +16,20 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Animation khi component mount
+    setIsVisible(true);
+    
+    // Kiểm tra email đã lưu
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      setEmail(rememberedEmail);
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -39,8 +53,11 @@ const Login = () => {
         localStorage.removeItem('rememberedEmail');
       }
 
-      // Điều hướng về trang chủ hoặc trang trước đó
-      navigate('/');
+      // Success animation trước khi điều hướng
+      setTimeout(() => {
+        navigate('/');
+      }, 800);
+
     } catch (err) {
       const msg = err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng thử lại sau!';
       setErrMsg(msg);
@@ -50,7 +67,9 @@ const Login = () => {
   };
 
   // Đăng nhập bằng mạng xã hội
-  const handleSocialLogin = () => {
+  const handleSocialLogin = (provider) => {
+    console.log(`Đăng nhập bằng ${provider}`);
+    // Implement social login logic here
   };
 
   return (
@@ -58,119 +77,210 @@ const Login = () => {
       <Header />
 
       <div className="login-container">
-        <div className="login-wrapper">
-          <div className="login-left">
-            <div className="login-hero">
-              <h2>Chào mừng trở lại!</h2>
-              <p>Đăng nhập để khám phá những hành trình mới và trải nghiệm du lịch tuyệt vời</p>
+        {/* Background decorations */}
+        <div className="bg-decoration">
+          <div className="floating-icon icon-1"><FaPlane /></div>
+          <div className="floating-icon icon-2"><FaMapMarkerAlt /></div>
+          <div className="floating-icon icon-3"><BiWorld /></div>
+          <div className="floating-icon icon-4"><MdTravelExplore /></div>
+          <div className="floating-icon icon-5"><FaHeart /></div>
+        </div>
+
+        <div className={`login-wrapper ${isVisible ? 'fade-in' : ''}`}>
+          <div className="row h-100 align-items-center">
+            {/* Left Side - Hero Section */}
+            <div className="col-lg-6 d-none d-lg-block">
+              <div className="login-hero">
+                <div className="hero-content">
+                  <div className="hero-badge">
+                    <MdTravelExplore className="me-2" />
+                    <span>MRYOKOU</span>
+                  </div>
+                  
+                  <h1 className="hero-title">
+                    Chào mừng trở lại!
+                    <span className="title-accent">✈️</span>
+                  </h1>
+                  
+                  <p className="hero-subtitle">
+                    Đăng nhập để khám phá những điểm đến tuyệt vời và tạo nên 
+                    những kỷ niệm không thể nào quên cùng chúng tôi
+                  </p>
+
+                  <div className="hero-features">
+                    <div className="feature-item">
+                      <div className="feature-icon">
+                        <FaMapMarkerAlt />
+                      </div>
+                      <div className="feature-text">
+                        <h6>1000+ Điểm đến</h6>
+                        <p>Khám phá thế giới</p>
+                      </div>
+                    </div>
+                    
+                    <div className="feature-item">
+                      <div className="feature-icon">
+                        <FaHeart />
+                      </div>
+                      <div className="feature-text">
+                        <h6>Trải nghiệm đáng nhớ</h6>
+                        <p>Kỷ niệm trọn đời</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="hero-stats">
+                    <div className="stat-item">
+                      <h4>50k+</h4>
+                      <p>Khách hàng hài lòng</p>
+                    </div>
+                    <div className="stat-item">
+                      <h4>4.9★</h4>
+                      <p>Đánh giá trung bình</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="login-right">
-            <form className="login-form" onSubmit={handleLogin}>
-              <div className="form-header">
-                <h3>Đăng nhập</h3>
-                <p>Nhập thông tin đăng nhập của bạn</p>
-              </div>
+            {/* Right Side - Login Form */}
+            <div className="col-lg-6">
+              <div className="login-form-wrapper">
+                <form className="login-form" onSubmit={handleLogin}>
+                  <div className="form-header text-center mb-4">
+                    <div className="form-logo mb-3">
+                      <div className="logo-circle">
+                        <MdTravelExplore size={24} />
+                      </div>
+                    </div>
+                    <h3 className="form-title">Đăng nhập tài khoản</h3>
+                    <p className="form-subtitle">Nhập thông tin để tiếp tục hành trình</p>
+                  </div>
 
-              {errMsg && (
-                <div className="alert-error">
-                  <span>{errMsg}</span>
-                </div>
-              )}
+                  {errMsg && (
+                    <div className="alert alert-danger alert-custom fade-in" role="alert">
+                      <i className="fas fa-exclamation-circle me-2"></i>
+                      {errMsg}
+                    </div>
+                  )}
 
-              <div className="form-group">
-                <label>Email</label>
-                <div className="input-group">
-                  <span className="input-icon">
-                    <MdEmail />
-                  </span>
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Nhập email của bạn"
-                  />
-                </div>
-              </div>
+                  <div className="form-group mb-3">
+                    <label className="form-label">Email</label>
+                    <div className="input-group-custom">
+                      <span className="input-icon">
+                        <MdEmail />
+                      </span>
+                      <input
+                        type="email"
+                        className="form-control form-control-custom"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="example@email.com"
+                      />
+                    </div>
+                  </div>
 
-              <div className="form-group">
-                <label>Mật khẩu</label>
-                <div className="input-group">
-                  <span className="input-icon">
-                    <FaLock />
-                  </span>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Nhập mật khẩu"
-                  />
-                  <button 
-                    type="button" 
-                    className="password-toggle"
-                    onClick={() => setShowPassword(!showPassword)}
+                  <div className="form-group mb-3">
+                    <label className="form-label">Mật khẩu</label>
+                    <div className="input-group-custom">
+                      <span className="input-icon">
+                        <FaLock />
+                      </span>
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        className="form-control form-control-custom"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="••••••••"
+                      />
+                      <button 
+                        type="button" 
+                        className="password-toggle"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="form-options d-flex justify-content-between align-items-center mb-4">
+                    <div className="form-check custom-checkbox">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="rememberMe"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                      />
+                      <label className="form-check-label" htmlFor="rememberMe">
+                        Ghi nhớ tôi
+                      </label>
+                    </div>
+                    <Link to="/forgot-password" className="forgot-password-link">
+                      Quên mật khẩu?
+                    </Link>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className={`btn btn-primary btn-login w-100 mb-4 ${loading ? 'loading' : ''}`}
+                    disabled={loading}
                   >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    {loading ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                        Đang xử lý...
+                      </>
+                    ) : (
+                      <>
+                        <span>Đăng nhập</span>
+                        <i className="fas fa-arrow-right ms-2"></i>
+                      </>
+                    )}
                   </button>
-                </div>
+
+                  <div className="social-login">
+                    <div className="divider-custom">
+                      <span>Hoặc đăng nhập bằng</span>
+                    </div>
+                    
+                    <div className="row g-3">
+                      <div className="col-6">
+                        <button 
+                          type="button" 
+                          className="btn btn-outline-danger w-100 social-btn google-btn"
+                          onClick={() => handleSocialLogin('google')}
+                        >
+                          <FaGoogle className="me-2" />
+                          Google
+                        </button>
+                      </div>
+                      <div className="col-6">
+                        <button 
+                          type="button" 
+                          className="btn btn-outline-primary w-100 social-btn facebook-btn"
+                          onClick={() => handleSocialLogin('facebook')}
+                        >
+                          <FaFacebookF className="me-2" />
+                          Facebook
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="signup-link text-center mt-4">
+                    <p className="mb-0">
+                      Chưa có tài khoản? 
+                      <Link to="/signup" className="signup-link-text ms-1">
+                        Tạo tài khoản mới
+                      </Link>
+                    </p>
+                  </div>
+                </form>
               </div>
-
-              <div className="form-options">
-                <div className="remember-me">
-                  <input
-                    type="checkbox"
-                    id="rememberMe"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                  />
-                  <label htmlFor="rememberMe">Ghi nhớ tôi</label>
-                </div>
-                <Link to="/forgot-password" className="forgot-password">
-                  Quên mật khẩu?
-                </Link>
-              </div>
-
-              <button
-                type="submit"
-                className="login-btn"
-                disabled={loading}
-              >
-                {loading ? (
-                  <span className="spinner"></span>
-                ) : (
-                  'Đăng nhập'
-                )}
-              </button>
-
-              <div className="social-login">
-                <p className="divider">
-                  <span>Hoặc đăng nhập bằng</span>
-                </p>
-                <div className="social-buttons">
-                  <button 
-                    type="button" 
-                    className="social-btn google"
-                    onClick={() => handleSocialLogin('google')}
-                  >
-                    <FaGoogle /> Google
-                  </button>
-                  <button 
-                    type="button" 
-                    className="social-btn facebook"
-                    onClick={() => handleSocialLogin('facebook')}
-                  >
-                    <FaFacebookF /> Facebook
-                  </button>
-                </div>
-              </div>
-
-              <p className="signup-link">
-                Chưa có tài khoản? <Link to="/signup">Tạo tài khoản mới</Link>
-              </p>
-            </form>
+            </div>
           </div>
         </div>
       </div>

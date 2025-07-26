@@ -2,7 +2,6 @@
 
 /* Section Container */
 .reviews-section {
-  padding: 100px 0;
   background: linear-gradient(135deg, #f8f9ff 0%, #fff 50%, #f0f8ff 100%);
   position: relative;
   overflow: hidden;
@@ -43,7 +42,7 @@
 .reviews-section .section-subtitle {
   font-size: 1.2rem;
   color: #6c757d;
-  max-width: 600px;
+  min-width: fit-content;
   margin: 0 auto 2rem;
   line-height: 1.6;
 }
@@ -317,9 +316,17 @@
   color: #6c757d;
 }
 
+.reviews-section .location {
+  min-width: fit-content;
+}
+
 .reviews-section .location::before {
   content: '📍';
   margin-right: 0.25rem;
+}
+
+.reviews-section .date {
+  min-width: fit-content;
 }
 
 .reviews-section .date::before {
@@ -330,7 +337,6 @@
 .reviews-section .review-rating {
   display: flex;
   gap: 0.2rem;
-  margin-top: 0.25rem;
 }
 
 /* Tour Info */

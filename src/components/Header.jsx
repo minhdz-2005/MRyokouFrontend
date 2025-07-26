@@ -75,7 +75,7 @@ const Header = () => {
     >
       <div className="container">
         <Link className="navbar-brand d-flex align-items-center" to="/">
-          <TbPlaneDeparture className="brand-icon" />
+          <TbPlaneDeparture className="brand-icon text-warning" />
           <span className="brand-text">MRYOKOU</span>
           <span className="brand-tagline">Travel & Explore</span>
         </Link>
@@ -127,7 +127,7 @@ const Header = () => {
                 <BiLogIn className="btn-icon" />
                 <span>Login</span>
               </Link>
-              <Link to="/signup" className="btn btn-primary signup-btn">
+              <Link to="/signup" className="btn btn-success signup-btn">
                 <BiUserPlus className="btn-icon" />
                 <span>Sign up</span>
               </Link>
@@ -154,12 +154,12 @@ const Header = () => {
                   size={28} 
                   style={{ display: userAccount?.avatar ? 'none' : 'block' }}
                 />
-                <span className="user-name ms-2" title={currentUser.fullname}>
+                <span className="user-name text-muted ms-2" title={currentUser.fullname}>
                   {currentUser.fullname.length > 20 
                     ? currentUser.fullname.slice(0, 20) + '...' 
                     : currentUser.fullname}
                 </span>
-                <FaChevronDown className={`dropdown-arrow ms-1 ${showDropdown ? 'rotate' : ''}`} />
+                <FaChevronDown className={`dropdown-arrow text-muted ms-1 ${showDropdown ? 'rotate' : ''}`} />
               </div>
               
               {showDropdown && (
