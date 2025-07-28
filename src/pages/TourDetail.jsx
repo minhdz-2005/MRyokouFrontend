@@ -103,7 +103,7 @@ const TourDetail = () => {
 
     const bookingData = {
       tour: tour._id,
-      userId: user?._id || user?.id, // Gửi userId đúng schema
+      userId: user?._id || user?.id || '', // Gửi userId đúng schema
       fullName,
       email,
       phone,

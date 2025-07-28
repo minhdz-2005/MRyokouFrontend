@@ -6,7 +6,7 @@
 }
 
 .about-intro .intro-header {
-  background-image: url('../images/abouthero.avif');
+  background-image: url('/images/abouthero.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

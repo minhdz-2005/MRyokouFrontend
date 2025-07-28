@@ -26,7 +26,7 @@ const Footer = () => {
             <div className="col-lg-3 col-md-6">
               <div className="footer-brand">
                 <TbPlaneDeparture className="brand-icon" />
-                <span className="brand-name">MRYOKOU</span>
+                <span className="brand-name">MTRAVEL</span>
               </div>
               <p className="footer-description">
                 Nền tảng đặt tour du lịch tiện lợi, uy tín và giá tốt hàng đầu Việt Nam.
@@ -80,7 +80,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <FaEnvelope className="contact-icon" />
-                  <span>support@mryokou.vn</span>
+                  <span>support@mtravel.vn</span>
                 </li>
               </ul>
 
@@ -110,7 +110,7 @@ const Footer = () => {
           <div className="row">
             <div className="col-md-6 text-center text-md-start">
               <p className="copyright">
-                &copy; {currentYear} <strong>MRYOKOU</strong>. All Rights Reserved
+                &copy; {currentYear} <strong>MTRAVEL</strong>. All Rights Reserved
               </p>
             </div>
           </div>

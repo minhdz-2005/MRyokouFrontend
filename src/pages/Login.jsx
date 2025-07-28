@@ -7,6 +7,7 @@ import { MdEmail, MdTravelExplore } from 'react-icons/md';
 import { BiWorld } from 'react-icons/bi';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { useUser } from '../contexts/UserContext';
 import './Login.css';
 
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
+  const { login } = useUser();
 
   useEffect(() => {
     // Animation khi component mount
@@ -42,9 +44,28 @@ const Login = () => {
         { email, password }
       );
 
-      // Lưu token & thông tin user
+      // Lưu token
       localStorage.setItem('accessToken', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+
+      // Lấy thông tin account từ API riêng
+      let accountData = null;
+      try {
+        const accountRes = await axios.get(
+          `http://localhost:5000/api/accounts/by-user/${res.data.user._id || res.data.user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${res.data.token}`
+            }
+          }
+        );
+        accountData = accountRes.data;
+      } catch (accountErr) {
+        console.log('Không thể lấy thông tin account:', accountErr);
+        // Vẫn tiếp tục đăng nhập dù không lấy được account
+      }
+
+      // Sử dụng context để login
+      login(res.data.user, accountData);
 
       // Lưu thông tin đăng nhập nếu chọn "Ghi nhớ tôi"
       if (rememberMe) {

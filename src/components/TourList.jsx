@@ -6,7 +6,7 @@ import SortBar from '../components/SortBar'
 import SearchBar from './SearchBar';
 import './TourList.css';
 import { BsStarFill, BsClock, BsGeoAlt, BsEye } from 'react-icons/bs';
-import fallbackImg from '../images/banner.jpg';
+import fallbackImg from '/images/Noel_Bauza1.jpg';
 
 const toursPerPage = 6; // Tăng lên 9 để layout đẹp hơn
 

@@ -18,7 +18,7 @@ const AboutIntro = () => {
         {/* Header với hình nền parallax */}
         <div className="intro-header">
           <div className="intro-overlay">
-            <h1 className="intro-title">Câu chuyện của MRYOKOU</h1>
+            <h1 className="intro-title">Câu chuyện của MTRAVEL</h1>
             <p className="intro-subtitle">
               Hành trình mang thế giới đến gần bạn hơn
             </p>
@@ -43,7 +43,7 @@ const AboutIntro = () => {
                   <span className="title-highlight">Chúng tôi là ai?</span>
                 </h2>
                 <p className="intro-text">
-                  MRYOKOU là nền tảng đặt tour trực tuyến hàng đầu Việt Nam, ra đời với sứ mệnh
+                  MTRAVEL là nền tảng đặt tour trực tuyến hàng đầu Việt Nam, ra đời với sứ mệnh
                   cách mạng hóa trải nghiệm du lịch của người Việt trẻ.
                 </p>
                 <p className="intro-text">
@@ -75,7 +75,7 @@ const AboutIntro = () => {
             <span className="title-highlight">Giá trị cốt lõi</span>
           </h2>
           <p className="section-subtitle text-center">
-            Những điều làm nên khác biệt của MRYOKOU
+            Những điều làm nên khác biệt của MTRAVEL
           </p>
 
           <div className="values-container">

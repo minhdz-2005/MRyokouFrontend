@@ -78,7 +78,7 @@ const WhyChooseUs = () => {
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">
-            <span>Tại sao chọn</span> MRYOKOU?
+            <span>Tại sao chọn</span> MTRAVEL?
           </h2>
           <p className="section-subtitle">
             Những lý do khiến chúng tôi trở thành lựa chọn hàng đầu của du khách
@@ -132,9 +132,9 @@ const WhyChooseUs = () => {
         <div className="customer-testimonial">
           <div className="testimonial-content">
             <blockquote>
-              "MRYOKOU đã mang đến cho gia đình tôi những chuyến đi tuyệt vời nhất. 
+              "MTRAVEL đã mang đến cho gia đình tôi những chuyến đi tuyệt vời nhất. 
               Dịch vụ chuyên nghiệp từ khâu tư vấn đến khi kết thúc tour. 
-              Chắc chắn sẽ tiếp tục đồng hành cùng MRYOKOU trong những hành trình tiếp theo!"
+              Chắc chắn sẽ tiếp tục đồng hành cùng MTRAVEL trong những hành trình tiếp theo!"
             </blockquote>
             <div className="customer-info">
               <div className="customer-avatar">
