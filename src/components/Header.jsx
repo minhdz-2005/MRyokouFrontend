@@ -109,7 +109,7 @@ const Header = () => {
                 >
                   {userAccount?.avatar ? (
                     <img 
-                      src={`http://localhost:5000/${userAccount.avatar}`} 
+                      src={`${import.meta.env.VITE_API_BASE_URL}/${userAccount.avatar}`} 
                       alt="User avatar" 
                       className="user-avatar rounded-circle"
                       onError={(e) => {

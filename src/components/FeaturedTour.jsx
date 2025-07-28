@@ -63,7 +63,7 @@ const FeaturedTours = () => {
   useEffect(() => {
     const fetchTopRatedTours = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/tours', {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/tours`, {
           params: {
             limit: 3,
             sort: 'rating' // Sort by rating descending

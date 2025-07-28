@@ -26,7 +26,7 @@ const TourList = () => {
       setErrMsg('');
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/tours`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/tours`,
           {
             params: { page: currentPage, limit: toursPerPage, sort, ...searchParams },
           }
@@ -137,7 +137,7 @@ const TourList = () => {
           <h2 className="main-title text-primary">
             <span className="title-gradient">Khám Phá</span> Các Tour Du Lịch
           </h2>
-          <p className="subtitle">Hơn {tours.length} tour tuyệt vời đang chờ bạn khám phá</p>
+          <p className="subtitle text-muted">Hơn {tours.length} tour tuyệt vời đang chờ bạn khám phá</p>
         </div>
 
         {/* Loading State */}
@@ -254,8 +254,8 @@ const TourList = () => {
         {!loading && tours.length === 0 && !errMsg && (
           <div className="empty-state">
             <div className="empty-icon">🏝️</div>
-            <h3>Không tìm thấy tour nào</h3>
-            <p>Hãy thử điều chỉnh bộ lọc hoặc tìm kiếm với từ khóa khác</p>
+            <h3 className='text-muted'>Không tìm thấy tour nào</h3>
+            <p className='text-muted'>Hãy thử điều chỉnh bộ lọc hoặc tìm kiếm với từ khóa khác</p>
           </div>
         )}
 

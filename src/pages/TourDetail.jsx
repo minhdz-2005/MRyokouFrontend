@@ -49,7 +49,7 @@ const TourDetail = () => {
   // Hàm lấy thông tin account
   const fetchUserAccount = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/accounts/by-user/${userId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/accounts/by-user/${userId}`);
       setUserAccount(response.data);
       // Tự động điền số điện thoại nếu có
       if (!phone && response.data.phoneNumber) {
@@ -64,8 +64,8 @@ const TourDetail = () => {
     const fetchData = async () => {
       try {
         const [tourRes, detailRes] = await Promise.all([
-          axios.get(`http://localhost:5000/api/tours/${id}`),
-          axios.get(`http://localhost:5000/api/tour-details/${id}`),
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/tours/${id}`),
+          axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/tour-details/${id}`),
         ]);
         setTour(tourRes.data);
         setDetail(detailRes.data);
@@ -115,7 +115,7 @@ const TourDetail = () => {
     };
 
     try {
-      await axios.post('http://localhost:5000/api/bookings', bookingData);
+      await axios.post('${import.meta.env.VITE_API_BASE_URL}/api/bookings', bookingData);
       setShowModal(true);
       setShowBookingForm(false);
       // Reset form

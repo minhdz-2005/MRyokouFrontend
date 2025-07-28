@@ -57,7 +57,7 @@ const Profile = () => {
   const fetchProfile = async (userId) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/accounts/by-user/${userId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/accounts/by-user/${userId}`);
       setProfile(response.data);
       console.log(response.data);
       setEditForm({
@@ -75,7 +75,7 @@ const Profile = () => {
   const fetchUserRatings = async (userId) => {
     try {
       setRatingsLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/ratings/user/${userId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/ratings/user/${userId}`);
       setRatings(response.data);
     } catch (err) {
       console.log('Không thể tải đánh giá:', err);
@@ -87,7 +87,7 @@ const Profile = () => {
   const fetchUserBookings = async (userId) => {
     try {
       setBookingsLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/bookings/user/${userId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/user/${userId}`);
       setBookings(response.data);
     } catch (err) {
       console.log('Không thể tải bookings:', err);
@@ -137,7 +137,7 @@ const Profile = () => {
       }
 
       const accountId = profile._id;
-      await axios.put(`http://localhost:5000/api/accounts/${accountId}`, formData, {
+      await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/accounts/${accountId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -145,7 +145,7 @@ const Profile = () => {
 
       // Update user
       const userId = user._id || user.id;
-      await axios.put(`http://localhost:5000/api/users/${userId}`, {
+      await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`, {
         fullname: userForm.fullname,
         email: user.email
       });
@@ -244,7 +244,7 @@ const Profile = () => {
             <div className="profile-avatar-section">
               <div className="avatar-container">
                 <img 
-                  src={avatarPreview || (profile.avatar ? `http://localhost:5000/${profile.avatar}` : 'https://i.pinimg.com/736x/f9/f7/b4/f9f7b48c9ba210a41fe50c837e079537.jpg')} 
+                  src={avatarPreview || (profile.avatar ? `${import.meta.env.VITE_API_BASE_URL}/${profile.avatar}` : 'https://i.pinimg.com/736x/f9/f7/b4/f9f7b48c9ba210a41fe50c837e079537.jpg')} 
                   alt="Avatar" 
                   className="profile-avatar"
                   onError={(e) => {

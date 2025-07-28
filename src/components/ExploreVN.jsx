@@ -41,7 +41,7 @@ const ExploreVietnam = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/explore');
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/explore`);
         const data = res.data;
 
         const grouped = {
