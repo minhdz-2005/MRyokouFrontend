@@ -5,7 +5,6 @@ import Tours from './Tours';
 import Bookings from './Bookings';
 import Explores from './Explores';
 import Ratings from './Ratings';
-import TourDetails from './TourDetails';
 import { useUser } from '../../contexts/UserContext';
 import './Admin.css';
 
@@ -62,8 +61,6 @@ const Admin = () => {
                 return <Accounts />;
             case 'tours':
                 return <Tours />;
-            case 'tourDetails':
-                return <TourDetails />;
             case 'bookings':
                 return <Bookings />;
             case 'explores':
@@ -105,15 +102,6 @@ const Admin = () => {
                             >
                                 <i className="fas fa-map-marked-alt"></i>
                                 Quản lý tour
-                            </button>
-                        </li>
-                        <li>
-                            <button 
-                                className={activeTab === 'tourDetails' ? 'active' : ''}
-                                onClick={() => setActiveTab('tourDetails')}
-                            >
-                                <i className="fas fa-info-circle"></i>
-                                Chi tiết tour
                             </button>
                         </li>
                         <li>

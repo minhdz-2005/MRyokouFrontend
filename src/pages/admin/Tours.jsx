@@ -257,8 +257,8 @@ const Tours = () => {
     const handleAddFormArrayItem = (field) => {
         const currentValue = tempInputValues[field];
         if (currentValue.trim()) {
-            setFormData(prev => ({
-                ...prev,
+        setFormData(prev => ({
+            ...prev,
                 [field]: [...prev[field], currentValue.trim()]
             }));
             setTempInputValues(prev => ({
@@ -287,8 +287,8 @@ const Tours = () => {
     const handleAddArrayItem = (field) => {
         const currentValue = tempInputValues[field];
         if (currentValue.trim()) {
-            setTourDetailForm(prev => ({
-                ...prev,
+        setTourDetailForm(prev => ({
+            ...prev,
                 [field]: [...prev[field], currentValue.trim()]
             }));
             setTempInputValues(prev => ({
@@ -531,19 +531,19 @@ const Tours = () => {
             let tourDetailResponse;
             if (tourDetailId) {
                 tourDetailResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tour-details/${tourDetailId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        tour: selectedTour._id,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tour: selectedTour._id,
                         image: tourDetailForm.image,
                         highlights: tourDetailForm.highlights,
                         itinerary: tourDetailForm.itinerary,
                         schedules: tourDetailForm.schedules,
                         notes: tourDetailForm.notes
-                    })
-                });
+                })
+            });
 
                 console.log('Tour detail response status (PUT):', tourDetailResponse.status);
                 console.log('Tour detail response ok (PUT):', tourDetailResponse.ok);
@@ -607,8 +607,8 @@ const Tours = () => {
                 const tourDetailId = tourDetails[selectedTour._id]._id;
                 if (tourDetailId) {
                     const tourDetailResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tour-details/${tourDetailId}`, {
-                        method: 'DELETE'
-                    });
+                    method: 'DELETE'
+                });
                     
                     if (!tourDetailResponse.ok) {
                         console.warn('Không thể xóa tour detail, tiếp tục xóa tour');
@@ -924,10 +924,10 @@ const Tours = () => {
                                 <div className="form-group">
                                     <label>Tags</label>
                                     <div className="array-input-container">
-                                        <input
-                                            type="text"
+                                    <input
+                                        type="text"
                                             value={tempInputValues.tags}
-                                            onChange={(e) => handleArrayInputChange('tags', e.target.value)}
+                                        onChange={(e) => handleArrayInputChange('tags', e.target.value)}
                                             placeholder="VD: beach"
                                         />
                                         <button 
@@ -964,10 +964,10 @@ const Tours = () => {
                                     <label>Ảnh chi tiết</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <input
-                                                type="text"
+                                    <input
+                                        type="text"
                                                 value={tempInputValues.image}
-                                                onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
                                                 placeholder="VD: https://example.com/image1.jpg"
                                             />
                                             <button 
@@ -1001,9 +1001,9 @@ const Tours = () => {
                                     <label>Điểm nổi bật</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.highlights}
-                                                onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
                                                 placeholder="VD: Khám phá vịnh Hạ Long"
                                             />
                                             <button 
@@ -1037,9 +1037,9 @@ const Tours = () => {
                                     <label>Lịch trình</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.itinerary}
-                                                onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
                                                 placeholder="VD: Ngày 1: Khởi hành từ Hà Nội"
                                             />
                                             <button 
@@ -1073,9 +1073,9 @@ const Tours = () => {
                                     <label>Ghi chú</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.notes}
-                                                onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
                                                 placeholder="VD: Mang theo kem chống nắng"
                                             />
                                             <button 
@@ -1269,10 +1269,10 @@ const Tours = () => {
                                 <div className="form-group">
                                     <label>Tags</label>
                                     <div className="array-input-container">
-                                        <input
-                                            type="text"
+                                    <input
+                                        type="text"
                                             value={tempInputValues.tags}
-                                            onChange={(e) => handleArrayInputChange('tags', e.target.value)}
+                                        onChange={(e) => handleArrayInputChange('tags', e.target.value)}
                                             placeholder="VD: beach"
                                         />
                                         <button 
@@ -1309,10 +1309,10 @@ const Tours = () => {
                                     <label>Ảnh chi tiết</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <input
-                                                type="text"
+                                    <input
+                                        type="text"
                                                 value={tempInputValues.image}
-                                                onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
                                                 placeholder="VD: https://example.com/image1.jpg"
                                             />
                                             <button 
@@ -1346,9 +1346,9 @@ const Tours = () => {
                                     <label>Điểm nổi bật</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.highlights}
-                                                onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
                                                 placeholder="VD: Khám phá vịnh Hạ Long"
                                             />
                                             <button 
@@ -1382,9 +1382,9 @@ const Tours = () => {
                                     <label>Lịch trình</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.itinerary}
-                                                onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
                                                 placeholder="VD: Ngày 1: Khởi hành từ Hà Nội"
                                             />
                                             <button 
@@ -1418,9 +1418,9 @@ const Tours = () => {
                                     <label>Ghi chú</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.notes}
-                                                onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
                                                 placeholder="VD: Mang theo kem chống nắng"
                                             />
                                             <button 
@@ -1552,10 +1552,10 @@ const Tours = () => {
                                     <label>Ảnh chi tiết</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <input
-                                                type="text"
+                                    <input
+                                        type="text"
                                                 value={tempInputValues.image}
-                                                onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
                                                 placeholder="VD: https://example.com/image1.jpg"
                                             />
                                             <button 
@@ -1589,9 +1589,9 @@ const Tours = () => {
                                     <label>Điểm nổi bật</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.highlights}
-                                                onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
                                                 placeholder="VD: Khám phá vịnh Hạ Long"
                                             />
                                             <button 
@@ -1625,9 +1625,9 @@ const Tours = () => {
                                     <label>Lịch trình</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.itinerary}
-                                                onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
                                                 placeholder="VD: Ngày 1: Khởi hành từ Hà Nội"
                                             />
                                             <button 
@@ -1661,9 +1661,9 @@ const Tours = () => {
                                     <label>Ghi chú</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                            <textarea
+                                    <textarea
                                                 value={tempInputValues.notes}
-                                                onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
+                                        onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
                                                 placeholder="VD: Mang theo kem chống nắng"
                                             />
                                             <button 
