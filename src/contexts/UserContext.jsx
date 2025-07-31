@@ -17,18 +17,31 @@ export const UserProvider = ({ children }) => {
   const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem('user');
-    const storedAccount = localStorage.getItem('userAccount');
-    
-    if (stored) {
-      const userData = JSON.parse(stored);
-      setCurrentUser(userData);
-      
-      if (storedAccount) {
-        setUserAccount(JSON.parse(storedAccount));
+    const initializeUser = () => {
+      try {
+        const stored = localStorage.getItem('user');
+        const storedAccount = localStorage.getItem('userAccount');
+        
+        if (stored) {
+          const userData = JSON.parse(stored);
+          setCurrentUser(userData);
+          
+          if (storedAccount) {
+            setUserAccount(JSON.parse(storedAccount));
+          }
+        }
+      } catch (error) {
+        console.error('Error loading user data from localStorage:', error);
+        // Clear corrupted data
+        localStorage.removeItem('user');
+        localStorage.removeItem('userAccount');
+        localStorage.removeItem('accessToken');
+      } finally {
+        setLoadingUser(false);
       }
-    }
-    setLoadingUser(false);
+    };
+
+    initializeUser();
   }, []);
 
   const login = (userData, accountData) => {
@@ -53,13 +66,24 @@ export const UserProvider = ({ children }) => {
     localStorage.setItem('userAccount', JSON.stringify(accountData));
   };
 
+  const isAdmin = () => {
+    return currentUser && currentUser.role === 'admin';
+  };
+
+  const isAuthenticated = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    return currentUser && accessToken;
+  };
+
   const value = {
     currentUser,
     userAccount,
     loadingUser,
     login,
     logout,
-    updateUserAccount
+    updateUserAccount,
+    isAdmin,
+    isAuthenticated
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Accounts from './Accounts';
 import Tours from './Tours';
@@ -11,8 +11,50 @@ import './Admin.css';
 
 const Admin = () => {
     const [activeTab, setActiveTab] = useState('accounts');
-    const { currentUser, logout } = useUser();
+    const { currentUser, logout, loadingUser, isAdmin, isAuthenticated } = useUser();
     const navigate = useNavigate();
+
+    // Kiểm tra quyền admin khi component mount và khi currentUser thay đổi
+    useEffect(() => {
+        // Chỉ kiểm tra sau khi đã load xong user data
+        if (!loadingUser) {
+            if (!isAdmin() || !isAuthenticated()) {
+                logout();
+                navigate('/');
+                return;
+            }
+        }
+    }, [currentUser, loadingUser, logout, navigate, isAdmin, isAuthenticated]);
+
+    // Test authentication status (có thể xóa sau khi test xong)
+    useEffect(() => {
+        if (!loadingUser) {
+            console.log('🔐 Admin Authentication Test:', {
+                currentUser: currentUser ? { id: currentUser._id, role: currentUser.role, email: currentUser.email } : null,
+                isAdmin: isAdmin(),
+                isAuthenticated: isAuthenticated(),
+                hasAccessToken: !!localStorage.getItem('accessToken'),
+                loadingUser
+            });
+        }
+    }, [currentUser, loadingUser, isAdmin, isAuthenticated]);
+
+    // Hiển thị loading nếu đang load user data
+    if (loadingUser) {
+        return (
+            <div className="admin-dashboard">
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Đang kiểm tra quyền truy cập...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Nếu không phải admin, không render gì (sẽ redirect)
+    if (!isAdmin()) {
+        return null;
+    }
 
     const renderComponent = () => {
         switch (activeTab) {

@@ -90,7 +90,7 @@ const Header = () => {
 
           {/* ───────────── 4. Điều kiện hiển thị nút ───────────── */}
           {loadingUser ? null : (
-            !currentUser ? (
+            !currentUser || currentUser.role === 'admin' ? (
               <div className="d-flex auth-buttons">
                 <Link to="/login" className="btn btn-outline-primary me-2 login-btn">
                   <BiLogIn className="btn-icon" />
