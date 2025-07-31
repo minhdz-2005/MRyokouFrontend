@@ -11,6 +11,8 @@ import Profile from './pages/Profile'
 import MyBooking from './pages/MyBooking'
 import { UserProvider } from './contexts/UserContext'
 import ScrollToTop from './components/ScrollToTop'
+
+import Admin from './pages/admin/Admin'
 import './App.css'
 
 function App () {
@@ -28,6 +30,8 @@ function App () {
                     <Route path="/tours/:id" element={<TourDetail />} />
                     <Route path='/profile' element={<Profile />} />
                     <Route path='/bookings' element={<MyBooking />} /> 
+
+                    <Route path='/admin' element={<Admin />} />
                 </Routes>
             </Router>
         </UserProvider>

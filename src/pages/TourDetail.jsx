@@ -203,11 +203,11 @@ const TourDetail = () => {
           <div className="row mb-5">
             <div className="col-12">
               <div className="description-card">
-                <h3 className="section-title">
+                <h3 className="section-title text-muted">
                   <i className="fas fa-info-circle text-primary me-2"></i>
                   Về chuyến du lịch này
                 </h3>
-                <p className="lead">{tour.description || 'Trải nghiệm tuyệt vời đang chờ đón bạn!'}</p>
+                <p className="lead text-dark">{tour.description || 'Trải nghiệm tuyệt vời đang chờ đón bạn!'}</p>
               </div>
             </div>
           </div>
@@ -321,11 +321,11 @@ const TourDetail = () => {
                 <div className="tab-content">
                   {activeTab === 'highlights' && (
                     <div className="tab-pane-content">
-                      <h4 className="mb-3">✨ Trải nghiệm thú vị</h4>
+                      <h4 className="mb-3 text-muted">✨ Trải nghiệm thú vị</h4>
                       <div className="row">
                         {detail.highlights.map((highlight, i) => (
                           <div key={i} className="col-md-6 mb-3">
-                            <div className="highlight-item">
+                            <div className="highlight-item text-muted">
                               <i className="fas fa-check-circle text-success me-2"></i>
                               {highlight}
                             </div>
@@ -337,14 +337,14 @@ const TourDetail = () => {
 
                   {activeTab === 'itinerary' && (
                     <div className="tab-pane-content">
-                      <h4 className="mb-3">📋 Chương trình tour</h4>
+                      <h4 className="mb-3 text-muted">📋 Chương trình tour</h4>
                       <div className="itinerary-timeline">
                         {detail.itinerary.map((item, i) => (
                           <div key={i} className="timeline-item">
                             <div className="timeline-marker">
                               <span className="timeline-number">{i + 1}</span>
                             </div>
-                            <div className="timeline-content">
+                            <div className="timeline-content text-muted">
                               <p>{item}</p>
                             </div>
                           </div>
@@ -355,7 +355,7 @@ const TourDetail = () => {
 
                   {activeTab === 'schedule' && (
                     <div className="tab-pane-content">
-                      <h4 className="mb-3">📆 Lịch khởi hành</h4>
+                      <h4 className="mb-3 text-muted">📆 Lịch khởi hành</h4>
                       <div className="table-responsive">
                         <table className="table table-hover custom-table">
                           <thead>
@@ -372,7 +372,7 @@ const TourDetail = () => {
                                 <td>{new Date(schedule.startDate).toLocaleDateString('vi-VN')}</td>
                                 <td>{new Date(schedule.endDate).toLocaleDateString('vi-VN')}</td>
                                 <td>
-                                  <span className={`badge ${schedule.status === 'Available' ? 'bg-success' : 'bg-danger'}`}>
+                                  <span className={`badge ${schedule.status === 'Available' ? 'bg-success' : 'bg-danger'}  text-muted`}>
                                     {schedule.status}
                                   </span>
                                 </td>
@@ -387,10 +387,10 @@ const TourDetail = () => {
 
                   {activeTab === 'notes' && (
                     <div className="tab-pane-content">
-                      <h4 className="mb-3">⚠️ Lưu ý quan trọng</h4>
+                      <h4 className="mb-3  text-muted">⚠️ Lưu ý quan trọng</h4>
                       <div className="notes-list">
                         {detail.notes.map((note, i) => (
-                          <div key={i} className="note-item">
+                          <div key={i} className="note-item text-muted">
                             <i className="fas fa-info-circle text-warning me-2"></i>
                             {note}
                           </div>
@@ -496,7 +496,7 @@ const TourDetail = () => {
                   <div className="row">
                     <div className="col-md-6 mb-3">
                       <label className="form-label">
-                        <i className="fas fa-users me-1"></i>Số người lớn
+                        <i className="fas fa-users me-1  text-muted"></i>Số người lớn
                       </label>
                       <div className="input-group">
                         <button 
@@ -525,7 +525,7 @@ const TourDetail = () => {
                     
                     <div className="col-md-6 mb-3">
                       <label className="form-label">
-                        <i className="fas fa-child me-1"></i>Số trẻ em
+                        <i className="fas fa-child me-1  text-muted"></i>Số trẻ em
                       </label>
                       <div className="input-group">
                         <button 
@@ -570,13 +570,13 @@ const TourDetail = () => {
                   <div className="price-summary mb-4">
                     <h6>Chi tiết giá:</h6>
                     <div className="d-flex justify-content-between">
-                      <span>Người lớn ({adults} x {tour.price.toLocaleString()}đ):</span>
-                      <span>{(adults * tour.price).toLocaleString()}đ</span>
+                      <span className=' text-dark'>Người lớn ({adults} x {tour.price.toLocaleString()}đ):</span>
+                      <span className=' text-dark'>{(adults * tour.price).toLocaleString()}đ</span>
                     </div>
                     {children > 0 && (
                       <div className="d-flex justify-content-between">
-                        <span>Trẻ em ({children} x {(tour.price * 0.7).toLocaleString()}đ):</span>
-                        <span>{(children * tour.price * 0.7).toLocaleString()}đ</span>
+                        <span className=' text-dark'>Trẻ em ({children} x {(tour.price * 0.7).toLocaleString()}đ):</span>
+                        <span className=' text-dark'>{(children * tour.price * 0.7).toLocaleString()}đ</span>
                       </div>
                     )}
                     <hr />

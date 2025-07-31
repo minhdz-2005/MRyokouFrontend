@@ -3,7 +3,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { BsStarFill, BsStar } from 'react-icons/bs';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaTimes } from 'react-icons/fa';
 import './MyBooking.css';
 
 const MyBooking = () => {
@@ -212,6 +212,20 @@ const MyBooking = () => {
     }
   };
 
+  const handleCancelBooking = async (bookingId) => {
+    if (window.confirm('Bạn có chắc muốn hủy booking này? Hành động này không thể hoàn tác.')) {
+      try {
+        await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${bookingId}`);
+        setSuccessMsg('Hủy booking thành công!');
+        fetchBookings(user._id || user.id);
+        setTimeout(() => setSuccessMsg(''), 2000);
+      } catch (err) {
+        console.error('Lỗi hủy booking:', err);
+        alert('Hủy booking thất bại!');
+      }
+    }
+  };
+
   const calculateEndDate = (departureDate, duration) => {
     if (!departureDate || !duration) return null;
     
@@ -229,6 +243,28 @@ const MyBooking = () => {
     const endDate = calculateEndDate(booking.departureDate, booking.tour?.duration);
     if (!endDate) return false;
     return endDate < new Date();
+  };
+
+  const canCancelBooking = (booking) => {
+    if (!booking.departureDate) return false;
+    
+    const departureDate = new Date(booking.departureDate);
+    const currentDate = new Date();
+    const threeDaysBefore = new Date(departureDate);
+    threeDaysBefore.setDate(departureDate.getDate() - 3);
+    
+    // Có thể hủy nếu hiện tại < 3 ngày trước ngày đi
+    return currentDate < threeDaysBefore;
+  };
+
+  const getCancelDeadline = (booking) => {
+    if (!booking.departureDate) return null;
+    
+    const departureDate = new Date(booking.departureDate);
+    const threeDaysBefore = new Date(departureDate);
+    threeDaysBefore.setDate(departureDate.getDate() - 3);
+    
+    return threeDaysBefore;
   };
 
   const ratingOptions = [
@@ -258,14 +294,29 @@ const MyBooking = () => {
             <div className="row">
               {bookings.map((booking) => {
                 const endDate = calculateEndDate(booking.departureDate, booking.tour?.duration);
+                const cancelDeadline = getCancelDeadline(booking);
+                const canCancel = canCancelBooking(booking);
+                
                 return (
                   <div className="col-12" key={booking._id}>
                     <div className="booking-card shadow-sm">
                       <div className="booking-card-header">
                         <h5 className="tour-title mb-0 text-primary-emphasis">{booking.tour?.title || 'Tour du lịch'}</h5>
-                        <span className={`badge status-badge ${isEnded(booking) ? 'bg-success' : 'bg-secondary'}`}>
-                          {isEnded(booking) ? 'Đã kết thúc' : 'Chưa kết thúc'}
-                        </span>
+                        <div className="d-flex align-items-center gap-2">
+                          <span className={`badge status-badge ${isEnded(booking) ? 'bg-success' : 'bg-secondary'}`}>
+                            {isEnded(booking) ? 'Đã kết thúc' : 'Chưa kết thúc'}
+                          </span>
+                          {canCancel && (
+                            <button 
+                              className="btn btn-outline-danger btn-sm"
+                              onClick={() => handleCancelBooking(booking._id)}
+                              title="Hủy booking"
+                            >
+                              <FaTimes className="me-1" />
+                              Hủy
+                            </button>
+                          )}
+                        </div>
                       </div>
                       <div className="booking-card-body">
                         <div className="tour-info-row">
@@ -286,6 +337,14 @@ const MyBooking = () => {
                             <span className="info-value">{booking.adults} người lớn, {booking.children} trẻ em</span>
                           </div>
                         </div>
+                        
+                        {/* Thông báo về deadline hủy booking */}
+                        {!isEnded(booking) && !canCancel && cancelDeadline && (
+                          <div className="alert alert-warning mt-3 mb-3">
+                            <strong>Lưu ý:</strong> Bạn chỉ có thể hủy booking trước ngày {cancelDeadline.toLocaleDateString('vi-VN')} (3 ngày trước ngày đi).
+                          </div>
+                        )}
+
                         <div className="tour-rating mt-3">
                           {booking.rating ? (
                             <div className="rated">
@@ -293,7 +352,7 @@ const MyBooking = () => {
                                 {[...Array(5)].map((_, i) => (
                                   <BsStarFill key={i} className={i < booking.rating.star ? 'text-warning' : 'text-muted'} />
                                 ))}
-                                <span className="ms-2">{booking.rating.star}/5 sao</span>
+                                <span className="ms-2 text-warning fs-4">{booking.rating.star}/5 sao</span>
                                 {booking.rating.tourRate && (
                                   <span className="ms-2 text-muted">| Tour: {booking.rating.tourRate}</span>
                                 )}

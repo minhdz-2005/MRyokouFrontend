@@ -49,7 +49,7 @@ const Login = () => {
 
       // Lấy thông tin account từ API riêng
       let accountData = null;
-      try {
+      if (res.data.user.role === 'user') try {
         const accountRes = await axios.get(
           `${import.meta.env.VITE_API_BASE_URL}/api/accounts/by-user/${res.data.user._id || res.data.user.id}`,
           {
@@ -74,9 +74,14 @@ const Login = () => {
         localStorage.removeItem('rememberedEmail');
       }
 
+      console.log('user role: ' + res.data.user.role);
       // Success animation trước khi điều hướng
       setTimeout(() => {
-        navigate('/');
+        if (res.data.user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
       }, 800);
 
     } catch (err) {

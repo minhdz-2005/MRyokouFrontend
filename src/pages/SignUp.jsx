@@ -107,11 +107,26 @@ const SignUp = () => {
     setLoading(true);
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
+      // Bước 1: Đăng ký user với role mặc định là 'user'
+      const registerResponse = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, {
         fullname: formData.fullname,
         email: formData.email,
-        password: formData.password
+        password: formData.password,
+        role: 'user' // Mặc định role là user
       });
+
+      // Bước 2: Tạo account cho user vừa đăng ký
+      if (registerResponse.data && registerResponse.data.user) {
+        const userId = registerResponse.data.user._id || registerResponse.data.user.id;
+        
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/accounts`, {
+          userID: userId,
+          avatar: '', // Để trống, user có thể cập nhật sau
+          description: '', // Để trống, user có thể cập nhật sau
+          country: '', // Để trống, user có thể cập nhật sau
+          phoneNumber: '' // Để trống, user có thể cập nhật sau
+        });
+      }
 
       // Success animation trước khi điều hướng
       setTimeout(() => {
