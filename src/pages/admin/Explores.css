@@ -1,0 +1,481 @@
+/* Explores specific styles */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.clear-search-btn:hover {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.clear-search-link {
+    background: none;
+    border: none;
+    color: #667eea;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.clear-search-link:hover {
+    color: #5a6fd8;
+}
+
+.results-info {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.9rem;
+    color: #6c757d;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Explore name styles */
+.explore-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* Explore location styles */
+.explore-location {
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+/* Region badge styles */
+.region-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
+    display: inline-block;
+    min-width: 80px;
+}
+
+.region-north {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+}
+
+.region-central {
+    background-color: #fff3e0;
+    color: #f57c00;
+    border: 1px solid #ffe0b2;
+}
+
+.region-south {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+    border: 1px solid #e1bee7;
+}
+
+.region-default {
+    background-color: #f5f5f5;
+    color: #666;
+    border: 1px solid #e0e0e0;
+}
+
+/* Explore description styles */
+.explore-description {
+    font-size: 0.85rem;
+    color: #6c757d;
+    line-height: 1.4;
+    max-width: 300px;
+}
+
+/* Explore images styles */
+.explore-images {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.image-count {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: #28a745;
+    font-weight: 500;
+}
+
+.image-count i {
+    font-size: 0.9rem;
+}
+
+.no-images {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Empty state styles */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #e9ecef;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: #495057;
+    font-size: 1.2rem;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Add Explore Modal Styles */
+.add-modal {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.add-explore-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.add-explore-form .modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.form-section h4 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e1e5e9;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Input with button styles */
+.input-with-button {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.input-with-button input,
+.input-with-button textarea {
+    flex: 1;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+}
+
+.add-array-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.add-array-btn:hover {
+    background-color: #218838;
+}
+
+/* Submit button styles */
+.submit-btn {
+    background-color: #667eea;
+    color: white;
+    border: 1px solid #667eea;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background-color: #5a6fd8;
+    border-color: #5a6fd8;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Delete modal specific styles */
+.delete-modal {
+    max-width: 500px;
+}
+
+.explore-preview {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.explore-preview > div {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.explore-preview > div:last-child {
+    margin-bottom: 0;
+}
+
+.preview-name,
+.preview-location,
+.preview-region {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.delete-confirm-btn {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-confirm-btn:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Table container styles */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .explore-description {
+        max-width: 200px;
+        font-size: 0.8rem;
+    }
+    
+    .results-info {
+        font-size: 0.8rem;
+        padding: 0.75rem;
+    }
+    
+    .region-badge {
+        font-size: 0.75rem;
+        min-width: 70px;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .add-modal {
+        max-width: 95vw;
+        margin: 1rem;
+    }
+    
+    .input-with-button {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .remove-btn {
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-table {
+        font-size: 0.8rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .explore-description {
+        max-width: 150px;
+        font-size: 0.75rem;
+    }
+    
+    .results-info {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+    
+    .region-badge {
+        font-size: 0.7rem;
+        min-width: 60px;
+        padding: 0.15rem 0.3rem;
+    }
+    
+    .image-count,
+    .no-images {
+        font-size: 0.8rem;
+    }
+    
+    .form-section {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 0.75rem;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+} 

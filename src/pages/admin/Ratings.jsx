@@ -1,41 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import './Ratings.css';
 
 const Ratings = () => {
     const [ratings, setRatings] = useState([]);
     const [filteredRatings, setFilteredRatings] = useState([]);
-    const [bookings, setBookings] = useState({});
-    const [tours, setTours] = useState({});
-    const [users, setUsers] = useState({});
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedRating, setSelectedRating] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [actionLoading, setActionLoading] = useState(false);
+    const [selectedRating, setSelectedRating] = useState(null);
 
-    // Fetch booking details by ID
-    const fetchBookingDetails = async (bookingId) => {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/bookings/${bookingId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Không thể tải thông tin đặt tour');
-            }
-
-            const bookingData = await response.json();
-            return bookingData;
-        } catch (error) {
-            console.error('Error fetching booking details:', error);
-            return null;
-        }
-    };
-
-    // Fetch tour details by ID
+    // Fetch tour details
     const fetchTourDetails = async (tourId) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/tours/${tourId}`, {
@@ -44,46 +19,23 @@ const Ratings = () => {
                     'Content-Type': 'application/json',
                 },
             });
-
+            
             if (!response.ok) {
                 throw new Error('Không thể tải thông tin tour');
             }
-
-            const tourData = await response.json();
-            return tourData;
-        } catch (error) {
-            console.error('Error fetching tour details:', error);
+            
+            return await response.json();
+        } catch (err) {
+            console.error('Error fetching tour details:', err);
             return null;
         }
     };
 
-    // Fetch user details by ID
-    const fetchUserDetails = async (userId) => {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Không thể tải thông tin người dùng');
-            }
-
-            const userData = await response.json();
-            return userData;
-        } catch (error) {
-            console.error('Error fetching user details:', error);
-            return null;
-        }
-    };
-
-    // Fetch ratings from API
+    // Fetch ratings data with tour details
     const fetchRatings = useCallback(async () => {
         try {
             setLoading(true);
-            setError(null);
+            setError('');
             
             const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/ratings`, {
                 method: 'GET',
@@ -91,52 +43,46 @@ const Ratings = () => {
                     'Content-Type': 'application/json',
                 },
             });
-
+            
             if (!response.ok) {
-                throw new Error('Không thể tải danh sách đánh giá');
+                throw new Error('Không thể tải dữ liệu đánh giá');
             }
 
-            const data = await response.json();
-            setRatings(data);
-
-            // Fetch booking, tour, and user details for each rating
-            const bookingDetails = {};
-            const tourDetails = {};
-            const userDetails = {};
-
-            for (const rating of data) {
-                console.log(rating + "RATING");
-                if (rating.booking) {
-                    const bookingData = await fetchBookingDetails(rating.booking);
-                    if (bookingData) {
-                        bookingDetails[rating.booking] = bookingData;
-                        
-                        // Fetch tour details if booking has tour
-                        if (bookingData.tour) {
-                            const tourData = await fetchTourDetails(bookingData.tour);
-                            if (tourData) {
-                                tourDetails[bookingData.tour] = tourData;
-                            }
-                        }
-                        
-                        // Fetch user details if booking has user
-                        if (bookingData.user) {
-                            const userData = await fetchUserDetails(bookingData.user);
-                            if (userData) {
-                                userDetails[bookingData.user] = userData;
-                            }
-                        }
+            const ratingsData = await response.json();
+            
+            console.log('RATING: ' + ratingsData);
+            
+            // Fetch tour details for each rating
+            const ratingsWithDetails = [];
+            console.log('Fetching tour details for ratings:', ratingsData.length);
+            
+            for (const rating of ratingsData) {
+                console.log('Fetching details for rating:', rating._id);
+                
+                let tourDetails = null;
+                
+                // Fetch tour details from booking
+                if (rating.booking?.tour) {
+                    console.log('Fetching tour details for tourId:', rating.booking.tour);
+                    tourDetails = await fetchTourDetails(rating.booking.tour);
+                    if (tourDetails) {
+                        console.log('Tour data loaded:', tourDetails.title);
+                    } else {
+                        console.log('Failed to load tour data for tourId:', rating.booking.tour);
                     }
                 }
+                
+                ratingsWithDetails.push({
+                    ...rating,
+                    tourDetails
+                });
             }
-
-            setBookings(bookingDetails);
-            setTours(tourDetails);
-            setUsers(userDetails);
-            setFilteredRatings(data);
-        } catch (error) {
-            console.error('Error fetching ratings:', error);
-            setError(error.message);
+            
+            console.log('All ratings with details loaded:', ratingsWithDetails.length);
+            setRatings(ratingsWithDetails);
+        } catch (err) {
+            setError(err.message);
+            console.error('Error fetching ratings:', err);
         } finally {
             setLoading(false);
         }
@@ -144,36 +90,41 @@ const Ratings = () => {
 
     // Filter ratings based on search term
     useEffect(() => {
-        if (searchTerm.trim() === '') {
+        if (!searchTerm.trim()) {
             setFilteredRatings(ratings);
         } else {
             const filtered = ratings.filter(rating => {
-                const booking = bookings[rating.booking];
-                const user = booking ? users[booking.user] : null;
-                const tour = booking ? tours[booking.tour] : null;
+                const searchLower = searchTerm.toLowerCase();
+                const userFullname = rating.user?.fullname || '';
+                const userEmail = rating.user?.email || '';
+                const tourTitle = rating.tourDetails?.title || '';
+                const tourLocation = rating.tourDetails?.location || '';
+                const tourRate = rating.tourRate || '';
+                const serviceRate = rating.serviceRate || '';
                 
                 return (
-                    (user?.fullName || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    (user?.email || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    (tour?.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    (rating.tourRate || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    (rating.serviceRate || '').toLowerCase().includes(searchTerm.toLowerCase())
+                    userFullname.toLowerCase().includes(searchLower) ||
+                    userEmail.toLowerCase().includes(searchLower) ||
+                    tourTitle.toLowerCase().includes(searchLower) ||
+                    tourLocation.toLowerCase().includes(searchLower) ||
+                    tourRate.toLowerCase().includes(searchLower) ||
+                    serviceRate.toLowerCase().includes(searchLower) ||
+                    rating.star.toString().includes(searchLower)
                 );
             });
             setFilteredRatings(filtered);
         }
-    }, [searchTerm, ratings, bookings, tours, users]);
+    }, [ratings, searchTerm]);
 
-    useEffect(() => {
-        fetchRatings();
-    }, [fetchRatings]);
+    // Delete rating
+    const handleDelete = (rating) => {
+        setSelectedRating(rating);
+        setShowDeleteModal(true);
+    };
 
-    // Handle rating deletion
-    const handleDelete = async (ratingId) => {
+    const handleConfirmDelete = async () => {
         try {
-            setActionLoading(true);
-            
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/ratings/${ratingId}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/ratings/${selectedRating._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -181,65 +132,66 @@ const Ratings = () => {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Không thể xóa đánh giá');
+                throw new Error('Không thể xóa đánh giá');
             }
 
-            // Refresh ratings list
-            await fetchRatings();
             setShowDeleteModal(false);
             setSelectedRating(null);
-        } catch (error) {
-            console.error('Error deleting rating:', error);
-            setError(error.message);
-        } finally {
-            setActionLoading(false);
+            fetchRatings(); // Refresh data
+        } catch (err) {
+            setError(err.message);
+            console.error('Error deleting rating:', err);
         }
     };
 
-    const openDeleteModal = (rating) => {
-        setSelectedRating(rating);
-        setShowDeleteModal(true);
+    // Handle search
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
     };
 
+    // Clear search
+    const clearSearch = () => {
+        setSearchTerm('');
+    };
+
+    // Format date
     const formatDate = (dateString) => {
-        if (!dateString) return 'N/A';
-        return new Date(dateString).toLocaleDateString('vi-VN');
+        return new Date(dateString).toLocaleDateString('vi-VN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     };
 
-    const renderStars = (rating) => {
+    // Render star rating
+    const renderStars = (stars) => {
         return (
             <div className="star-rating">
                 {[1, 2, 3, 4, 5].map((star) => (
-                    <span 
-                        key={star} 
-                        className={`star ${star <= rating ? 'filled' : 'empty'}`}
+                    <span
+                        key={star}
+                        className={`star ${star <= stars ? 'filled' : 'empty'}`}
                     >
                         ★
                     </span>
                 ))}
-                <span className="rating-number">({rating}/5)</span>
+                <span className="star-count">({stars})</span>
             </div>
         );
     };
 
+    // Fetch data on component mount
+    useEffect(() => {
+        fetchRatings();
+    }, [fetchRatings]);
+
     if (loading) {
         return (
-            <div className="component-container">
-                <div className="loading">Đang tải danh sách đánh giá...</div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="component-container">
-                <div className="error-message">
-                    <p>Lỗi: {error}</p>
-                    <button onClick={fetchRatings} className="retry-btn">
-                        Thử lại
-                    </button>
-                </div>
+            <div className="loading-container">
+                <div className="loading-spinner"></div>
+                <p>Đang tải dữ liệu đánh giá...</p>
             </div>
         );
     }
@@ -247,146 +199,189 @@ const Ratings = () => {
     return (
         <div className="component-container">
             <div className="component-header">
-                <h2 className="component-title">Quản lý đánh giá</h2>
-                <div className="header-actions">
-                    <div className="search-container">
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm theo tên, email, tên tour hoặc đánh giá..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="search-input"
-                        />
-                        <i className="fas fa-search search-icon"></i>
+                <div className="header-content">
+                    <h2 className="component-title">Quản lý Đánh giá</h2>
+                    <div className="header-actions">
+                        <div className="search-container">
+                            <input
+                                type="text"
+                                placeholder="Tìm kiếm đánh giá..."
+                                value={searchTerm}
+                                onChange={handleSearch}
+                                className="search-input"
+                            />
+                            <i className="fas fa-search search-icon"></i>
+                            {searchTerm && (
+                                <button 
+                                    onClick={clearSearch}
+                                    className="clear-search-btn"
+                                    title="Xóa tìm kiếm"
+                                >
+                                    <i className="fas fa-times"></i>
+                                </button>
+                            )}
+                        </div>
                     </div>
-                    <button className="add-btn" onClick={fetchRatings}>
-                        <i className="fas fa-refresh"></i>
-                        Làm mới
-                    </button>
                 </div>
             </div>
 
-            {error && (
-                <div className="error-message">
-                    <p>{error}</p>
-                </div>
-            )}
+            <div className="content-body">
+                {error && (
+                    <div className="error">
+                        <i className="fas fa-exclamation-triangle"></i>
+                        {error}
+                    </div>
+                )}
 
-            <div className="table-container">
-                <table className="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Khách hàng</th>
-                            <th>Tour</th>
-                            <th>Đánh giá sao</th>
-                            <th>Đánh giá tour</th>
-                            <th>Đánh giá dịch vụ</th>
-                            <th>Ngày đánh giá</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredRatings.length === 0 ? (
-                            <tr>
-                                <td colSpan="8" className="no-data">
-                                    {ratings.length === 0 ? 'Không có đánh giá nào' : 'Không tìm thấy kết quả phù hợp'}
-                                </td>
-                            </tr>
-                        ) : (
-                            filteredRatings.map((rating) => {
-                                const booking = bookings[rating.booking];
-                                const tour = booking ? tours[booking.tour] : null;
-                                
-                                return (
+                {filteredRatings.length === 0 ? (
+                    <div className="empty-state">
+                        <i className="fas fa-star"></i>
+                        <h3>
+                            {searchTerm ? 'Không tìm thấy kết quả' : 'Không có đánh giá nào'}
+                        </h3>
+                        <p>
+                            {searchTerm 
+                                ? `Không tìm thấy đánh giá nào phù hợp với "${searchTerm}"`
+                                : 'Chưa có đánh giá nào được tạo.'
+                            }
+                        </p>
+                        {searchTerm && (
+                            <button onClick={clearSearch} className="clear-search-link">
+                                Xóa tìm kiếm
+                            </button>
+                        )}
+                    </div>
+                ) : (
+                    <div className="table-container">
+                        <div className="results-info">
+                            Hiển thị {filteredRatings.length} đánh giá
+                            {searchTerm && ` cho "${searchTerm}"`}
+                        </div>
+                        <table className="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Người dùng</th>
+                                    <th>Tour</th>
+                                    <th>Đánh giá sao</th>
+                                    <th>Đánh giá tour</th>
+                                    <th>Đánh giá dịch vụ</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredRatings.map((rating) => (
                                     <tr key={rating._id}>
-                                        <td className='text-dark'>{rating._id}</td>
                                         <td>
-                                            <div className='text-dark'>
-                                                <strong>{booking?.fullName || 'N/A'}</strong>
-                                                <div>{booking?.email || 'N/A'}</div>
+                                            <div className="user-info">
+                                                <div className="user-avatar">
+                                                    <div className="avatar-fallback">
+                                                        {rating.user?.fullname?.charAt(0) || 'U'}
+                                                    </div>
+                                                </div>
+                                                <div className="user-details">
+                                                    <div className="user-name">
+                                                        {rating.user?.fullname || 'Khách'}
+                                                    </div>
+                                                    <div className="user-email">
+                                                        {rating.user?.email || 'N/A'}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <div>
-                                                <strong className='text-dark'>{tour?.title || 'N/A'}</strong>
-                                                {tour?.duration && (
-                                                    <div className="tour-info text-dark">
-                                                        {tour.duration} ngày
-                                                    </div>
-                                                )}
+                                            <div className="tour-info">
+                                                <div className="tour-name">
+                                                    {rating.tourDetails?.title || 'Tour không xác định'}
+                                                </div>
+                                                <div className="tour-location">
+                                                    {rating.tourDetails?.location || 'N/A'}
+                                                </div>
                                             </div>
                                         </td>
                                         <td>
                                             {renderStars(rating.star)}
                                         </td>
-                                        <td className='text-dark'>
-                                            <span className={`rate-badge ${rating.tourRate === 'Perfect' ? 'perfect' : rating.tourRate === 'Good' ? 'good' : 'average'}`}>
+                                        <td>
+                                            <span className="rate-badge tour-rate">
                                                 {rating.tourRate}
                                             </span>
                                         </td>
-                                        <td className='text-dark'>
-                                            <span className={`rate-badge ${rating.serviceRate === 'Perfect' ? 'perfect' : rating.serviceRate === 'Good' ? 'good' : 'average'}`}>
+                                        <td>
+                                            <span className="rate-badge service-rate">
                                                 {rating.serviceRate}
                                             </span>
                                         </td>
-                                        <td className='text-dark'>{formatDate(rating.createdAt)}</td>
+                                        <td>
+                                            <div className="date-info">
+                                                <div className="created-date">
+                                                    {formatDate(rating.createdAt)}
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div className="action-buttons">
-                                                <button 
+                                                <button
+                                                    onClick={() => handleDelete(rating)}
                                                     className="delete-btn"
-                                                    onClick={() => openDeleteModal(rating)}
+                                                    title="Xóa đánh giá"
                                                 >
                                                     <i className="fas fa-trash"></i>
-                                                    Xóa
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
-                                );
-                            })
-                        )}
-                    </tbody>
-                </table>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
 
-            {/* Delete Modal */}
-            {showDeleteModal && selectedRating && (
+            {/* Delete Confirmation Modal */}
+            {showDeleteModal && (
                 <div className="modal-overlay">
-                    <div className="modal">
+                    <div className="modal-content delete-modal">
                         <div className="modal-header">
-                            <h3>Xóa đánh giá</h3>
-                            <button 
-                                className="close-btn"
+                            <h3>Xác nhận xóa</h3>
+                            <button
                                 onClick={() => setShowDeleteModal(false)}
+                                className="close-btn"
                             >
-                                ×
+                                <i className="fas fa-times"></i>
                             </button>
                         </div>
                         <div className="modal-body">
-                            <p>Bạn có chắc chắn muốn xóa đánh giá này?</p>
-                            <div className="rating-details">
-                                <p><strong>Khách hàng:</strong> {users[bookings[selectedRating.booking]?.user]?.fullName || 'N/A'}</p>
-                                <p><strong>Tour:</strong> {tours[bookings[selectedRating.booking]?.tour]?.title || 'N/A'}</p>
-                                <p><strong>Đánh giá sao:</strong> {selectedRating.star}/5</p>
-                                <p><strong>Đánh giá tour:</strong> {selectedRating.tourRate}</p>
-                                <p><strong>Đánh giá dịch vụ:</strong> {selectedRating.serviceRate}</p>
-                            </div>
+                            <p>
+                                Bạn có chắc chắn muốn xóa đánh giá này không? 
+                                Hành động này không thể hoàn tác.
+                            </p>
+                            {selectedRating && (
+                                <div className="rating-preview">
+                                    <div className="preview-user">
+                                        <strong>Người dùng:</strong> {selectedRating.user?.fullname || 'Khách'}
+                                    </div>
+                                    <div className="preview-tour">
+                                        <strong>Tour:</strong> {selectedRating.tourDetails?.title || 'Tour không xác định'}
+                                    </div>
+                                    <div className="preview-rating">
+                                        <strong>Đánh giá:</strong> {renderStars(selectedRating.star)}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         <div className="modal-footer">
-                            <button 
-                                className="cancel-btn"
+                            <button
                                 onClick={() => setShowDeleteModal(false)}
-                                disabled={actionLoading}
+                                className="cancel-btn"
                             >
-                                Không
+                                Hủy
                             </button>
-                            <button 
-                                className="delete-btn"
-                                onClick={() => handleDelete(selectedRating._id)}
-                                disabled={actionLoading}
+                            <button
+                                onClick={handleConfirmDelete}
+                                className="delete-confirm-btn"
                             >
-                                {actionLoading ? 'Đang xử lý...' : 'Xóa đánh giá'}
+                                Xóa
                             </button>
                         </div>
                     </div>
