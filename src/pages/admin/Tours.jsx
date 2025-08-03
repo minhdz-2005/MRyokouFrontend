@@ -650,7 +650,7 @@ const Tours = () => {
 
     if (loading) {
         return (
-            <div className="component-container">
+            <div className="component-container tours-component">
                 <div className="loading">Đang tải dữ liệu...</div>
             </div>
         );
@@ -658,14 +658,14 @@ const Tours = () => {
 
     if (error) {
         return (
-            <div className="component-container">
+            <div className="component-container tours-component">
                 <div className="error">{error}</div>
             </div>
         );
     }
 
     return (
-        <div className="component-container">
+        <div className="component-container tours-component">
             <div className="component-header">
                 <h2 className="component-title">Quản lý tour</h2>
                 <div className="header-actions">
@@ -703,92 +703,122 @@ const Tours = () => {
                 </button>
             </div>
 
-            <div className="table-container">
-                <table className="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Ảnh</th>
-                            <th>Tên tour</th>
-                            <th>Địa điểm</th>
-                            <th>Thời gian</th>
-                            <th>Giá (VNĐ)</th>
-                            <th>Đánh giá</th>
-                            <th>Tags</th>
-                            <th>Ngày tạo</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            {filteredTours.length === 0 ? (
+                <div className="empty-state">
+                    <i className="fas fa-plane"></i>
+                    <h3>
+                        {searchTerm ? 'Không tìm thấy kết quả' : 'Không có tour nào'}
+                    </h3>
+                    <p>
+                        {searchTerm 
+                            ? `Không tìm thấy tour nào phù hợp với "${searchTerm}"`
+                            : 'Chưa có tour nào được tạo.'
+                        }
+                    </p>
+                </div>
+            ) : (
+                <>
+                    <div className="results-info">
+                        Hiển thị {filteredTours.length} tour
+                        {searchTerm && ` cho "${searchTerm}"`}
+                    </div>
+                    <div className="tours-grid">
                         {filteredTours.map((tour) => (
-                            <tr key={tour._id}>
-                                <td>
-                                    <div className="tour-image">
-                                        <img 
-                                            src={tour.image} 
-                                            alt={tour.title}
-                                            onError={(e) => {
-                                                e.target.src = '/images/travel.png';
-                                            }}
-                                        />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="tour-info">
-                                        <div className="tour-title">{tour.title}</div>
-                                    </div>
-                                </td>
-                                <td className='text-dark'>{tour.location}</td>
-                                <td className='text-dark'>{tour.duration}</td>
-                                <td className='text-dark'>{formatPrice(tour.price)}</td>
-                                <td>
-                                    <div className="rating">
-                                        <span className="rating-stars">
-                                            {'★'.repeat(Math.floor(tour.rating))}
-                                            {'☆'.repeat(5 - Math.floor(tour.rating))}
+                            <div key={tour._id} className="tour-card">
+                                <div className="tour-header">
+                                    <div className="tour-id">#{tour._id.slice(-8)}</div>
+                                    <div className="tour-rating">
+                                        <span className="rating-badge">
+                                            {tour.rating} ★
                                         </span>
-                                        <span className="rating-number">({tour.rating})</span>
                                     </div>
-                                </td>
-                                <td>
-                                    <div className="tags">
-                                        {tour.tags?.map((tag, index) => (
-                                            <span key={index} className="tag">{tag}</span>
-                                        ))}
+                                </div>
+                                
+                                <div className="tour-content">
+                                    <div className="tour-main-info">
+                                        <div className="tour-image-section">
+                                            <img 
+                                                src={tour.image} 
+                                                alt={tour.title}
+                                                className="tour-main-image"
+                                                onError={(e) => {
+                                                    e.target.src = '/images/travel.png';
+                                                }}
+                                            />
+                                            <div className="tour-basic-info">
+                                                <h4 className="tour-title-main">{tour.title}</h4>
+                                                <div className="tour-location">
+                                                    <i className="fas fa-map-marker-alt"></i>
+                                                    <span>{tour.location}</span>
+                                                </div>
+                                                <div className="tour-duration">
+                                                    <i className="fas fa-clock"></i>
+                                                    <span>{tour.duration} ngày</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </td>
-                                <td className='text-dark'>{formatDate(tour.createdAt)}</td>
-                                <td>
-                                    <div className="action-buttons">
-                                        <button 
-                                            className="edit-btn"
-                                            onClick={() => handleEdit(tour)}
-                                        >
-                                            <i className="fas fa-edit"></i>
-                                            Sửa
-                                        </button>
-                                        {!tourDetails[tour._id] && (
-                                            <button 
-                                                className="add-detail-btn"
-                                                onClick={() => handleAddDetail(tour)}
-                                            >
-                                                <i className="fas fa-plus"></i>
-                                                Thêm chi tiết
-                                            </button>
+                                    
+                                    <div className="tour-details">
+                                        <div className="tour-price">
+                                            {formatPrice(tour.price)} VNĐ
+                                        </div>
+                                        <div className="tour-rating-display">
+                                            <span className="rating-stars">
+                                                {'★'.repeat(Math.floor(tour.rating))}
+                                                {'☆'.repeat(5 - Math.floor(tour.rating))}
+                                            </span>
+                                            <span className="rating-number">({tour.rating})</span>
+                                        </div>
+                                        {tour.tags && tour.tags.length > 0 && (
+                                            <div className="tour-tags">
+                                                {tour.tags.map((tag, index) => (
+                                                    <span key={index} className="tour-tag">{tag}</span>
+                                                ))}
+                                            </div>
                                         )}
-                                        <button 
-                                            className="delete-btn"
-                                            onClick={() => handleDelete(tour)}
-                                        >
-                                            <i className="fas fa-trash"></i>
-                                            Xóa
-                                        </button>
                                     </div>
-                                </td>
-                            </tr>
+                                    
+                                    <div className="tour-status">
+                                        <div className="tour-detail-status">
+                                            {tourDetails[tour._id] ? 'Đã có chi tiết' : 'Chưa có chi tiết'}
+                                        </div>
+                                        <div className="tour-created-date">
+                                            Tạo ngày: {formatDate(tour.createdAt)}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="tour-actions">
+                                    <button 
+                                        className="action-btn edit-btn"
+                                        onClick={() => handleEdit(tour)}
+                                        title="Sửa tour"
+                                    >
+                                        <i className="fas fa-edit"></i>
+                                    </button>
+                                    {!tourDetails[tour._id] && (
+                                        <button 
+                                            className="action-btn add-detail-btn"
+                                            onClick={() => handleAddDetail(tour)}
+                                            title="Thêm chi tiết"
+                                        >
+                                            <i className="fas fa-plus"></i>
+                                        </button>
+                                    )}
+                                    <button 
+                                        className="action-btn delete-btn"
+                                        onClick={() => handleDelete(tour)}
+                                        title="Xóa tour"
+                                    >
+                                        <i className="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
                         ))}
-                    </tbody>
-                </table>
-            </div>
+                    </div>
+                </>
+            )}
 
             {/* Pagination */}
             {totalPages > 1 && (
@@ -862,6 +892,7 @@ const Tours = () => {
                                     <input
                                         type="text"
                                         name="title"
+                                        className='text-dark'
                                         value={formData.title}
                                         onChange={handleInputChange}
                                         required
@@ -872,6 +903,7 @@ const Tours = () => {
                                     <input
                                         type="text"
                                         name="location"
+                                        className='text-dark'
                                         value={formData.location}
                                         onChange={handleInputChange}
                                         required
@@ -881,6 +913,7 @@ const Tours = () => {
                                     <label>Mô tả *</label>
                                     <textarea
                                         name="description"
+                                        className='text-dark'
                                         value={formData.description}
                                         onChange={handleInputChange}
                                         required
@@ -893,6 +926,7 @@ const Tours = () => {
                                         <input
                                             type="number"
                                             name="price"
+                                        className='text-dark'
                                             value={formData.price}
                                             onChange={handleInputChange}
                                             required
@@ -904,6 +938,7 @@ const Tours = () => {
                                         <input
                                             type="number"
                                             name="duration"
+                                        className='text-dark'
                                             value={formData.duration}
                                             onChange={handleInputChange}
                                             required
@@ -916,6 +951,7 @@ const Tours = () => {
                                     <input
                                         type="url"
                                         name="image"
+                                        className='text-dark'
                                         value={formData.image}
                                         onChange={handleInputChange}
                                         required
@@ -924,20 +960,23 @@ const Tours = () => {
                                 <div className="form-group">
                                     <label>Tags</label>
                                     <div className="array-input-container">
-                                    <input
-                                        type="text"
-                                            value={tempInputValues.tags}
-                                        onChange={(e) => handleArrayInputChange('tags', e.target.value)}
-                                            placeholder="VD: beach"
-                                        />
-                                        <button 
-                                            type="button" 
-                                            className="add-item-btn"
-                                            onClick={() => handleAddFormArrayItem('tags')}
-                                        >
-                                            <i className="fas fa-plus"></i>
-                                            Thêm
-                                        </button>
+                                        <div className="input-group">
+                                            <input
+                                                type="text"
+                                        className='text-dark'
+                                                value={tempInputValues.tags}
+                                                onChange={(e) => handleArrayInputChange('tags', e.target.value)}
+                                                placeholder="VD: beach"
+                                            />
+                                            <button 
+                                                type="button" 
+                                                className="add-item-btn"
+                                                onClick={() => handleAddFormArrayItem('tags')}
+                                            >
+                                                <i className="fas fa-plus"></i>
+                                                Thêm
+                                            </button>
+                                        </div>
                                     </div>
                                     {formData.tags.length > 0 && (
                                         <div className="array-items">
@@ -965,6 +1004,7 @@ const Tours = () => {
                                     <div className="array-input-container">
                                         <div className="input-group">
                                     <input
+                                        className='text-dark'
                                         type="text"
                                                 value={tempInputValues.image}
                                         onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
@@ -1001,9 +1041,9 @@ const Tours = () => {
                                     <label>Điểm nổi bật</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                            <textarea className='text-dark'
                                                 value={tempInputValues.highlights}
-                                        onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
+                                                onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
                                                 placeholder="VD: Khám phá vịnh Hạ Long"
                                             />
                                             <button 
@@ -1037,9 +1077,9 @@ const Tours = () => {
                                     <label>Lịch trình</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                            <textarea className='text-dark'
                                                 value={tempInputValues.itinerary}
-                                        onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
+                                                onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
                                                 placeholder="VD: Ngày 1: Khởi hành từ Hà Nội"
                                             />
                                             <button 
@@ -1073,9 +1113,9 @@ const Tours = () => {
                                     <label>Ghi chú</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                            <textarea className='text-dark'
                                                 value={tempInputValues.notes}
-                                        onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
+                                                onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
                                                 placeholder="VD: Mang theo kem chống nắng"
                                             />
                                             <button 
@@ -1133,7 +1173,7 @@ const Tours = () => {
                                                         <div className="form-row">
                                                             <div className="form-group">
                                                                 <label>Ngày khởi hành *</label>
-                                                                <input
+                                                                <input className='text-dark'
                                                                     type="date"
                                                                     value={schedule.startDate}
                                                                     onChange={(e) => handleScheduleChange(index, 'startDate', e.target.value)}
@@ -1142,7 +1182,7 @@ const Tours = () => {
                                                             </div>
                                                             <div className="form-group">
                                                                 <label>Ngày kết thúc *</label>
-                                                                <input
+                                                                <input className='text-dark'
                                                                     type="date"
                                                                     value={schedule.endDate}
                                                                     onChange={(e) => handleScheduleChange(index, 'endDate', e.target.value)}
@@ -1157,7 +1197,7 @@ const Tours = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Trạng thái</label>
-                                                            <select
+                                                            <select className='text-dark'
                                                                 value={schedule.status}
                                                                 onChange={(e) => handleScheduleChange(index, 'status', e.target.value)}
                                                             >
@@ -1205,7 +1245,7 @@ const Tours = () => {
                                 <h4>Thông tin cơ bản</h4>
                                 <div className="form-group">
                                     <label>Tên tour *</label>
-                                    <input
+                                    <input className='text-dark'
                                         type="text"
                                         name="title"
                                         value={formData.title}
@@ -1215,7 +1255,7 @@ const Tours = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>Địa điểm *</label>
-                                    <input
+                                    <input className='text-dark'
                                         type="text"
                                         name="location"
                                         value={formData.location}
@@ -1225,7 +1265,7 @@ const Tours = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>Mô tả *</label>
-                                    <textarea
+                                    <textarea className='text-dark'
                                         name="description"
                                         value={formData.description}
                                         onChange={handleInputChange}
@@ -1236,7 +1276,7 @@ const Tours = () => {
                                 <div className="form-row">
                                     <div className="form-group">
                                         <label>Giá (VNĐ) *</label>
-                                        <input
+                                        <input className='text-dark'
                                             type="number"
                                             name="price"
                                             value={formData.price}
@@ -1247,7 +1287,7 @@ const Tours = () => {
                                     </div>
                                     <div className="form-group">
                                         <label>Thời gian *</label>
-                                        <input
+                                        <input className='text-dark'
                                             type="number"
                                             name="duration"
                                             value={formData.duration}
@@ -1258,7 +1298,7 @@ const Tours = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>Ảnh đại diện (URL) *</label>
-                                    <input
+                                    <input className='text-dark'
                                         type="url"
                                         name="image"
                                         value={formData.image}
@@ -1269,37 +1309,39 @@ const Tours = () => {
                                 <div className="form-group">
                                     <label>Tags</label>
                                     <div className="array-input-container">
-                                    <input
-                                        type="text"
-                                            value={tempInputValues.tags}
-                                        onChange={(e) => handleArrayInputChange('tags', e.target.value)}
-                                            placeholder="VD: beach"
-                                        />
-                                        <button 
-                                            type="button" 
-                                            className="add-item-btn"
-                                            onClick={() => handleAddFormArrayItem('tags')}
-                                        >
-                                            <i className="fas fa-plus"></i>
-                                            Thêm
-                                        </button>
-                                    </div>
-                                    {formData.tags.length > 0 && (
-                                        <div className="array-items">
-                                            {formData.tags.map((tag, index) => (
-                                                <div key={index} className="array-item">
-                                                    <span>{tag}</span>
-                                                    <button 
-                                                        type="button" 
-                                                        className="remove-item-btn"
-                                                        onClick={() => handleRemoveFormArrayItem('tags', index)}
-                                                    >
-                                                        <i className="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            ))}
+                                        <div className="input-group">
+                                            <input className='text-dark'
+                                                type="text"
+                                                value={tempInputValues.tags}
+                                                onChange={(e) => handleArrayInputChange('tags', e.target.value)}
+                                                placeholder="VD: beach"
+                                            />
+                                            <button 
+                                                type="button" 
+                                                className="add-item-btn"
+                                                onClick={() => handleAddFormArrayItem('tags')}
+                                            >
+                                                <i className="fas fa-plus"></i>
+                                                Thêm
+                                            </button>
                                         </div>
-                                    )}
+                                        {formData.tags.length > 0 && (
+                                            <div className="array-items">
+                                                {formData.tags.map((tag, index) => (
+                                                    <div key={index} className="array-item">
+                                                        <span className='text-dark'>{tag}</span>
+                                                        <button 
+                                                            type="button" 
+                                                            className="remove-item-btn"
+                                                            onClick={() => handleRemoveFormArrayItem('tags', index)}
+                                                        >
+                                                            <i className="fas fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
@@ -1309,10 +1351,10 @@ const Tours = () => {
                                     <label>Ảnh chi tiết</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <input
-                                        type="text"
+                                    <input className='text-dark'
+                                                type="text"
                                                 value={tempInputValues.image}
-                                        onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
+                                                onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
                                                 placeholder="VD: https://example.com/image1.jpg"
                                             />
                                             <button 
@@ -1328,7 +1370,7 @@ const Tours = () => {
                                             <div className="array-items">
                                                 {tourDetailForm.image.map((item, index) => (
                                                     <div key={index} className="array-item">
-                                                        <span>{item}</span>
+                                                        <span className='text-dark'>{item}</span>
                                                         <button 
                                                             type="button" 
                                                             className="remove-item-btn"
@@ -1346,7 +1388,7 @@ const Tours = () => {
                                     <label>Điểm nổi bật</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                            <textarea className='text-dark'
                                                 value={tempInputValues.highlights}
                                         onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
                                                 placeholder="VD: Khám phá vịnh Hạ Long"
@@ -1364,7 +1406,7 @@ const Tours = () => {
                                             <div className="array-items">
                                                 {tourDetailForm.highlights.map((item, index) => (
                                                     <div key={index} className="array-item">
-                                                        <span>{item}</span>
+                                                        <span className='text-dark'>{item}</span>
                                                         <button 
                                                             type="button" 
                                                             className="remove-item-btn"
@@ -1382,7 +1424,7 @@ const Tours = () => {
                                     <label>Lịch trình</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                    <textarea className='text-dark'
                                                 value={tempInputValues.itinerary}
                                         onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
                                                 placeholder="VD: Ngày 1: Khởi hành từ Hà Nội"
@@ -1400,7 +1442,7 @@ const Tours = () => {
                                             <div className="array-items">
                                                 {tourDetailForm.itinerary.map((item, index) => (
                                                     <div key={index} className="array-item">
-                                                        <span>{item}</span>
+                                                        <span className='text-dark'>{item}</span>
                                                         <button 
                                                             type="button" 
                                                             className="remove-item-btn"
@@ -1418,7 +1460,7 @@ const Tours = () => {
                                     <label>Ghi chú</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                    <textarea className='text-dark'
                                                 value={tempInputValues.notes}
                                         onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
                                                 placeholder="VD: Mang theo kem chống nắng"
@@ -1436,7 +1478,7 @@ const Tours = () => {
                                             <div className="array-items">
                                                 {tourDetailForm.notes.map((item, index) => (
                                                     <div key={index} className="array-item">
-                                                        <span>{item}</span>
+                                                        <span className='text-dark'>{item}</span>
                                                         <button 
                                                             type="button" 
                                                             className="remove-item-btn"
@@ -1478,7 +1520,7 @@ const Tours = () => {
                                                         <div className="form-row">
                                                             <div className="form-group">
                                                                 <label>Ngày khởi hành *</label>
-                                                                <input
+                                                                <input className='text-dark'
                                                                     type="date"
                                                                     value={schedule.startDate}
                                                                     onChange={(e) => handleScheduleChange(index, 'startDate', e.target.value)}
@@ -1487,7 +1529,7 @@ const Tours = () => {
                                                             </div>
                                                             <div className="form-group">
                                                                 <label>Ngày kết thúc *</label>
-                                                                <input
+                                                                <input className='text-dark'
                                                                     type="date"
                                                                     value={schedule.endDate}
                                                                     onChange={(e) => handleScheduleChange(index, 'endDate', e.target.value)}
@@ -1502,7 +1544,7 @@ const Tours = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Trạng thái</label>
-                                                            <select
+                                                            <select className='text-dark'
                                                                 value={schedule.status}
                                                                 onChange={(e) => handleScheduleChange(index, 'status', e.target.value)}
                                                             >
@@ -1552,10 +1594,10 @@ const Tours = () => {
                                     <label>Ảnh chi tiết</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <input
-                                        type="text"
+                                            <input className='text-dark'
+                                                type="text"
                                                 value={tempInputValues.image}
-                                        onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
+                                                onChange={(e) => handleTourDetailArrayInputChange('image', e.target.value)}
                                                 placeholder="VD: https://example.com/image1.jpg"
                                             />
                                             <button 
@@ -1589,7 +1631,7 @@ const Tours = () => {
                                     <label>Điểm nổi bật</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                    <textarea className='text-dark'
                                                 value={tempInputValues.highlights}
                                         onChange={(e) => handleTourDetailArrayInputChange('highlights', e.target.value)}
                                                 placeholder="VD: Khám phá vịnh Hạ Long"
@@ -1625,7 +1667,7 @@ const Tours = () => {
                                     <label>Lịch trình</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                    <textarea className='text-dark'
                                                 value={tempInputValues.itinerary}
                                         onChange={(e) => handleTourDetailArrayInputChange('itinerary', e.target.value)}
                                                 placeholder="VD: Ngày 1: Khởi hành từ Hà Nội"
@@ -1661,7 +1703,7 @@ const Tours = () => {
                                     <label>Ghi chú</label>
                                     <div className="array-input-container">
                                         <div className="input-group">
-                                    <textarea
+                                    <textarea className='text-dark'
                                                 value={tempInputValues.notes}
                                         onChange={(e) => handleTourDetailArrayInputChange('notes', e.target.value)}
                                                 placeholder="VD: Mang theo kem chống nắng"
@@ -1721,7 +1763,7 @@ const Tours = () => {
                                                         <div className="form-row">
                                                             <div className="form-group">
                                                                 <label>Ngày khởi hành *</label>
-                                                                <input
+                                                                <input className='text-dark'
                                                                     type="date"
                                                                     value={schedule.startDate}
                                                                     onChange={(e) => handleScheduleChange(index, 'startDate', e.target.value)}
@@ -1730,7 +1772,7 @@ const Tours = () => {
                                                             </div>
                                                             <div className="form-group">
                                                                 <label>Ngày kết thúc *</label>
-                                                                <input
+                                                                <input className='text-dark'
                                                                     type="date"
                                                                     value={schedule.endDate}
                                                                     onChange={(e) => handleScheduleChange(index, 'endDate', e.target.value)}
@@ -1745,7 +1787,7 @@ const Tours = () => {
                                                         </div>
                                                         <div className="form-group">
                                                             <label>Trạng thái</label>
-                                                            <select
+                                                            <select className='text-dark'
                                                                 value={schedule.status}
                                                                 onChange={(e) => handleScheduleChange(index, 'status', e.target.value)}
                                                             >
@@ -1783,16 +1825,16 @@ const Tours = () => {
                         <div className="delete-confirm-content">
                             <div className="delete-warning">
                                 <i className="fas fa-exclamation-triangle"></i>
-                                <h4>Xác nhận xóa tour</h4>
+                                <h4 className='text-dark'>Xác nhận xóa tour</h4>
                             </div>
-                            <p>Bạn có chắc chắn muốn xóa tour <strong>"{selectedTour.title}"</strong>?</p>
-                            <p>Hành động này sẽ xóa:</p>
+                            <p className='text-dark'>Bạn có chắc chắn muốn xóa tour <strong>"{selectedTour.title}"</strong>?</p>
+                            <p className='text-dark'>Hành động này sẽ xóa:</p>
                             <ul>
-                                <li>Thông tin tour cơ bản</li>
-                                <li>Chi tiết tour (nếu có)</li>
-                                <li>Tất cả đánh giá và bình luận</li>
+                                <li className='text-dark'>Thông tin tour cơ bản</li>
+                                <li className='text-dark'>Chi tiết tour (nếu có)</li>
+                                <li className='text-dark'>Tất cả đánh giá và bình luận</li>
                             </ul>
-                            <p><strong>Hành động này không thể hoàn tác!</strong></p>
+                            <p className='text-dark'><strong>Hành động này không thể hoàn tác!</strong></p>
                             
                             {submitError && <div className="submit-error">{submitError}</div>}
                             

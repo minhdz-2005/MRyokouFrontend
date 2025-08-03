@@ -352,20 +352,23 @@ const Explores = () => {
 
     if (loading) {
         return (
-            <div className="loading-container">
-                <div className="loading-spinner"></div>
-                <p>Đang tải dữ liệu khám phá...</p>
+            <div className="component-container explores-component">
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p>Đang tải dữ liệu khám phá...</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="component-container">
+        <div className="component-container explores-component">
             <div className="component-header">
                 <div className="header-content">
                     <h2 className="component-title">Quản lý Khám phá</h2>
                     <div className="header-actions">
                         <div className="search-container">
+                            <i className="fas fa-search search-icon"></i>
                             <input
                                 type="text"
                                 placeholder="Tìm kiếm khám phá..."
@@ -373,7 +376,6 @@ const Explores = () => {
                                 onChange={handleSearch}
                                 className="search-input"
                             />
-                            <i className="fas fa-search search-icon"></i>
                             {searchTerm && (
                                 <button 
                                     onClick={clearSearch}
@@ -419,48 +421,41 @@ const Explores = () => {
                         )}
                     </div>
                 ) : (
-                    <div className="table-container">
+                    <>
                         <div className="results-info">
                             Hiển thị {filteredExplores.length} khám phá
                             {searchTerm && ` cho "${searchTerm}"`}
                         </div>
-                        <table className="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên khám phá</th>
-                                    <th>Địa điểm</th>
-                                    <th>Miền</th>
-                                    <th>Mô tả</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredExplores.map((explore) => (
-                                    <tr key={explore._id}>
-                                        <td>{explore._id}</td>
-                                        <td>
-                                            <div className="explore-name">
-                                                <strong>{explore.name}</strong>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="explore-location">
-                                                {explore.location}
-                                            </div>
-                                        </td>
-                                        <td>
+                        <div className="explores-grid">
+                            {filteredExplores.map((explore) => (
+                                <div key={explore._id} className="explore-card">
+                                    <div className="explore-header">
+                                        <div className="explore-id">#{explore._id.slice(-8)}</div>
+                                        <div className="explore-region">
                                             <span className={`region-badge ${getRegionBadgeClass(explore.region)}`}>
                                                 {formatRegion(explore.region)}
                                             </span>
-                                        </td>
-                                        <td>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="explore-content">
+                                        <div className="explore-info">
+                                            <h4 className="explore-name">{explore.name}</h4>
+                                            <div className="explore-location">
+                                                <i className="fas fa-map-marker-alt"></i>
+                                                <span>{explore.location}</span>
+                                            </div>
+                                            <div className="explore-region-display">
+                                                <span className={`region-badge ${getRegionBadgeClass(explore.region)}`}>
+                                                    {formatRegion(explore.region)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="explore-details">
                                             <div className="explore-description">
                                                 {formatDescription(explore.fullDesc)}
                                             </div>
-                                        </td>
-                                        <td>
                                             <div className="explore-images">
                                                 {explore.image && explore.image.length > 0 ? (
                                                     <div className="image-count">
@@ -471,30 +466,29 @@ const Explores = () => {
                                                     <span className="no-images">Không có ảnh</span>
                                                 )}
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div className="action-buttons">
-                                                <button 
-                                                    className="edit-btn"
-                                                    onClick={() => handleEditExplore(explore)}
-                                                    title="Sửa khám phá"
-                                                >
-                                                    <i className="fas fa-edit"></i>
-                                                </button>
-                                                <button 
-                                                    className="delete-btn"
-                                                    onClick={() => handleDelete(explore)}
-                                                    title="Xóa khám phá"
-                                                >
-                                                    <i className="fas fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="explore-actions">
+                                        <button 
+                                            className="action-btn edit-btn"
+                                            onClick={() => handleEditExplore(explore)}
+                                            title="Sửa khám phá"
+                                        >
+                                            <i className="fas fa-edit"></i>
+                                        </button>
+                                        <button 
+                                            className="action-btn delete-btn"
+                                            onClick={() => handleDelete(explore)}
+                                            title="Xóa khám phá"
+                                        >
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </>
                 )}
             </div>
 
@@ -523,7 +517,7 @@ const Explores = () => {
                                             name="name"
                                             value={formData.name}
                                             onChange={handleInputChange}
-                                            className={formErrors.name ? 'error' : ''}
+                                            className={formErrors.name ? 'error' : ' text-dark'}
                                             placeholder="Nhập tên khám phá"
                                         />
                                         {formErrors.name && (
@@ -539,7 +533,7 @@ const Explores = () => {
                                             name="location"
                                             value={formData.location}
                                             onChange={handleInputChange}
-                                            className={formErrors.location ? 'error' : ''}
+                                            className={formErrors.location ? 'error' : ' text-dark'}
                                             placeholder="Nhập địa điểm"
                                         />
                                         {formErrors.location && (
@@ -554,7 +548,7 @@ const Explores = () => {
                                             name="region"
                                             value={formData.region}
                                             onChange={handleInputChange}
-                                            className={formErrors.region ? 'error' : ''}
+                                            className={formErrors.region ? 'error' : 'text-dark'}
                                         >
                                             <option value="north">Miền Bắc</option>
                                             <option value="central">Miền Trung</option>
@@ -572,7 +566,7 @@ const Explores = () => {
                                         <div key={index} className="form-group">
                                             <label>Mô tả {index + 1}</label>
                                             <div className="input-with-button">
-                                                <textarea
+                                                <textarea className='text-dark'
                                                     value={desc}
                                                     onChange={(e) => handleArrayInputChange('fullDesc', index, e.target.value)}
                                                     placeholder="Nhập mô tả"
@@ -610,7 +604,7 @@ const Explores = () => {
                                         <div key={index} className="form-group">
                                             <label>URL ảnh {index + 1}</label>
                                             <div className="input-with-button">
-                                                <input
+                                                <input className='text-dark'
                                                     type="url"
                                                     value={img}
                                                     onChange={(e) => handleArrayInputChange('image', index, e.target.value)}
@@ -685,7 +679,7 @@ const Explores = () => {
                                             name="name"
                                             value={formData.name}
                                             onChange={handleInputChange}
-                                            className={formErrors.name ? 'error' : ''}
+                                            className={formErrors.name ? 'error' : 'text-dark'}
                                             placeholder="Nhập tên khám phá"
                                         />
                                         {formErrors.name && (
@@ -701,7 +695,7 @@ const Explores = () => {
                                             name="location"
                                             value={formData.location}
                                             onChange={handleInputChange}
-                                            className={formErrors.location ? 'error' : ''}
+                                            className={formErrors.location ? 'error' : 'text-dark'}
                                             placeholder="Nhập địa điểm"
                                         />
                                         {formErrors.location && (
@@ -716,7 +710,7 @@ const Explores = () => {
                                             name="region"
                                             value={formData.region}
                                             onChange={handleInputChange}
-                                            className={formErrors.region ? 'error' : ''}
+                                            className={formErrors.region ? 'error' : 'text-dark'}
                                         >
                                             <option value="north">Miền Bắc</option>
                                             <option value="central">Miền Trung</option>
@@ -734,7 +728,7 @@ const Explores = () => {
                                         <div key={index} className="form-group">
                                             <label>Mô tả {index + 1}</label>
                                             <div className="input-with-button">
-                                                <textarea
+                                                <textarea className='text-dark'
                                                     value={desc}
                                                     onChange={(e) => handleArrayInputChange('fullDesc', index, e.target.value)}
                                                     placeholder="Nhập mô tả"
@@ -772,7 +766,7 @@ const Explores = () => {
                                         <div key={index} className="form-group">
                                             <label>URL ảnh {index + 1}</label>
                                             <div className="input-with-button">
-                                                <input
+                                                <input className='text-dark'
                                                     type="url"
                                                     value={img}
                                                     onChange={(e) => handleArrayInputChange('image', index, e.target.value)}

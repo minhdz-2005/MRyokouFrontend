@@ -129,7 +129,6 @@ const Bookings = () => {
         }
     };
 
-
     const openCancelModal = (booking) => {
         setSelectedBooking(booking);
         setShowCancelModal(true);
@@ -146,7 +145,6 @@ const Bookings = () => {
 
     // Check if booking has ended
     const isBookingEnded = (booking) => {
-        // Kiểm tra nếu không có dữ liệu tour hoặc departure date
         if (!booking.departureDate) {
             console.log('No departure date for booking:', booking._id);
             return false;
@@ -165,12 +163,11 @@ const Bookings = () => {
         const departureDate = new Date(booking.departureDate);
         const tourDuration = parseInt(tours[booking.tour].duration);
         
-        // Tính ngày kết thúc tour (ngày cuối cùng của tour)
         const endDate = new Date(departureDate);
-        endDate.setDate(departureDate.getDate() + tourDuration - 1); // Trừ 1 vì ngày đầu cũng tính
+        endDate.setDate(departureDate.getDate() + tourDuration - 1);
         
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
+        today.setHours(0, 0, 0, 0);
         
         const isEnded = endDate < today;
         
@@ -185,8 +182,6 @@ const Bookings = () => {
         
         return isEnded;
     };
-
-
 
     if (loading) {
         return (
@@ -210,24 +205,27 @@ const Bookings = () => {
     }
 
     return (
-        <div className="component-container">
+        <div className="component-container bookings-component">
             <div className="component-header">
-                <h2 className="component-title">Quản lý đặt tour</h2>
-                <div className="header-actions">
-                    <div className="search-container">
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm theo tên, email, số điện thoại hoặc tên tour..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="search-input"
-                        />
-                        <i className="fas fa-search search-icon"></i>
+                <div className="header-content">
+                    <h2 className="component-title">Quản lý đặt tour</h2>
+                    <div className="header-actions">
+                        <div className="search-container">
+                            <i className="fas fa-search search-icon"></i>
+                            <input
+                                type="text"
+                                placeholder="Tìm kiếm theo tên, email, số điện thoại hoặc tên tour..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="search-input"
+                            />
+                            
+                        </div>
+                        <button className="refresh-btn" onClick={fetchBookings}>
+                            <i className="fas fa-refresh"></i>
+                            Làm mới
+                        </button>
                     </div>
-                    <button className="add-btn" onClick={fetchBookings}>
-                        <i className="fas fa-refresh"></i>
-                        Làm mới
-                    </button>
                 </div>
             </div>
 
@@ -237,105 +235,116 @@ const Bookings = () => {
                 </div>
             )}
 
-            <div className="table-container">
-                <table className="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Khách hàng</th>
-                            <th>Thông tin liên hệ</th>
-                            <th>Tour</th>
-                            <th>Ngày đặt</th>
-                            <th>Ngày đi</th>
-                            <th>Số người</th>
-                            <th>Tổng tiền</th>
-                            <th>Ghi chú</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                                                 {filteredBookings.length === 0 ? (
-                             <tr>
-                                 <td colSpan="10" className="no-data">
-                                     {bookings.length === 0 ? 'Không có đặt tour nào' : 'Không tìm thấy kết quả phù hợp'}
-                                 </td>
-                             </tr>
-                         ) : (
-                             filteredBookings.map((booking) => (
-                                <tr key={booking._id}>
-                                    <td className='text-dark'>{booking._id}</td>
-                                    <td>
-                                        <div className='text-dark'>
-                                            <strong>{booking.fullName}</strong>
+            {filteredBookings.length === 0 ? (
+                <div className="empty-state">
+                    <i className="fas fa-calendar-times"></i>
+                    <h3>
+                        {bookings.length === 0 ? 'Không có đặt tour nào' : 'Không tìm thấy kết quả phù hợp'}
+                    </h3>
+                    <p>
+                        {bookings.length === 0 
+                            ? 'Chưa có đặt tour nào được tạo.'
+                            : `Không tìm thấy đặt tour nào phù hợp với "${searchTerm}"`
+                        }
+                    </p>
+                </div>
+            ) : (
+                <div className="bookings-grid">
+                    {filteredBookings.map((booking) => (
+                        <div key={booking._id} className="booking-card">
+                            <div className="booking-header">
+                                <div className="booking-id">#{booking._id.slice(-8)}</div>
+                                <div className="booking-status">
+                                    {isBookingEnded(booking) ? (
+                                        <span className="status-badge ended">Đã kết thúc</span>
+                                    ) : (
+                                        <span className="status-badge active">Đang hoạt động</span>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            <div className="booking-content">
+                                <div className="customer-info">
+                                    <h4 className="customer-name">{booking.fullName}</h4>
+                                    <div className="contact-info">
+                                        <div className="contact-item">
+                                            <i className="fas fa-envelope"></i>
+                                            <span>{booking.email}</span>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <div className='text-dark'>{booking.email}</div>
-                                            <div className='text-dark'>{booking.phone}</div>
+                                        <div className="contact-item">
+                                            <i className="fas fa-phone"></i>
+                                            <span>{booking.phone}</span>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <strong className='text-dark'>{tours[booking.tour]?.title || 'N/A'}</strong>
-                                            <div className="tour-info text-dark">
-                                                {tours[booking.tour]?.duration && `${tours[booking.tour].duration} ngày`}
-                                            </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="tour-info">
+                                    <h5 className="tour-title">
+                                        {tours[booking.tour]?.title || 'Tour không xác định'}
+                                    </h5>
+                                    <div className="tour-details">
+                                        <span className="tour-duration">
+                                            <i className="fas fa-clock"></i>
+                                            {tours[booking.tour]?.duration ? `${tours[booking.tour].duration} ngày` : 'N/A'}
+                                        </span>
+                                        <span className="tour-location">
+                                            <i className="fas fa-map-marker-alt"></i>
+                                            {tours[booking.tour]?.location || 'N/A'}
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div className="booking-details">
+                                    <div className="detail-row">
+                                        <div className="detail-item">
+                                            <label>Ngày đặt:</label>
+                                            <span>{formatDate(booking.createdAt)}</span>
                                         </div>
-                                    </td>
-                                    <td className='text-dark'>{formatDate(booking.createdAt)}</td>
-                                    <td className='text-dark'>{formatDate(booking.departureDate)}</td>
-                                    <td>
-                                        <div>
-                                            <div className='text-dark'>Người lớn: {booking.adults}</div>
-                                            {booking.children > 0 && (
-                                                <div className='text-dark'>Trẻ em: {booking.children}</div>
-                                            )}
+                                        <div className="detail-item">
+                                            <label>Ngày đi:</label>
+                                            <span>{formatDate(booking.departureDate)}</span>
                                         </div>
-                                    </td>
-                                    <td className='text-dark'>{formatPrice(booking.totalPrice)}</td>
-                                    <td className='text-dark'>
-                                        {booking.note ? (
-                                            <div className="note-text" title={booking.note}>
-                                                {booking.note.length > 50 
-                                                    ? booking.note.substring(0, 50) + '...' 
-                                                    : booking.note}
-                                            </div>
-                                        ) : (
-                                            <span className="no-note">Không có</span>
-                                        )}
-                                    </td>
-                                    <td>
-                                        <div className="action-buttons">
-                                            {(() => {
-                                                const ended = isBookingEnded(booking);
-                                                console.log(`Booking ${booking._id} ended:`, ended, {
-                                                    departureDate: booking.departureDate,
-                                                    tourData: tours[booking.tour],
-                                                    tourDuration: tours[booking.tour]?.duration
-                                                });
-                                                return !ended ? (
-                                                    <button 
-                                                        className="delete-btn"
-                                                        onClick={() => openCancelModal(booking)}
-                                                    >
-                                                        <i className="fas fa-times"></i>
-                                                        Hủy
-                                                    </button>
-                                                ) : (
-                                                    <span className="booking-ended-badge">
-                                                        Đã kết thúc
-                                                    </span>
-                                                );
-                                            })()}
+                                    </div>
+                                    
+                                    <div className="detail-row">
+                                        <div className="detail-item">
+                                            <label>Số người:</label>
+                                            <span>
+                                                {booking.adults} người lớn
+                                                {booking.children > 0 && `, ${booking.children} trẻ em`}
+                                            </span>
                                         </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                                        <div className="detail-item">
+                                            <label>Tổng tiền:</label>
+                                            <span className="total-price">{formatPrice(booking.totalPrice)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {booking.note && (
+                                    <div className="booking-note">
+                                        <label>Ghi chú:</label>
+                                        <p>{booking.note}</p>
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <div className="booking-actions">
+                                {!isBookingEnded(booking) && (
+                                    <button 
+                                        className="cancel-booking-btn"
+                                        onClick={() => openCancelModal(booking)}
+                                        title="Hủy đặt tour"
+                                    >
+                                        <i className="fas fa-times"></i>
+                                        Hủy đặt tour
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
 
             {/* Cancel Modal */}
             {showCancelModal && selectedBooking && (
@@ -347,16 +356,24 @@ const Bookings = () => {
                                 className="close-btn"
                                 onClick={() => setShowCancelModal(false)}
                             >
-                                ×
+                                <i className="fas fa-times"></i>
                             </button>
                         </div>
                         <div className="modal-body">
                             <p>Bạn có chắc chắn muốn hủy đặt tour này?</p>
                             <div className="booking-details">
-                                <p><strong>Khách hàng:</strong> {selectedBooking.fullName}</p>
-                                <p><strong>Tour:</strong> {tours[selectedBooking.tour]?.name || 'N/A'}</p>
-                                <p><strong>Ngày đi:</strong> {formatDate(selectedBooking.departureDate)}</p>
-                                <p><strong>Tổng tiền:</strong> {formatPrice(selectedBooking.totalPrice)}</p>
+                                <div className="detail-item">
+                                    <strong>Khách hàng:</strong> {selectedBooking.fullName}
+                                </div>
+                                <div className="detail-item">
+                                    <strong>Tour:</strong> {tours[selectedBooking.tour]?.title || 'N/A'}
+                                </div>
+                                <div className="detail-item">
+                                    <strong>Ngày đi:</strong> {formatDate(selectedBooking.departureDate)}
+                                </div>
+                                <div className="detail-item">
+                                    <strong>Tổng tiền:</strong> {formatPrice(selectedBooking.totalPrice)}
+                                </div>
                             </div>
                         </div>
                         <div className="modal-footer">

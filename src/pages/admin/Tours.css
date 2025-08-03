@@ -1,412 +1,1061 @@
-/* Tours Component Specific Styles */
-
-/* Tour Image Styles */
-.tour-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.tour-image img {
-    width: 80px;
-    height: 60px;
-    border-radius: 8px;
-    object-fit: cover;
-    border: 2px solid #e2e8f0;
-}
-
-/* Tour Info Styles */
-.tour-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.tour-title {
-    font-weight: 600;
-    color: #2d3748;
-    font-size: 1rem;
-}
-
-.tour-description {
-    color: #718096;
-    font-size: 0.875rem;
-    line-height: 1.4;
-}
-
-/* Rating Styles */
-.rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.rating-stars {
-    color: #f6ad55;
-    font-size: 0.875rem;
-}
-
-.rating-number {
-    color: #718096;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-/* Tags Styles */
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-}
-
-.tag {
-    background: #e2e8f0;
-    color: #4a5568;
-    padding: 0.25rem 0.5rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-}
-
-/* Form Row Styles */
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-/* Tour Form Specific Styles */
-.add-tour-form,
-.edit-tour-form {
-    padding: 2rem;
-}
-
-/* Sort Control Styles */
-.sort-control {
-    background: white;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.sort-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    min-width: 200px;
-}
-
-.sort-group label {
-    font-weight: 500;
-    color: #4a5568;
-    font-size: 0.875rem;
-}
-
-.sort-group select {
-    padding: 0.5rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    transition: border-color 0.3s ease;
-}
-
-.sort-group select:focus {
-    outline: none;
-    border-color: #4299e1;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-}
-
-.clear-filters-btn {
-    background: #e53e3e;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.clear-filters-btn:hover {
-    background: #c53030;
-}
-
-/* Pagination Styles */
-.pagination-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.pagination-info {
-    color: #718096;
-    font-size: 0.875rem;
-}
-
-.pagination-controls {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-}
-
-.pagination-btn {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #e2e8f0;
-    background: white;
-    color: #4a5568;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.pagination-btn:hover:not(:disabled) {
-    background: #f7fafc;
-    border-color: #4299e1;
-    color: #4299e1;
-}
-
-.pagination-btn.active {
-    background: #4299e1;
-    color: white;
-    border-color: #4299e1;
-}
-
-.pagination-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Add Detail Button Styles */
-.add-detail-btn {
-    background: #48bb78;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.add-detail-btn:hover {
-    background: #38a169;
-}
-
-/* Responsive Design for Tours */
-@media (max-width: 768px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .sort-control {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
-    }
-    
-    .sort-group {
-        min-width: auto;
-    }
-    
-    .pagination-container {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-    }
-    
-    .pagination-controls {
+/* Tours Component Styles - Scoped */
+.tours-component {
+    /* Tour Image Styles */
+    .tour-image {
+        display: flex;
         justify-content: center;
+        align-items: center;
     }
-    
+
     .tour-image img {
-        width: 60px;
-        height: 45px;
+        width: 80px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #e2e8f0;
     }
-    
+
+    /* Tour Info Styles */
+    .tour-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
     .tour-title {
+        font-weight: 600;
+        color: #2d3748;
+        font-size: 1rem;
+    }
+
+    .tour-description {
+        color: #718096;
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+
+    /* Rating Styles */
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .rating-stars {
+        color: #f6ad55;
         font-size: 0.875rem;
     }
-    
-    .tour-description {
-        font-size: 0.75rem;
+
+    .rating-number {
+        color: #718096;
+        font-size: 0.875rem;
+        font-weight: 500;
     }
-    
+
+    /* Tags Styles */
     .tags {
-        gap: 0.125rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
     }
-    
+
     .tag {
-        font-size: 0.625rem;
-        padding: 0.125rem 0.375rem;
+        background: #e2e8f0;
+        color: #4a5568;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
-}
 
-/* Array Input Container */
-.array-input-container {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-}
+    /* Tours Grid */
+    .tours-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
 
-.array-input-container input,
-.array-input-container textarea {
-    flex: 1;
-    min-height: 40px;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-}
+    /* Tour Card */
+    .tour-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid #e9ecef;
+    }
 
-.array-input-container textarea {
-    min-height: 60px;
-    resize: vertical;
-}
+    .tour-card:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
 
-.add-item-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap;
-    min-width: 80px;
-}
+    .tour-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
 
-.add-item-btn:hover {
-    background: #218838;
-}
+    .tour-id {
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.9;
+    }
 
-.array-items {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
+    .tour-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 
-.array-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 4px;
-    font-size: 14px;
-}
+    .rating-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
 
-.array-item span {
-    flex: 1;
-    word-break: break-word;
-}
+    /* Tour Content */
+    .tour-content {
+        padding: 1.5rem;
+    }
 
-.remove-item-btn {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    margin-left: 10px;
-    flex-shrink: 0;
-}
+    .tour-main-info {
+        margin-bottom: 1.5rem;
+    }
 
-.remove-item-btn:hover {
-    background: #c82333;
-}
+    .tour-image-section {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
 
-/* Schedule Styles */
-.add-schedule-btn {
-    background: #17a2b8;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 15px;
-}
+    .tour-main-image {
+        width: 80px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 2px solid #e2e8f0;
+    }
 
-.add-schedule-btn:hover {
-    background: #138496;
-}
+    .tour-basic-info {
+        flex: 1;
+    }
 
-.schedules-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+    .tour-title-main {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.4;
+    }
 
-.schedule-item {
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    padding: 15px;
-    background: #f8f9fa;
-}
+    .tour-location {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+    }
 
-.schedule-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #dee2e6;
-}
+    .tour-location i {
+        color: #667eea;
+    }
 
-.schedule-header h5 {
-    margin: 0;
-    color: #495057;
-    font-size: 16px;
-    font-weight: 600;
-}
+    .tour-duration {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
 
-.remove-schedule-btn {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
+    /* Tour Details */
+    .tour-details {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #667eea;
+    }
 
-.remove-schedule-btn:hover {
-    background: #c82333;
-}
+    .tour-price {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #28a745;
+        margin-bottom: 0.75rem;
+    }
 
-.schedule-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    .tour-rating-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .tour-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+
+    .tour-tag {
+        background: #e2e8f0;
+        color: #4a5568;
+        padding: 0.25rem 0.5rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    /* Tour Status */
+    .tour-status {
+        margin-bottom: 1rem;
+    }
+
+    .tour-detail-status {
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    .tour-created-date {
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+    /* Tour Actions */
+    .tour-actions {
+        padding: 1rem 1.5rem;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        padding: 0.5rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+    }
+
+    .edit-btn {
+        background: #4299e1;
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background: #3182ce;
+    }
+
+    .delete-btn {
+        background: #e53e3e;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background: #c53030;
+    }
+
+    .add-detail-btn {
+        background: #48bb78;
+        color: white;
+    }
+
+    .add-detail-btn:hover {
+        background: #38a169;
+    }
+
+    /* Sort Control Styles */
+    .sort-control {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sort-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 200px;
+    }
+
+    .sort-group label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 0.875rem;
+    }
+
+    .sort-group select {
+        padding: 0.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .sort-group select:focus {
+        outline: none;
+        border-color: #4299e1;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    }
+
+    .clear-filters-btn {
+        background: #e53e3e;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .clear-filters-btn:hover {
+        background: #c53030;
+    }
+
+    /* Pagination Styles */
+    .pagination-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        margin-top: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .pagination-info {
+        color: #718096;
+        font-size: 0.875rem;
+    }
+
+    .pagination-controls {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .pagination-btn {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #e2e8f0;
+        background: white;
+        color: #4a5568;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+        background: #f7fafc;
+        border-color: #4299e1;
+        color: #4299e1;
+    }
+
+    .pagination-btn.active {
+        background: #4299e1;
+        color: white;
+        border-color: #4299e1;
+    }
+
+    .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Form Row Styles */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    /* Tour Form Specific Styles */
+    .add-tour-form,
+    .edit-tour-form,
+    .add-detail-form {
+        padding: 2rem;
+        max-width: 100%;
+        overflow-y: auto;
+        max-height: 80vh;
+    }
+
+    /* Form Sections */
+    .form-section {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e9ecef;
+    }
+
+    .form-section h4 {
+        color: #2d3748;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 1.5rem 0;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #e2e8f0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-section h4::before {
+        content: "📋";
+        font-size: 1.2rem;
+    }
+
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #4299e1;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    }
+
+    .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+        line-height: 1.5;
+    }
+
+    /* Form Row */
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Array Input Container */
+    .array-input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .array-input-container input,
+    .array-input-container textarea {
+        flex: 1;
+        min-height: 45px;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        background: #fafafa;
+        transition: all 0.3s ease;
+    }
+
+    .array-input-container input:focus,
+    .array-input-container textarea:focus {
+        outline: none;
+        border-color: #4299e1;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    }
+
+    .array-input-container textarea {
+        min-height: 80px;
+        resize: vertical;
+        line-height: 1.5;
+    }
+
+    .add-item-btn {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+        min-width: 90px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+    }
+
+    .add-item-btn:hover {
+        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+    }
+
+    .array-items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .array-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .array-item:hover {
+        background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .array-item span {
+        flex: 1;
+        word-break: break-word;
+        color: #2d3748;
+        line-height: 1.4;
+    }
+
+    .remove-item-btn {
+        background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+        color: white;
+        border: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        margin-left: 12px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(229, 62, 62, 0.3);
+    }
+
+    .remove-item-btn:hover {
+        background: linear-gradient(135deg, #c53030 0%, #a53030 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(229, 62, 62, 0.4);
+    }
+
+    /* Form Actions */
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #e2e8f0;
+    }
+
+    .cancel-btn {
+        background: #718096;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .cancel-btn:hover {
+        background: #4a5568;
+        transform: translateY(-1px);
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
+    }
+
+    .submit-btn:hover {
+        background: linear-gradient(135deg, #3182ce 0%, #2c5aa0 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Submit Error */
+    .submit-error {
+        background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+        color: #c53030;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        border: 1px solid #feb2b2;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    /* Schedule Styles */
+    .add-schedule-btn {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+    }
+
+    .add-schedule-btn:hover {
+        background: linear-gradient(135deg, #138496 0%, #0f6b7a 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.4);
+    }
+
+    .schedules-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .schedule-item {
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .schedule-item:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    .schedule-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .schedule-header h5 {
+        margin: 0;
+        color: #2d3748;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .schedule-header h5::before {
+        content: "📅";
+        font-size: 1.2rem;
+    }
+
+    .remove-schedule-btn {
+        background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+        color: white;
+        border: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(229, 62, 62, 0.3);
+    }
+
+    .remove-schedule-btn:hover {
+        background: linear-gradient(135deg, #c53030 0%, #a53030 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(229, 62, 62, 0.4);
+    }
+
+    .schedule-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .schedule-fields .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .schedule-fields .form-group label {
+        font-weight: 500;
+        color: #4a5568;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .schedule-fields .form-group input,
+    .schedule-fields .form-group select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+    }
+
+    .schedule-fields .form-group input:focus,
+    .schedule-fields .form-group select:focus {
+        outline: none;
+        border-color: #4299e1;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+    }
+
+    .schedule-fields .form-group input[readonly] {
+        background: #f1f5f9;
+        color: #64748b;
+        cursor: not-allowed;
+    }
+
+    .schedule-fields .form-text {
+        font-size: 0.8rem;
+        color: #718096;
+        margin-top: 0.25rem;
+        font-style: italic;
+    }
+
+    /* Delete Confirmation Modal Styles */
+    .delete-confirm-content {
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .delete-warning {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+        border-radius: 12px;
+        border: 2px solid #feb2b2;
+    }
+
+    .delete-warning i {
+        font-size: 3rem;
+        color: #e53e3e;
+        margin-bottom: 1rem;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+
+    .delete-warning h4 {
+        margin: 0;
+        color: #c53030;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .delete-confirm-content p {
+        margin: 0 0 1rem 0;
+        color: #4a5568;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .delete-confirm-content ul {
+        text-align: left;
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+        background: #f7fafc;
+        border-radius: 8px;
+        padding: 1.5rem 2rem;
+        border-left: 4px solid #e53e3e;
+    }
+
+    .delete-confirm-content li {
+        margin: 0.75rem 0;
+        color: #4a5568;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        position: relative;
+    }
+
+    .delete-confirm-content li::before {
+        content: "⚠️";
+        position: absolute;
+        left: -1.5rem;
+        top: 0;
+    }
+
+    .delete-confirm-content strong {
+        color: #c53030;
+        font-weight: 600;
+    }
+
+    .delete-confirm-content .form-actions {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .delete-confirm-content .cancel-btn {
+        background: #718096;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .delete-confirm-content .cancel-btn:hover {
+        background: #4a5568;
+        transform: translateY(-1px);
+    }
+
+    .delete-confirm-content .delete-btn {
+        background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+    }
+
+    .delete-confirm-content .delete-btn:hover {
+        background: linear-gradient(135deg, #c53030 0%, #a53030 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(229, 62, 62, 0.4);
+    }
+
+    /* Empty state styles */
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #6c757d;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        color: #e9ecef;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+        margin: 0 0 0.5rem 0;
+        color: #495057;
+        font-size: 1.2rem;
+    }
+
+    .empty-state p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    /* Responsive Design for Tours */
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .sort-control {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch;
+        }
+        
+        .sort-group {
+            min-width: auto;
+        }
+        
+        .pagination-container {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .pagination-controls {
+            justify-content: center;
+        }
+        
+        .tour-image img {
+            width: 60px;
+            height: 45px;
+        }
+        
+        .tour-title {
+            font-size: 0.875rem;
+        }
+        
+        .tour-description {
+            font-size: 0.75rem;
+        }
+        
+        .tags {
+            gap: 0.125rem;
+        }
+        
+        .tag {
+            font-size: 0.625rem;
+            padding: 0.125rem 0.375rem;
+        }
+        
+        .tours-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .tour-actions {
+            flex-direction: column;
+        }
+        
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .tour-header {
+            padding: 0.75rem 1rem;
+        }
+        
+        .tour-content {
+            padding: 1rem;
+        }
+        
+        .tour-actions {
+            padding: 0.75rem 1rem;
+        }
+        
+        .tour-image-section {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .tour-main-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        
+        .tour-details {
+            padding: 0.75rem;
+        }
+        
+        .sort-control {
+            padding: 1rem;
+        }
+        
+        .pagination-container {
+            padding: 0.75rem 1rem;
+        }
+    }
 } 

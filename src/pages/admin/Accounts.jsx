@@ -478,7 +478,7 @@ const Accounts = () => {
 
     if (loading) {
         return (
-            <div className="accounts-container">
+            <div className="component-container accounts-component">
                 <div className="accounts-loading">Đang tải dữ liệu...</div>
             </div>
         );
@@ -486,14 +486,14 @@ const Accounts = () => {
 
     if (error) {
         return (
-            <div className="accounts-container">
+            <div className="component-container accounts-component">
                 <div className="accounts-error">{error}</div>
             </div>
         );
     }
 
     return (
-        <div className="accounts-container">
+        <div className="component-container accounts-component">
             {showAddForm && (
                 <div className="accounts-modal">
                     <div className="accounts-modal-content">
@@ -814,7 +814,7 @@ const Accounts = () => {
                                         <div className="accounts-user-name-delete">{deletingUser.fullname}</div>
                                         <div className="accounts-user-email-delete">{deletingUser.email}</div>
                                         <div className="accounts-user-role-delete">
-                                            <span className={`accounts-user-role ${
+                                            <span className={`role-badge ${
                                                 deletingUser.role === 'admin' ? 'admin' : 'user'
                                             }`}>
                                                 {getRoleText(deletingUser.role)}
@@ -857,114 +857,154 @@ const Accounts = () => {
                 </div>
             )}
             
-            <div className="accounts-header">
-                <h2 className="accounts-title">Quản lý người dùng & Tài khoản</h2>
-                <div className="accounts-actions">
-                    <div className="accounts-search">
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm theo tên hoặc email..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <i className="fas fa-search"></i>
+            <div className="component-header">
+                <div className="accounts-header">
+                    <h2 className="accounts-title">Quản lý người dùng & Tài khoản</h2>
+                    <div className="accounts-actions">
+                        <div className="accounts-search">
+                            <i className="fas fa-search"></i>
+                            <input
+                                type="text"
+                                placeholder="Tìm kiếm theo tên hoặc email..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        <button className="accounts-create-btn" onClick={handleAddUser}>
+                            <i className="fas fa-plus"></i>
+                            Thêm người dùng
+                        </button>
                     </div>
-                    <button className="accounts-create-btn" onClick={handleAddUser}>
-                        <i className="fas fa-plus"></i>
-                        Thêm người dùng
-                    </button>
                 </div>
             </div>
 
-            <div className="accounts-table">
-                <div className="accounts-table-header">
-                    <div>Avatar</div>
-                    <div>Thông tin người dùng</div>
-                    <div>Thông tin tài khoản</div>
-                    <div>Vai trò</div>
-                    <div>Ngày tạo</div>
-                    <div>Thao tác</div>
+            {filteredUsers.length === 0 ? (
+                <div className="accounts-empty">
+                    <i className="fas fa-users"></i>
+                    <h3>
+                        {usersWithAccounts.length === 0 ? 'Không có người dùng nào' : 'Không tìm thấy kết quả phù hợp'}
+                    </h3>
+                    <p>
+                        {usersWithAccounts.length === 0 
+                            ? 'Chưa có người dùng nào được tạo.'
+                            : `Không tìm thấy người dùng nào phù hợp với "${searchTerm}"`
+                        }
+                    </p>
                 </div>
-                                <div className="accounts-table-body">
+            ) : (
+                <div className="accounts-grid">
                     {filteredUsers.map((user) => (
-                        <div key={user._id} className="accounts-table-row">
-                            <div>
-                                <div className="accounts-user-info">
-                                    {user.account?.avatar ? (
-                                        <img 
-                                            src={`${import.meta.env.VITE_API_BASE_URL}/${user.account.avatar}`} 
-                                            alt={user.fullname}
-                                            className="accounts-user-avatar"
-                                        />
+                        <div key={user._id} className="account-card">
+                            <div className="account-header">
+                                <div className="account-id">#{user._id.slice(-8)}</div>
+                                <div className="account-role">
+                                    <span className={`role-badge ${user.role === 'admin' ? 'admin' : 'user'}`}>
+                                        {getRoleText(user.role)}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div className="account-content">
+                                <div className="user-info">
+                                    <div className="user-avatar-section">
+                                        {user.account?.avatar ? (
+                                            <img 
+                                                src={`${import.meta.env.VITE_API_BASE_URL}/${user.account.avatar}`} 
+                                                alt={user.fullname}
+                                                className="user-avatar"
+                                            />
+                                        ) : (
+                                            <div className="avatar-placeholder">
+                                                <i className="fas fa-user"></i>
+                                            </div>
+                                        )}
+                                        <div className="user-details">
+                                            <h4 className="user-name">{user.fullname}</h4>
+                                            <p className="user-email">{user.email}</p>
+                                            <div className="user-role-display">
+                                                <span className={`role-badge ${user.role === 'admin' ? 'admin' : 'user'}`}>
+                                                    {getRoleText(user.role)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="account-info">
+                                    {user.account ? (
+                                        <>
+                                            <div className="account-status">
+                                                <strong>Tài khoản đã tạo</strong>
+                                            </div>
+                                            <div className="account-details">
+                                                <div className="account-detail-item">
+                                                    <span className="account-detail-label">Mô tả:</span>
+                                                    <span className="account-detail-value">{user.account.description}</span>
+                                                </div>
+                                                <div className="account-detail-item">
+                                                    <span className="account-detail-label">Quốc gia:</span>
+                                                    <span className="account-detail-value">{user.account.country}</span>
+                                                </div>
+                                                <div className="account-detail-item">
+                                                    <span className="account-detail-label">SĐT:</span>
+                                                    <span className="account-detail-value">{user.account.phoneNumber}</span>
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : user.role === 'admin' ? (
+                                        <div className="no-account-info">
+                                            <strong>Quản trị viên</strong> - Không cần tài khoản bổ sung
+                                        </div>
                                     ) : (
-                                        <div className="accounts-avatar-placeholder">
-                                            <i className="fas fa-user"></i>
+                                        <div className="no-account-info">
+                                            <div>Chưa có tài khoản</div>
+                                            <button 
+                                                className="create-account-btn"
+                                                onClick={() => handleCreateAccount(user._id)}
+                                            >
+                                                <i className="fas fa-plus"></i>
+                                                Tạo tài khoản
+                                            </button>
                                         </div>
                                     )}
                                 </div>
-                            </div>
-                            <div>
-                                <div className="accounts-user-details">
-                                    <div className="accounts-user-name">{user.fullname}</div>
-                                    <div className="accounts-user-email">{user.email}</div>
-                                </div>
-                            </div>
-                            <div>
-                                {user.account ? (
-                                    <div className="accounts-account-info">
-                                        <div className="accounts-account-status">
-                                            <strong>Mô tả:</strong> {user.account.description}
+                                
+                                <div className="account-details-section">
+                                    <div className="detail-row">
+                                        <div className="detail-item">
+                                            <label>Ngày tạo:</label>
+                                            <span>{user.createdAt ? formatDate(user.createdAt) : 'N/A'}</span>
                                         </div>
-                                        <div className="accounts-account-details">
-                                            <span><strong>Quốc gia:</strong> {user.account.country}</span>
-                                            <span><strong>SĐT:</strong> {user.account.phoneNumber}</span>
+                                        <div className="detail-item">
+                                            <label>Trạng thái:</label>
+                                            <span className="created-date">
+                                                {user.account ? 'Đã có tài khoản' : user.role === 'admin' ? 'Quản trị viên' : 'Chưa có tài khoản'}
+                                            </span>
                                         </div>
                                     </div>
-                                ) : user.role === 'admin' ? (
-                                    <div className="accounts-account-info">
-                                        <span className="accounts-user-role admin">Quản trị viên</span>
-                                    </div>
-                                ) : (
-                                    <div className="accounts-account-info">
-                                        <div className="accounts-account-status">Chưa có tài khoản</div>
-                                        <button 
-                                            className="accounts-create-account-btn"
-                                            onClick={() => handleCreateAccount(user._id)}
-                                        >
-                                            <i className="fas fa-plus"></i>
-                                            Tạo tài khoản
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                            <div>
-                                <span className={`accounts-user-role ${
-                                    user.role === 'admin' ? 'admin' : 'user'
-                                }`}>
-                                    {getRoleText(user.role)}
-                                </span>
-                            </div>
-                            <div className="accounts-created-date">{user.createdAt ? formatDate(user.createdAt) : 'N/A'}</div>
-                            <div>
-                                <div className="accounts-actions-cell">
-                                    <button 
-                                        className="accounts-action-btn accounts-edit-btn"
-                                        onClick={() => handleEdit(user._id)}
-                                    >
-                                        <i className="fas fa-edit"></i>
-                                    </button>
-                                    <button 
-                                        className="accounts-action-btn accounts-delete-btn"
-                                        onClick={() => handleDelete(user._id)}
-                                    >
-                                        <i className="fas fa-trash"></i>
-                                    </button>
                                 </div>
+                            </div>
+                            
+                            <div className="account-actions">
+                                <button 
+                                    className="action-btn edit-btn"
+                                    onClick={() => handleEdit(user._id)}
+                                    title="Chỉnh sửa"
+                                >
+                                    <i className="fas fa-edit"></i>
+                                </button>
+                                <button 
+                                    className="action-btn delete-btn"
+                                    onClick={() => handleDelete(user._id)}
+                                    title="Xóa"
+                                >
+                                    <i className="fas fa-trash"></i>
+                                </button>
                             </div>
                         </div>
                     ))}
                 </div>
-            </div>
+            )}
         </div>
     );
 };
