@@ -371,7 +371,7 @@
   },
   "login": {
     "hero": {
-      "badge": "MRYOKOU",
+      "badge": "MTRAVEL",
       "title": "Chào mừng trở lại!",
       "subtitle": "Đăng nhập để khám phá những điểm đến tuyệt vời và tạo nên những kỷ niệm không thể nào quên cùng chúng tôi",
       "features": {
@@ -430,7 +430,7 @@
   },
   "signup": {
     "hero": {
-      "badge": "Tham gia MRYOKOU",
+      "badge": "Tham gia MTRAVEL",
       "title": "Bắt đầu hành trình mới!",
       "subtitle": "Đăng ký để mở khóa thế giới du lịch với những trải nghiệm tuyệt vời",
       "benefits": {
