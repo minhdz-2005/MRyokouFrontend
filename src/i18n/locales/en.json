@@ -1,0 +1,564 @@
+{
+  "header": {
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "vietnamese": "Vietnamese",
+    "english": "English",
+    "japanese": "Japanese",
+    "home": "Home",
+    "tours": "Tours",
+    "explore": "Explore",
+    "about": "About",
+    "login": "Login",
+    "signup": "Sign Up",
+    "profile": "Profile",
+    "myBookings": "My Bookings",
+    "logout": "Logout"
+  },
+  "about": {
+    "story": {
+      "title": "MTRAVEL Story",
+      "subtitle": "A journey to bring the world closer to you"
+    },
+    "intro": {
+      "title": "Who We Are",
+      "description1": "MTRAVEL is Vietnam's leading online tour booking platform, born with the mission to revolutionize the travel experience for young Vietnamese people.",
+      "description2": "Since 2025, we have accompanied more than 50,000 customers on memorable journeys, connecting people with the most authentic local experiences."
+    },
+    "stats": {
+      "customers": "Customers",
+      "tours": "Tours",
+      "satisfaction": "Satisfaction"
+    },
+    "values": {
+      "title": "Core Values",
+      "subtitle": "What makes MTRAVEL different",
+      "mission": {
+        "title": "Mission",
+        "description": "Connecting travelers with memorable experiential journeys across Vietnam, bringing authentic perspectives to each destination."
+      },
+      "commitment": {
+        "title": "Commitment",
+        "description": "Dedicated, transparent, accompanying customers at every step. Ensuring the best service quality at reasonable prices."
+      },
+      "vision": {
+        "title": "Vision",
+        "description": "To become the most trusted tour booking platform for young people who love travel and experiences, pioneering smart travel technology."
+      },
+      "culture": {
+        "title": "Culture",
+        "description": "Customer-centric, promoting innovation and teamwork. Every member is an ambassador of Vietnamese culture."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Continuously innovating, creating unique and distinctive travel experiences suitable for young generation trends."
+      },
+      "responsibility": {
+        "title": "Responsibility",
+        "description": "Developing sustainable tourism, respecting local culture and protecting the environment at each destination."
+      }
+    }
+  },
+  "banner": {
+    "hero": {
+      "title": "Explore",
+      "highlight": "Vietnam",
+      "subtitle": "With Us",
+      "description": "Experience amazing trips with professional service"
+    },
+    "search": {
+      "destination": "Destination",
+      "destinationPlaceholder": "Where do you want to go?",
+      "date": "Departure Date",
+      "guests": "Number of Guests",
+      "guestOption": "guests",
+      "searchButton": "Search"
+    },
+    "stats": {
+      "destinations": "Destinations",
+      "satisfiedCustomers": "Satisfied Customers",
+      "support": "Support"
+    }
+  },
+  "explore": {
+    "header": {
+      "title": "Explore Vietnam",
+      "subtitle": "A journey to discover the natural beauty and culture from North to South"
+    },
+    "regions": {
+      "north": {
+        "name": "Northern",
+        "description": "Land of majestic mountains"
+      },
+      "central": {
+        "name": "Central",
+        "description": "Cradle of Vietnamese culture and history"
+      },
+      "south": {
+        "name": "Southern",
+        "description": "Fertile Mekong Delta"
+      }
+    },
+    "content": {
+      "loading": "Loading data...",
+      "noData": "No data available for this region",
+      "highlights": "Highlights",
+      "viewTours": "View tours in"
+    },
+    "stats": {
+      "destinations": "Destinations",
+      "visitors": "Visitors",
+      "rating": "Average Rating"
+    }
+  },
+  "featured": {
+    "header": {
+      "badge": "Featured Tours",
+      "title": "Attractive",
+      "highlight": "Destinations",
+      "subtitle": "Discover the best destinations in Vietnam with carefully selected tours"
+    },
+    "content": {
+      "loading": "Loading featured tours...",
+      "error": "Failed to load featured tours",
+      "days": "days",
+      "perPerson": "/person",
+      "bookTour": "Book Tour",
+      "viewAllTours": "View All Tours"
+    }
+  },
+  "footer": {
+    "brand": {
+      "description": "Vietnam's leading convenient, reliable and affordable tour booking platform."
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "home": "Home",
+      "tours": "Tours",
+      "explore": "Explore",
+      "about": "About"
+    },
+    "contact": {
+      "title": "Contact",
+      "address": "54 Nguyen Luong Bang, Lien Chieu, Da Nang",
+      "phone": "0388 108 368",
+      "email": "support@mtravel.vn"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Receive offers and latest tour information",
+      "placeholder": "Enter your email",
+      "button": "Subscribe"
+    },
+    "copyright": "All Rights Reserved"
+  },
+  "reviews": {
+    "header": {
+      "title": "What Our",
+      "highlight": "Customers Say",
+      "subtitle": "Real experiences from customers who trusted our service"
+    },
+    "rating": {
+      "reviews": "reviews",
+      "all": "All",
+      "helpful": "Helpful"
+    },
+    "cta": {
+      "title": "Have you experienced our service?",
+      "subtitle": "Share your experience to help other customers",
+      "button": "Write Review"
+    }
+  },
+  "search": {
+    "main": {
+      "placeholder": "Where do you want to go? Search destinations, tour names...",
+      "searchButton": "Search",
+      "ariaLabel": "Search tours",
+      "inputAriaLabel": "Search destinations, tour names"
+    },
+    "filters": {
+      "location": {
+        "label": "Select location",
+        "all": "All locations"
+      },
+      "price": {
+        "label": "Select price range",
+        "all": "All prices",
+        "low": "Under 3 million",
+        "mid": "3 - 5 million",
+        "high": "Over 5 million",
+        "luxury": "Over 10 million"
+      },
+      "date": {
+        "label": "Select departure date",
+        "placeholder": "Departure date"
+      },
+      "duration": {
+        "label": "Select duration",
+        "all": "Duration",
+        "short": "1-3 days",
+        "medium": "4-7 days",
+        "long": "Over 7 days"
+      },
+      "toggle": {
+        "show": "Advanced filters",
+        "hide": "Hide filters"
+      }
+    },
+    "popular": {
+      "title": "Popular destinations:",
+      "destinations": {
+        "daLat": "Da Lat",
+        "phuQuoc": "Phu Quoc",
+        "haNoi": "Hanoi",
+        "hoiAn": "Hoi An"
+      }
+    }
+  },
+  "sort": {
+    "title": "Sort by:",
+    "options": {
+      "priceAsc": "Price: Low to High",
+      "priceDesc": "Price: High to Low",
+      "rating": "Highest Rating",
+      "newest": "Newest"
+    }
+  },
+  "tourList": {
+    "header": {
+      "title": "Explore",
+      "highlight": "Tour Packages",
+      "subtitle": "Over {count} amazing tours waiting for you to discover"
+    },
+    "loading": {
+      "text": "Loading amazing tours..."
+    },
+    "error": {
+      "message": "Failed to load tour data!",
+      "retry": "Retry"
+    },
+    "tour": {
+      "perPerson": "/ Person",
+      "viewDetail": "View Details",
+      "rating": "Rating",
+      "duration": "Duration:",
+      "days": "days"
+    },
+    "empty": {
+      "title": "No tours found",
+      "subtitle": "Try adjusting filters or search with different keywords"
+    },
+    "pagination": {
+      "page": "Page",
+      "of": "/",
+      "total": "Total",
+      "tours": "tours"
+    }
+  },
+  "travelGuide": {
+    "header": {
+      "title": "Travel Guide",
+      "subtitle": "Useful tips to help you have a complete and memorable trip"
+    },
+    "sections": {
+      "packing": {
+        "title": "Packing preparation for travel",
+        "points": [
+          "Bring clothes suitable for the weather and terrain of your destination.",
+          "Bring personal documents, plane tickets, tour/hotel bookings.",
+          "Basic personal items like toothpaste, towels, backup chargers.",
+          "Basic medicines: cold, stomach pain, motion sickness,..."
+        ]
+      },
+      "weather": {
+        "title": "Notes on timing and weather",
+        "points": [
+          "Check weather forecast 3-5 days before departure.",
+          "Avoid flood season in Central region (usually September-November).",
+          "Beach tourism should go from April-August for nice weather."
+        ]
+      },
+      "budget": {
+        "title": "Tips to save costs when traveling",
+        "points": [
+          "Book tours and plane tickets early for better prices.",
+          "Travel in large groups to share vehicle, room, and guide costs.",
+          "Bring personal water bottles and snacks to save on small expenses."
+        ]
+      },
+      "tourType": {
+        "title": "Guided tour or independent travel?",
+        "points": [
+          "Guided tours are suitable for elderly people, with ready-made itineraries and less worry.",
+          "Independent travel is flexible, suitable for young people who want to explore.",
+          "Can combine: book short local tours during independent travel."
+        ]
+      }
+    },
+    "content": {
+      "viewMore": "View more",
+      "importantNotes": "Important notes",
+      "bestTime": {
+        "title": "Best time",
+        "description": "Each destination has its own tourist season. Research carefully before booking tours for the best experience."
+      },
+      "safety": {
+        "title": "Safety and health",
+        "description": "Always buy travel insurance and inform family of your itinerary to ensure safety."
+      },
+      "cta": {
+        "title": "Ready for your next trip?",
+        "subtitle": "Discover attractive tour packages designed specifically for you",
+        "button": "Book Tour Now"
+      }
+    }
+  },
+  "whyChooseUs": {
+    "header": {
+      "title": "Why choose",
+      "highlight": "MTRAVEL",
+      "subtitle": "The reasons that make us the top choice for travelers"
+    },
+    "features": {
+      "diverseDestinations": {
+        "title": "Diverse destinations",
+        "description": "Over 1,200 tours across Vietnam and internationally with special discounted prices.",
+        "stat": "1,200+"
+      },
+      "quickBooking": {
+        "title": "Quick booking",
+        "description": "Tour booking process in just 3 minutes with 99% instant confirmation rate.",
+        "stat": "3 min"
+      },
+      "highRating": {
+        "title": "High ratings",
+        "description": "Trusted by over 50,000 customers with 98% satisfaction rate.",
+        "stat": "98%"
+      },
+      "safetyGuarantee": {
+        "title": "Safety guarantee",
+        "description": "100% refund policy if commitments are not met or incidents occur.",
+        "stat": "100%"
+      },
+      "professionalGuides": {
+        "title": "Professional guides",
+        "description": "Team of enthusiastic, experienced guides who understand local areas.",
+        "stat": "200+"
+      },
+      "competitivePricing": {
+        "title": "Competitive pricing",
+        "description": "Commitment to best market prices with year-round promotional programs.",
+        "stat": "Best"
+      },
+      "dedicatedService": {
+        "title": "Dedicated service",
+        "description": "24/7 support throughout your travel journey.",
+        "stat": "24/7"
+      },
+      "prestigiousAwards": {
+        "title": "Prestigious awards",
+        "description": "Won \"Best Online Travel Platform 2024\" award voted by customers.",
+        "stat": "Top 1"
+      }
+    },
+    "testimonial": {
+      "quote": "MTRAVEL has brought my family the most wonderful trips. Professional service from consultation to tour completion. Will definitely continue to travel with MTRAVEL on future journeys!",
+      "customer": {
+        "name": "Nguyen Duc Minh",
+        "title": "Loyal customer"
+      }
+    }
+  },
+  "login": {
+    "hero": {
+      "badge": "MRYOKOU",
+      "title": "Welcome back!",
+      "subtitle": "Sign in to explore amazing destinations and create unforgettable memories with us",
+      "features": {
+        "destinations": {
+          "title": "1000+ Destinations",
+          "subtitle": "Explore the world"
+        },
+        "experience": {
+          "title": "Memorable experiences",
+          "subtitle": "Lifetime memories"
+        }
+      },
+      "stats": {
+        "customers": {
+          "value": "50k+",
+          "label": "Satisfied customers"
+        },
+        "rating": {
+          "value": "4.9★",
+          "label": "Average rating"
+        }
+      }
+    },
+    "form": {
+      "title": "Sign in to your account",
+      "subtitle": "Enter your information to continue your journey",
+      "email": {
+        "label": "Email",
+        "placeholder": "example@email.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "••••••••"
+      },
+      "options": {
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password?"
+      },
+      "submit": {
+        "loading": "Processing...",
+        "default": "Sign in"
+      },
+      "social": {
+        "divider": "Or sign in with",
+        "google": "Google",
+        "facebook": "Facebook"
+      },
+      "signup": {
+        "text": "Don't have an account?",
+        "link": "Create new account"
+      }
+    },
+    "error": {
+      "default": "Login failed. Please try again later!"
+    }
+  },
+  "signup": {
+    "hero": {
+      "badge": "Join MRYOKOU",
+      "title": "Start a new journey!",
+      "subtitle": "Sign up to unlock the world of travel with amazing experiences",
+      "benefits": {
+        "security": {
+          "title": "Absolute security",
+          "subtitle": "Information is safely encrypted"
+        },
+        "destinations": {
+          "title": "Diverse destinations",
+          "subtitle": "Over 1,200 tours across Vietnam"
+        },
+        "support": {
+          "title": "24/7 Support",
+          "subtitle": "Free consultation anytime"
+        },
+        "safety": {
+          "title": "Safety guarantee",
+          "subtitle": "100% refund policy if commitments are not met or incidents occur."
+        }
+      },
+      "testimonial": {
+        "quote": "Excellent service! Had the most memorable trips of my life",
+        "author": {
+          "name": "Nguyen Duc Minh",
+          "title": "VIP Member"
+        }
+      }
+    },
+    "form": {
+      "title": "Create new account",
+      "subtitle": "Fill in information to start exploring",
+      "fullname": {
+        "label": "Full name",
+        "placeholder": "Nguyen Van A"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "example@email.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "••••••••"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "••••••••"
+      },
+      "passwordStrength": {
+        "weak": "Weak",
+        "medium": "Medium",
+        "strong": "Strong",
+        "strongPassword": "Strong password",
+        "passwordHint": "Use uppercase, numbers and special characters",
+        "passwordMatch": "Passwords match",
+        "passwordMismatch": "Passwords don't match"
+      },
+      "terms": {
+        "agreement": "I agree to the",
+        "termsOfService": "Terms of Service",
+        "and": "and",
+        "privacyPolicy": "Privacy Policy"
+      },
+      "submit": {
+        "loading": "Creating account...",
+        "default": "Sign up now"
+      },
+      "social": {
+        "divider": "Or sign up with",
+        "google": "Google",
+        "facebook": "Facebook"
+      },
+      "login": {
+        "text": "Already have an account?",
+        "link": "Sign in now"
+      }
+    },
+    "error": {
+      "passwordMismatch": "Password confirmation does not match",
+      "termsNotAgreed": "Please agree to the terms of service",
+      "weakPassword": "Password is too weak. Please create a stronger password",
+      "default": "Registration failed. Please try again later!"
+    }
+  },
+  "profile": {
+    "loading": {
+      "text": "Loading profile information..."
+    },
+    "error": {
+      "title": "Cannot load information",
+      "retry": "Try again",
+      "loginRequired": "Login information not found. Please log in again.",
+      "fetchError": "Cannot load profile information",
+      "updateError": "Profile update failed: ",
+      "unknownError": "Unknown error"
+    },
+    "notFound": {
+      "title": "Profile not found",
+      "description": "This profile does not exist or has been deleted."
+    },
+    "header": {
+      "editProfile": "Edit Profile",
+      "saveChanges": "Save Changes",
+      "cancel": "Cancel",
+      "defaultName": "User",
+      "countryPlaceholder": "Enter country",
+      "defaultCountry": "Country not updated",
+      "namePlaceholder": "Enter name"
+    },
+    "sections": {
+      "about": {
+        "title": "About",
+        "placeholder": "Write something about yourself...",
+        "defaultDescription": "No introduction information available."
+      },
+      "contact": {
+        "title": "Contact Information",
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "Enter phone number",
+          "defaultValue": "Not updated"
+        }
+      },
+      "stats": {
+        "title": "Statistics",
+        "ratings": "Ratings",
+        "bookings": "Booked Tours",
+        "helpfulRatings": "Helpful Ratings"
+      }
+    }
+  }
+} 

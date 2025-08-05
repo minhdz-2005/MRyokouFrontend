@@ -1,6 +1,7 @@
 // src/components/TourList.jsx
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import SortBar from '../components/SortBar'
 import SearchBar from './SearchBar';
@@ -11,6 +12,7 @@ import fallbackImg from '/images/Noel_Bauza1.jpg';
 const toursPerPage = 6; // Tăng lên 9 để layout đẹp hơn
 
 const TourList = () => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [sort, setSort] = useState('');
   const [searchParams, setSearchParams] = useState({});
@@ -35,7 +37,7 @@ const TourList = () => {
         setTotalPages(data.totalPages);
       } catch (err) {
         const msg =
-          err.response?.data?.message || 'Không thể tải dữ liệu tour!';
+          err.response?.data?.message || t('tourList.error.message');
           setErrMsg(msg);
       } finally {
         setLoading(false);
@@ -135,9 +137,9 @@ const TourList = () => {
 
         <div className="section-title">
           <h2 className="main-title text-primary">
-            <span className="title-gradient">Khám Phá</span> Các Tour Du Lịch
+            <span className="title-gradient">{t('tourList.header.title')}</span> {t('tourList.header.highlight')}
           </h2>
-          <p className="subtitle text-muted">Hơn {tours.length} tour tuyệt vời đang chờ bạn khám phá</p>
+          <p className="subtitle text-muted">{t('tourList.header.subtitle', { count: tours.length })}</p>
         </div>
 
         {/* Loading State */}
@@ -148,7 +150,7 @@ const TourList = () => {
               <div className="spinner-ring"></div>
               <div className="spinner-ring"></div>
             </div>
-            <p className="loading-text">Đang tải các tour tuyệt vời...</p>
+            <p className="loading-text">{t('tourList.loading.text')}</p>
           </div>
         )}
 
@@ -161,7 +163,7 @@ const TourList = () => {
               className="btn btn-primary retry-btn"
               onClick={() => window.location.reload()}
             >
-              Thử lại
+              {t('tourList.error.retry')}
             </button>
           </div>
         )}
@@ -192,12 +194,12 @@ const TourList = () => {
                         className="view-detail-btn"
                         target="_blank"
                       >
-                        <BsEye /> Xem chi tiết
+                        <BsEye /> {t('tourList.tour.viewDetail')}
                       </Link>
                     </div>
                     {tour.isHot && <div className="hot-badge">🔥 Hot</div>}
                     <div className="price-badge bg-light">
-                      <span className='text-primary'>{formatPrice(tour.price)} / Người</span>
+                      <span className='text-primary'>{formatPrice(tour.price)} {t('tourList.tour.perPerson')}</span>
                     </div>
                   </div>
 
@@ -222,14 +224,14 @@ const TourList = () => {
                       <div className="tour-rating">
                         <BsStarFill className="star-icon" />
                         <span className="rating-value text-primary">{tour.rating}</span>
-                        <span className="rating-text">Đánh giá</span>
+                        <span className="rating-text">{t('tourList.tour.rating')}</span>
                       </div>
                       
                       {tour.duration && (
                         <div className="tour-duration">
-                          Thời gian:
+                          {t('tourList.tour.duration')}
                           <BsClock className="duration-icon" />
-                          <span>{tour.duration} ngày</span>
+                          <span>{tour.duration} {t('tourList.tour.days')}</span>
                         </div>
                       )}
                     </div>
@@ -240,7 +242,7 @@ const TourList = () => {
                         className="book-now-btn"
                         target="_blank"
                       >
-                        Xem chi tiết
+                        {t('tourList.tour.viewDetail')}
                       </Link>
                     </div>
                   </div>
@@ -254,8 +256,8 @@ const TourList = () => {
         {!loading && tours.length === 0 && !errMsg && (
           <div className="empty-state">
             <div className="empty-icon">🏝️</div>
-            <h3 className='text-muted'>Không tìm thấy tour nào</h3>
-            <p className='text-muted'>Hãy thử điều chỉnh bộ lọc hoặc tìm kiếm với từ khóa khác</p>
+            <h3 className='text-muted'>{t('tourList.empty.title')}</h3>
+            <p className='text-muted'>{t('tourList.empty.subtitle')}</p>
           </div>
         )}
 
@@ -293,7 +295,7 @@ const TourList = () => {
             </nav>
             
             <div className="pagination-info text-dark font-weight-bold">
-              Trang {currentPage} / {totalPages} - Tổng {tours.length} tour
+              {t('tourList.pagination.page')} {currentPage} {t('tourList.pagination.of')} {totalPages} - {t('tourList.pagination.total')} {tours.length} {t('tourList.pagination.tours')}
             </div>
           </div>
         )}

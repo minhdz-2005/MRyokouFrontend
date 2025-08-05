@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -15,6 +16,7 @@ import {
 } from 'react-icons/bs';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,7 +41,7 @@ const Profile = () => {
       fetchUserRatings(userData._id || userData.id);
       fetchUserBookings(userData._id || userData.id);
     } else {
-      setError('Không tìm thấy thông tin đăng nhập. Vui lòng đăng nhập lại.');
+      setError(t('profile.error.loginRequired'));
       setLoading(false);
     }
   }, []);
@@ -66,7 +68,7 @@ const Profile = () => {
         phoneNumber: response.data.phoneNumber || ''
       });
     } catch (err) {
-      setError(err.response?.data?.message || 'Không thể tải thông tin profile');
+      setError(err.response?.data?.message || t('profile.error.fetchError'));
     } finally {
       setLoading(false);
     }
@@ -167,7 +169,7 @@ const Profile = () => {
       setAvatarFile(null);
       setAvatarPreview(null);
     } catch (err) {
-      alert('Cập nhật profile thất bại: ' + (err.response?.data?.message || 'Lỗi không xác định'));
+      alert(t('profile.error.updateError') + (err.response?.data?.message || t('profile.error.unknownError')));
     }
   };
 
@@ -194,7 +196,7 @@ const Profile = () => {
         <Header />
         <div className="profile-loading">
           <div className="spinner"></div>
-          <p>Đang tải thông tin profile...</p>
+          <p>{t('profile.loading.text')}</p>
         </div>
         <Footer />
       </>
@@ -207,10 +209,10 @@ const Profile = () => {
         <Header />
         <div className="profile-error">
           <div className="error-content">
-            <h3>Không thể tải thông tin</h3>
+            <h3>{t('profile.error.title')}</h3>
             <p>{error}</p>
             <button onClick={fetchProfile} className="btn btn-primary">
-              Thử lại
+              {t('profile.error.retry')}
             </button>
           </div>
         </div>
@@ -224,8 +226,8 @@ const Profile = () => {
       <>
         <Header />
         <div className="profile-not-found">
-          <h3>Không tìm thấy profile</h3>
-          <p>Profile này không tồn tại hoặc đã bị xóa.</p>
+          <h3>{t('profile.notFound.title')}</h3>
+          <p>{t('profile.notFound.description')}</p>
         </div>
         <Footer />
       </>
@@ -276,10 +278,10 @@ const Profile = () => {
                       value={userForm.fullname}
                       onChange={handleUserInputChange}
                       className="form-control name-input"
-                      placeholder="Nhập tên"
+                      placeholder={t('profile.header.namePlaceholder')}
                     />
                   ) : (
-                    user?.fullname || 'Người dùng'
+                    user?.fullname || t('profile.header.defaultName')
                   )}
                 </h1>
                 <div className="profile-country">
@@ -291,11 +293,11 @@ const Profile = () => {
                       value={editForm.country}
                       onChange={handleInputChange}
                       className="form-control country-input"
-                      placeholder="Nhập quốc gia"
+                      placeholder={t('profile.header.countryPlaceholder')}
                     />
                   ) : (
                     <span className="country-text">
-                      {profile.country || 'Chưa cập nhật quốc gia'}
+                      {profile.country || t('profile.header.defaultCountry')}
                     </span>
                   )}
                 </div>
@@ -309,7 +311,7 @@ const Profile = () => {
                   onClick={() => setIsEditing(true)}
                 >
                   <BsPencil className="me-2" />
-                  Chỉnh sửa Profile
+                  {t('profile.header.editProfile')}
                 </button>
               ) : (
                 <div className="edit-actions">
@@ -318,14 +320,14 @@ const Profile = () => {
                     onClick={handleSubmit}
                   >
                     <BsCheckLg className="me-2" />
-                    Lưu thay đổi
+                    {t('profile.header.saveChanges')}
                   </button>
                   <button 
                     className="btn btn-outline-secondary"
                     onClick={cancelEdit}
                   >
                     <BsX className="me-2" />
-                    Hủy
+                    {t('profile.header.cancel')}
                   </button>
                 </div>
               )}
@@ -341,7 +343,7 @@ const Profile = () => {
                 <div className="profile-section">
                   <h3 className="section-title">
                     <BsPerson className="me-2" />
-                    Giới thiệu
+                    {t('profile.sections.about.title')}
                   </h3>
                   
                   {isEditing ? (
@@ -352,25 +354,25 @@ const Profile = () => {
                         onChange={handleInputChange}
                         className="form-control"
                         rows="4"
-                        placeholder="Viết gì đó về bản thân..."
+                        placeholder={t('profile.sections.about.placeholder')}
                       />
                     </div>
                   ) : (
                     <p className="profile-description">
-                      {profile.description || 'Chưa có thông tin giới thiệu.'}
+                      {profile.description || t('profile.sections.about.defaultDescription')}
                     </p>
                   )}
                 </div>
 
                 {/* Contact Information */}
                 <div className="profile-section">
-                  <h3 className="section-title">Thông tin liên hệ</h3>
+                  <h3 className="section-title">{t('profile.sections.contact.title')}</h3>
                   
                   <div className="contact-info">
                     <div className="contact-item">
                       <BsTelephone className="contact-icon" />
                       <div className="contact-details">
-                        <span className="contact-label">Số điện thoại</span>
+                        <span className="contact-label">{t('profile.sections.contact.phone.label')}</span>
                         {isEditing ? (
                           <input
                             type="tel"
@@ -378,11 +380,11 @@ const Profile = () => {
                             value={editForm.phoneNumber}
                             onChange={handleInputChange}
                             className="form-control"
-                            placeholder="Nhập số điện thoại"
+                            placeholder={t('profile.sections.contact.phone.placeholder')}
                           />
                         ) : (
                           <span className="contact-value">
-                            {profile.phoneNumber || 'Chưa cập nhật'}
+                            {profile.phoneNumber || t('profile.sections.contact.phone.defaultValue')}
                           </span>
                         )}
                       </div>
@@ -398,7 +400,7 @@ const Profile = () => {
                 
                 {/* Profile Stats */}
                 <div className="profile-stats">
-                  <h4 className="stats-title">Thống kê</h4>
+                  <h4 className="stats-title">{t('profile.sections.stats.title')}</h4>
                   
                   <div className="stats-grid">
                     <div className="stat-item">
@@ -411,7 +413,7 @@ const Profile = () => {
                           ratings.length
                         )}
                       </div>
-                      <div className="stat-label">Đánh giá</div>
+                      <div className="stat-label">{t('profile.sections.stats.ratings')}</div>
                     </div>
                     
                     <div className="stat-item">
@@ -424,7 +426,7 @@ const Profile = () => {
                           bookings.length
                         )}
                       </div>
-                      <div className="stat-label">Tour đã đặt</div>
+                      <div className="stat-label">{t('profile.sections.stats.bookings')}</div>
                     </div>
                     
                     <div className="stat-item">
@@ -437,7 +439,7 @@ const Profile = () => {
                           ratings.filter(rating => rating.star >= 4).length
                         )}
                       </div>
-                      <div className="stat-label">Đánh giá hữu ích</div>
+                      <div className="stat-label">{t('profile.sections.stats.helpfulRatings')}</div>
                     </div>
                   </div>
                 </div>

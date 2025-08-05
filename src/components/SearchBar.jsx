@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './SearchBar.css';
 import { 
   FaSearch, 
@@ -10,6 +11,7 @@ import {
 import { TbBeach, TbMountain, TbBuilding } from 'react-icons/tb';
 
 const SearchBar = ({ onSearch }) => {
+  const { t } = useTranslation();
   const [keyword, setKeyword] = useState('');
   const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
@@ -25,29 +27,29 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const popularDestinations = [
-    { name: 'Đà Lạt', icon: <TbMountain /> },
-    { name: 'Phú Quốc', icon: <TbBeach /> },
-    { name: 'Hà Nội', icon: <TbBuilding /> },
-    { name: 'Hội An', icon: <TbBuilding /> }
+    { name: t('search.popular.destinations.daLat'), icon: <TbMountain /> },
+    { name: t('search.popular.destinations.phuQuoc'), icon: <TbBeach /> },
+    { name: t('search.popular.destinations.haNoi'), icon: <TbBuilding /> },
+    { name: t('search.popular.destinations.hoiAn'), icon: <TbBuilding /> }
   ];
 
   return (
     <div className="searchbar-section">
       <div className="searchbar-container">
-        <form className="searchbar-form" onSubmit={handleSubmit} role="search" aria-label="Tìm kiếm tour">
+        <form className="searchbar-form" onSubmit={handleSubmit} role="search" aria-label={t('search.main.ariaLabel')}>
           <div className="searchbar-main">
             <div className="searchbar-input-group">
               <span className="searchbar-icon"><FaSearch /></span>
               <input
                 type="text"
                 className="searchbar-input"
-                placeholder="Bạn muốn đi đâu? Tìm kiếm điểm đến, tên tour..."
+                placeholder={t('search.main.placeholder')}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                aria-label="Tìm điểm đến, tên tour"
+                aria-label={t('search.main.inputAriaLabel')}
               />
               <button type="submit" className="searchbar-btn">
-                Tìm kiếm
+                {t('search.main.searchButton')}
               </button>
             </div>
           </div>
@@ -60,9 +62,9 @@ const SearchBar = ({ onSearch }) => {
                   className="filter-select" 
                   value={location} 
                   onChange={(e) => setLocation(e.target.value)} 
-                  aria-label="Chọn địa điểm"
+                  aria-label={t('search.filters.location.label')}
                 >
-                  <option value="">Tất cả địa điểm</option>
+                  <option value="">{t('search.filters.location.all')}</option>
                   {popularDestinations.map((dest, index) => (
                     <option key={index} value={dest.name}>{dest.name}</option>
                   ))}
@@ -75,13 +77,13 @@ const SearchBar = ({ onSearch }) => {
                   className="filter-select" 
                   value={price} 
                   onChange={(e) => setPrice(e.target.value)} 
-                  aria-label="Chọn mức giá"
+                  aria-label={t('search.filters.price.label')}
                 >
-                  <option value="">Mọi mức giá</option>
-                  <option value="low">Dưới 3 triệu</option>
-                  <option value="mid">3 - 5 triệu</option>
-                  <option value="high">Trên 5 triệu</option>
-                  <option value="luxury">Trên 10 triệu</option>
+                  <option value="">{t('search.filters.price.all')}</option>
+                  <option value="low">{t('search.filters.price.low')}</option>
+                  <option value="mid">{t('search.filters.price.mid')}</option>
+                  <option value="high">{t('search.filters.price.high')}</option>
+                  <option value="luxury">{t('search.filters.price.luxury')}</option>
                 </select>
               </div>
 
@@ -92,8 +94,8 @@ const SearchBar = ({ onSearch }) => {
                   className="filter-select"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
-                  aria-label="Chọn ngày đi"
-                  placeholder="Ngày đi"
+                  aria-label={t('search.filters.date.label')}
+                  placeholder={t('search.filters.date.placeholder')}
                 />
               </div>
 
@@ -103,12 +105,12 @@ const SearchBar = ({ onSearch }) => {
                   className="filter-select" 
                   value={duration} 
                   onChange={(e) => setDuration(e.target.value)} 
-                  aria-label="Chọn thời lượng"
+                  aria-label={t('search.filters.duration.label')}
                 >
-                  <option value="">Thời lượng</option>
-                  <option value="1-3">1-3 ngày</option>
-                  <option value="4-7">4-7 ngày</option>
-                  <option value="8+">Trên 7 ngày</option>
+                  <option value="">{t('search.filters.duration.all')}</option>
+                  <option value="1-3">{t('search.filters.duration.short')}</option>
+                  <option value="4-7">{t('search.filters.duration.medium')}</option>
+                  <option value="8+">{t('search.filters.duration.long')}</option>
                 </select>
               </div>
             </div>
@@ -120,12 +122,12 @@ const SearchBar = ({ onSearch }) => {
             onClick={() => setShowAdvanced(!showAdvanced)}
           >
             <FaFilter />
-            <span className='fs-6'>{showAdvanced ? 'Ẩn bộ lọc' : 'Bộ lọc nâng cao'}</span>
+            <span className='fs-6'>{showAdvanced ? t('search.filters.toggle.hide') : t('search.filters.toggle.show')}</span>
             <FaChevronDown className={`chevron ${showAdvanced ? 'rotate' : ''}`} />
           </button>
 
           <div className="popular-destinations">
-            <h3>Điểm đến phổ biến:</h3>
+            <h3>{t('search.popular.title')}</h3>
             <div className="destinations-list mt-4">
               {popularDestinations.map((dest, index) => (
                 <button

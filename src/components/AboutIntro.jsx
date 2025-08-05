@@ -1,6 +1,7 @@
 // src/components/AboutIntro.jsx
 import React from 'react';
 import './AboutIntro.css';
+import { useTranslation } from 'react-i18next';
 import { 
   FaGlobeAsia, 
   FaHandsHelping, 
@@ -12,15 +13,16 @@ import {
 import { TbBeach, TbMountain, TbBuildingCommunity } from 'react-icons/tb';
 
 const AboutIntro = () => {
+  const { t } = useTranslation();
   return (
     <section className="about-intro">
       <div className="container">
         {/* Header với hình nền parallax */}
         <div className="intro-header">
           <div className="intro-overlay">
-            <h1 className="intro-title">Câu chuyện của MTRAVEL</h1>
+            <h1 className="intro-title">{t('about.story.title')}</h1>
             <p className="intro-subtitle">
-              Hành trình mang thế giới đến gần bạn hơn
+              {t('about.story.subtitle')}
             </p>
           </div>
         </div>
@@ -40,28 +42,26 @@ const AboutIntro = () => {
             <div className="col-lg-6">
               <div className="intro-content">
                 <h2 className="section-title">
-                  <span className="title-highlight">Chúng tôi là ai?</span>
+                  <span className="title-highlight">{t('about.intro.title')}</span>
                 </h2>
                 <p className="intro-text">
-                  MTRAVEL là nền tảng đặt tour trực tuyến hàng đầu Việt Nam, ra đời với sứ mệnh
-                  cách mạng hóa trải nghiệm du lịch của người Việt trẻ.
+                  {t('about.intro.description1')}
                 </p>
                 <p className="intro-text">
-                  Từ năm 2025, chúng tôi đã đồng hành cùng hơn 50.000 khách hàng trong những hành trình
-                  đáng nhớ, kết nối mọi người với những trải nghiệm địa phương chân thật nhất.
+                  {t('about.intro.description2')}
                 </p>
                 <div className="stats-container">
                   <div className="stat-item ms-5">
                     <div className="stat-number">50,000+</div>
-                    <div className="stat-label">Khách hàng</div>
+                    <div className="stat-label">{t('about.stats.customers')}</div>
                   </div>
                   <div className="stat-item ms-5">
                     <div className="stat-number">1,000+</div>
-                    <div className="stat-label">Tour du lịch</div>
+                    <div className="stat-label">{t('about.stats.tours')}</div>
                   </div>
                   <div className="stat-item ms-5">
                     <div className="stat-number">98%</div>
-                    <div className="stat-label">Hài lòng</div>
+                    <div className="stat-label">{t('about.stats.satisfaction')}</div>
                   </div>
                 </div>
               </div>
@@ -72,10 +72,10 @@ const AboutIntro = () => {
         {/* Các giá trị cốt lõi */}
         <div className="core-values">
           <h2 className="section-title text-center">
-            <span className="title-highlight">Giá trị cốt lõi</span>
+            <span className="title-highlight">{t('about.values.title')}</span>
           </h2>
           <p className="section-subtitle text-center">
-            Những điều làm nên khác biệt của MTRAVEL
+            {t('about.values.subtitle')}
           </p>
 
           <div className="values-container">
@@ -83,10 +83,9 @@ const AboutIntro = () => {
               <div className="value-icon">
                 <FaGlobeAsia />
               </div>
-              <h3 className="value-title">Sứ mệnh</h3>
+              <h3 className="value-title">{t('about.values.mission.title')}</h3>
               <p className="value-description">
-                Kết nối khách du lịch với những hành trình trải nghiệm đáng nhớ
-                khắp Việt Nam, mang đến góc nhìn chân thực về mỗi điểm đến.
+                {t('about.values.mission.description')}
               </p>
             </div>
 
@@ -94,10 +93,9 @@ const AboutIntro = () => {
               <div className="value-icon">
                 <FaHandsHelping />
               </div>
-              <h3 className="value-title">Cam kết</h3>
+              <h3 className="value-title">{t('about.values.commitment.title')}</h3>
               <p className="value-description">
-                Tận tâm, minh bạch, đồng hành cùng khách hàng trong từng chặng đường.
-                Đảm bảo chất lượng dịch vụ tốt nhất với giá cả hợp lý.
+                {t('about.values.commitment.description')}
               </p>
             </div>
 
@@ -105,10 +103,9 @@ const AboutIntro = () => {
               <div className="value-icon">
                 <FaRegSmile />
               </div>
-              <h3 className="value-title">Tầm nhìn</h3>
+              <h3 className="value-title">{t('about.values.vision.title')}</h3>
               <p className="value-description">
-                Trở thành nền tảng đặt tour đáng tin cậy nhất cho thế hệ trẻ yêu
-                du lịch và trải nghiệm, tiên phong trong công nghệ du lịch thông minh.
+                {t('about.values.vision.description')}
               </p>
             </div>
 
@@ -116,10 +113,9 @@ const AboutIntro = () => {
               <div className="value-icon">
                 <FaHeart />
               </div>
-              <h3 className="value-title">Văn hóa</h3>
+              <h3 className="value-title">{t('about.values.culture.title')}</h3>
               <p className="value-description">
-                Lấy khách hàng làm trung tâm, đề cao tinh thần đổi mới và làm việc
-                nhóm. Mỗi thành viên là một đại sứ văn hóa Việt Nam.
+                {t('about.values.culture.description')}
               </p>
             </div>
 
@@ -127,10 +123,9 @@ const AboutIntro = () => {
               <div className="value-icon">
                 <FaLightbulb />
               </div>
-              <h3 className="value-title">Sáng tạo</h3>
+              <h3 className="value-title">{t('about.values.innovation.title')}</h3>
               <p className="value-description">
-                Không ngừng đổi mới, tạo ra những trải nghiệm du lịch độc đáo,
-                khác biệt và phù hợp với xu hướng của thế hệ trẻ.
+                {t('about.values.innovation.description')}
               </p>
             </div>
 
@@ -138,10 +133,9 @@ const AboutIntro = () => {
               <div className="value-icon">
                 <FaMapMarkedAlt />
               </div>
-              <h3 className="value-title">Trách nhiệm</h3>
+              <h3 className="value-title">{t('about.values.responsibility.title')}</h3>
               <p className="value-description">
-                Phát triển du lịch bền vững, tôn trọng văn hóa địa phương và
-                bảo vệ môi trường tại mỗi điểm đến.
+                {t('about.values.responsibility.description')}
               </p>
             </div>
           </div>

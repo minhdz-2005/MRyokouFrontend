@@ -476,11 +476,20 @@ const Tours = () => {
             image: tour.image,
             tags: tour.tags || []
         });
+        
+        // Format schedules dates for input type="date"
+        const existingSchedules = tourDetails[tour._id]?.schedules || [];
+        const formattedSchedules = existingSchedules.map(schedule => ({
+            ...schedule,
+            startDate: schedule.startDate ? new Date(schedule.startDate).toISOString().split('T')[0] : '',
+            endDate: schedule.endDate ? new Date(schedule.endDate).toISOString().split('T')[0] : ''
+        }));
+        
         setTourDetailForm({
             image: tourDetails[tour._id]?.image || [],
             highlights: tourDetails[tour._id]?.highlights || [],
             itinerary: tourDetails[tour._id]?.itinerary || [],
-            schedules: tourDetails[tour._id]?.schedules || [],
+            schedules: formattedSchedules,
             notes: tourDetails[tour._id]?.notes || []
         });
         setTempInputValues({
@@ -752,8 +761,8 @@ const Tours = () => {
                                                     <span>{tour.location}</span>
                                                 </div>
                                                 <div className="tour-duration">
-                                                    <i className="fas fa-clock"></i>
-                                                    <span>{tour.duration} ngày</span>
+                                                    
+                                                    <span><i className="fas fa-clock"></i> {tour.duration} ngày</span>
                                                 </div>
                                             </div>
                                         </div>

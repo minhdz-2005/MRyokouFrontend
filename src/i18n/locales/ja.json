@@ -1,0 +1,564 @@
+{
+  "header": {
+    "language": "言語",
+    "selectLanguage": "言語を選択",
+    "vietnamese": "ベトナム語",
+    "english": "英語",
+    "japanese": "日本語",
+    "home": "ホーム",
+    "tours": "ツアー",
+    "explore": "探検",
+    "about": "会社概要",
+    "login": "ログイン",
+    "signup": "サインアップ",
+    "profile": "プロフィール",
+    "myBookings": "マイ予約",
+    "logout": "ログアウト"
+  },
+  "about": {
+    "story": {
+      "title": "MTRAVELの物語",
+      "subtitle": "世界をあなたにより近くに"
+    },
+    "intro": {
+      "title": "私たちについて",
+      "description1": "MTRAVELはベトナムをリードするオンラインツアー予約プラットフォームで、若いベトナム人の旅行体験を革新する使命を持って誕生しました。",
+      "description2": "2025年以来、私たちは50,000人以上の顧客と記憶に残る旅に同行し、人々と最も本物のローカル体験を結びつけています。"
+    },
+    "stats": {
+      "customers": "顧客",
+      "tours": "ツアー",
+      "satisfaction": "満足度"
+    },
+    "values": {
+      "title": "コアバリュー",
+      "subtitle": "MTRAVELを特別にするもの",
+      "mission": {
+        "title": "ミッション",
+        "description": "ベトナム全土で旅行者と記憶に残る体験的旅を結びつけ、各目的地に本物の視点をもたらす。"
+      },
+      "commitment": {
+        "title": "コミットメント",
+        "description": "献身的で透明性があり、各ステップで顧客に同行。手頃な価格で最高のサービス品質を確保。"
+      },
+      "vision": {
+        "title": "ビジョン",
+        "description": "旅行と体験を愛する若い人々にとって最も信頼できるツアー予約プラットフォームとなり、スマート旅行技術を先駆ける。"
+      },
+      "culture": {
+        "title": "文化",
+        "description": "顧客中心、イノベーションとチームワークを促進。すべてのメンバーがベトナム文化の大使。"
+      },
+      "innovation": {
+        "title": "イノベーション",
+        "description": "継続的に革新し、若い世代のトレンドに適したユニークで特徴的な旅行体験を作り出す。"
+      },
+      "responsibility": {
+        "title": "責任",
+        "description": "持続可能な観光を発展させ、地域文化を尊重し、各目的地の環境を保護する。"
+      }
+    }
+  },
+  "banner": {
+    "hero": {
+      "title": "探検",
+      "highlight": "ベトナム",
+      "subtitle": "私たちと一緒に",
+      "description": "プロフェッショナルなサービスで素晴らしい旅行を体験"
+    },
+    "search": {
+      "destination": "目的地",
+      "destinationPlaceholder": "どこに行きたいですか？",
+      "date": "出発日",
+      "guests": "ゲスト数",
+      "guestOption": "人",
+      "searchButton": "検索"
+    },
+    "stats": {
+      "destinations": "目的地",
+      "satisfiedCustomers": "満足した顧客",
+      "support": "サポート"
+    }
+  },
+  "explore": {
+    "header": {
+      "title": "ベトナムを探検",
+      "subtitle": "北から南まで自然の美しさと文化を発見する旅"
+    },
+    "regions": {
+      "north": {
+        "name": "北部",
+        "description": "雄大な山々の地"
+      },
+      "central": {
+        "name": "中部",
+        "description": "ベトナム文化と歴史の揺籃"
+      },
+      "south": {
+        "name": "南部",
+        "description": "肥沃なメコン・デルタ"
+      }
+    },
+    "content": {
+      "loading": "データを読み込み中...",
+      "noData": "この地域のデータがありません",
+      "highlights": "ハイライト",
+      "viewTours": "ツアーを見る"
+    },
+    "stats": {
+      "destinations": "目的地",
+      "visitors": "訪問者",
+      "rating": "平均評価"
+    }
+  },
+  "featured": {
+    "header": {
+      "badge": "注目のツアー",
+      "title": "魅力的な",
+      "highlight": "目的地",
+      "subtitle": "厳選されたツアーでベトナムの最高の目的地を発見"
+    },
+    "content": {
+      "loading": "注目のツアーを読み込み中...",
+      "error": "注目のツアーの読み込みに失敗しました",
+      "days": "日",
+      "perPerson": "/人",
+      "bookTour": "ツアー予約",
+      "viewAllTours": "すべてのツアーを見る"
+    }
+  },
+  "footer": {
+    "brand": {
+      "description": "ベトナムをリードする便利で信頼性が高く、手頃な価格のツアー予約プラットフォーム。"
+    },
+    "quickLinks": {
+      "title": "クイックリンク",
+      "home": "ホーム",
+      "tours": "ツアー",
+      "explore": "探検",
+      "about": "会社概要"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "address": "54 Nguyen Luong Bang, Lien Chieu, Da Nang",
+      "phone": "0388 108 368",
+      "email": "support@mtravel.vn"
+    },
+    "newsletter": {
+      "title": "ニュースレター",
+      "description": "オファーと最新のツアー情報を受け取る",
+      "placeholder": "メールアドレスを入力",
+      "button": "登録"
+    },
+    "copyright": "All Rights Reserved"
+  },
+  "reviews": {
+    "header": {
+      "title": "お客様の",
+      "highlight": "声",
+      "subtitle": "私たちのサービスを信頼してくれたお客様からの実際の体験"
+    },
+    "rating": {
+      "reviews": "レビュー",
+      "all": "すべて",
+      "helpful": "役立つ"
+    },
+    "cta": {
+      "title": "私たちのサービスを体験されたことはありますか？",
+      "subtitle": "他のお客様を助けるためにあなたの体験を共有してください",
+      "button": "レビューを書く"
+    }
+  },
+  "search": {
+    "main": {
+      "placeholder": "どこに行きたいですか？目的地、ツアー名を検索...",
+      "searchButton": "検索",
+      "ariaLabel": "ツアー検索",
+      "inputAriaLabel": "目的地、ツアー名を検索"
+    },
+    "filters": {
+      "location": {
+        "label": "目的地を選択",
+        "all": "すべての目的地"
+      },
+      "price": {
+        "label": "価格帯を選択",
+        "all": "すべての価格",
+        "low": "300万以下",
+        "mid": "300-500万",
+        "high": "500万以上",
+        "luxury": "1000万以上"
+      },
+      "date": {
+        "label": "出発日を選択",
+        "placeholder": "出発日"
+      },
+      "duration": {
+        "label": "期間を選択",
+        "all": "期間",
+        "short": "1-3日",
+        "medium": "4-7日",
+        "long": "7日以上"
+      },
+      "toggle": {
+        "show": "詳細フィルター",
+        "hide": "フィルターを隠す"
+      }
+    },
+    "popular": {
+      "title": "人気の目的地:",
+      "destinations": {
+        "daLat": "ダラット",
+        "phuQuoc": "フーコック",
+        "haNoi": "ハノイ",
+        "hoiAn": "ホイアン"
+      }
+    }
+  },
+  "sort": {
+    "title": "並び替え:",
+    "options": {
+      "priceAsc": "価格: 安い順",
+      "priceDesc": "価格: 高い順",
+      "rating": "評価が高い順",
+      "newest": "新着順"
+    }
+  },
+  "tourList": {
+    "header": {
+      "title": "探検",
+      "highlight": "ツアーパッケージ",
+      "subtitle": "{count}以上の素晴らしいツアーがあなたの発見を待っています"
+    },
+    "loading": {
+      "text": "素晴らしいツアーを読み込み中..."
+    },
+    "error": {
+      "message": "ツアーデータの読み込みに失敗しました！",
+      "retry": "再試行"
+    },
+    "tour": {
+      "perPerson": "/ 人",
+      "viewDetail": "詳細を見る",
+      "rating": "評価",
+      "duration": "期間:",
+      "days": "日"
+    },
+    "empty": {
+      "title": "ツアーが見つかりません",
+      "subtitle": "フィルターを調整するか、別のキーワードで検索してみてください"
+    },
+    "pagination": {
+      "page": "ページ",
+      "of": "/",
+      "total": "合計",
+      "tours": "ツアー"
+    }
+  },
+  "travelGuide": {
+    "header": {
+      "title": "旅行ガイド",
+      "subtitle": "完全で思い出深い旅行を実現するための役立つアドバイス"
+    },
+    "sections": {
+      "packing": {
+        "title": "旅行の荷物準備",
+        "points": [
+          "目的地の天候と地形に適した服を持参する。",
+          "身分証明書、航空券、ツアー/ホテル予約を持参する。",
+          "歯磨き粉、タオル、予備充電器などの基本的な個人用品。",
+          "基本的な薬：風邪、腹痛、乗り物酔いなど。"
+        ]
+      },
+      "weather": {
+        "title": "タイミングと天候に関する注意事項",
+        "points": [
+          "出発3-5日前に天気予報を確認する。",
+          "中部地域の洪水シーズンを避ける（通常9月-11月）。",
+          "ビーチ観光は4月-8月に良い天気で行く。"
+        ]
+      },
+      "budget": {
+        "title": "旅行時の費用節約のコツ",
+        "points": [
+          "良い価格を得るためにツアーと航空券を早めに予約する。",
+          "車両、部屋、ガイドの費用を分担するために大グループで旅行する。",
+          "小さな費用を節約するために個人用の水筒とスナックを持参する。"
+        ]
+      },
+      "tourType": {
+        "title": "ガイド付きツアーか個人旅行？",
+        "points": [
+          "ガイド付きツアーは高齢者に適しており、既成の行程があり心配が少ない。",
+          "個人旅行は柔軟で、探検したい若者に適している。",
+          "組み合わせ可能：個人旅行中に短期的な現地ツアーを予約する。"
+        ]
+      }
+    },
+    "content": {
+      "viewMore": "もっと見る",
+      "importantNotes": "重要な注意事項",
+      "bestTime": {
+        "title": "ベストタイム",
+        "description": "各目的地には独自の観光シーズンがあります。最高の体験のためにツアーを予約する前に慎重に調査してください。"
+      },
+      "safety": {
+        "title": "安全と健康",
+        "description": "常に旅行保険を購入し、家族に旅程を通知して安全を確保してください。"
+      },
+      "cta": {
+        "title": "次の旅行の準備はできていますか？",
+        "subtitle": "あなた専用に設計された魅力的なツアーパッケージを発見",
+        "button": "今すぐツアー予約"
+      }
+    }
+  },
+  "whyChooseUs": {
+    "header": {
+      "title": "なぜ選ぶ",
+      "highlight": "MTRAVEL",
+      "subtitle": "私たちが旅行者の第一選択肢となる理由"
+    },
+    "features": {
+      "diverseDestinations": {
+        "title": "多様な目的地",
+        "description": "ベトナム全土および国際的に1,200以上のツアーを特別割引価格で提供。",
+        "stat": "1,200+"
+      },
+      "quickBooking": {
+        "title": "迅速な予約",
+        "description": "3分でツアー予約プロセス、99%の即座確認率。",
+        "stat": "3分"
+      },
+      "highRating": {
+        "title": "高評価",
+        "description": "50,000人以上の顧客に信頼され、98%の満足度。",
+        "stat": "98%"
+      },
+      "safetyGuarantee": {
+        "title": "安全保証",
+        "description": "約束が守られない場合や事故が発生した場合の100%返金保証。",
+        "stat": "100%"
+      },
+      "professionalGuides": {
+        "title": "プロのガイド",
+        "description": "情熱的で経験豊富、地域を理解するガイドチーム。",
+        "stat": "200+"
+      },
+      "competitivePricing": {
+        "title": "競争力のある価格",
+        "description": "年間を通じたプロモーションで最高の市場価格を約束。",
+        "stat": "最高"
+      },
+      "dedicatedService": {
+        "title": "専用サービス",
+        "description": "旅行中24時間365日のサポート。",
+        "stat": "24/7"
+      },
+      "prestigiousAwards": {
+        "title": "権威ある賞",
+        "description": "顧客投票による「2024年ベストオンライン旅行プラットフォーム」受賞。",
+        "stat": "トップ1"
+      }
+    },
+    "testimonial": {
+      "quote": "MTRAVELは私の家族に最高の旅行をもたらしてくれました。相談からツアー終了までプロフェッショナルなサービス。今後もMTRAVELと一緒に旅行を続けることを確信しています！",
+      "customer": {
+        "name": "グエン・ドゥック・ミン",
+        "title": "ロイヤルカスタマー"
+      }
+    }
+  },
+  "login": {
+    "hero": {
+      "badge": "MRYOKOU",
+      "title": "おかえりなさい！",
+      "subtitle": "素晴らしい目的地を探索し、私たちと一緒に忘れられない思い出を作るためにサインインしてください",
+      "features": {
+        "destinations": {
+          "title": "1000+ 目的地",
+          "subtitle": "世界を探索"
+        },
+        "experience": {
+          "title": "思い出深い体験",
+          "subtitle": "一生の思い出"
+        }
+      },
+      "stats": {
+        "customers": {
+          "value": "50k+",
+          "label": "満足した顧客"
+        },
+        "rating": {
+          "value": "4.9★",
+          "label": "平均評価"
+        }
+      }
+    },
+    "form": {
+      "title": "アカウントにサインイン",
+      "subtitle": "旅を続けるために情報を入力してください",
+      "email": {
+        "label": "メールアドレス",
+        "placeholder": "example@email.com"
+      },
+      "password": {
+        "label": "パスワード",
+        "placeholder": "••••••••"
+      },
+      "options": {
+        "rememberMe": "ログイン情報を記憶",
+        "forgotPassword": "パスワードを忘れた？"
+      },
+      "submit": {
+        "loading": "処理中...",
+        "default": "サインイン"
+      },
+      "social": {
+        "divider": "または以下でサインイン",
+        "google": "Google",
+        "facebook": "Facebook"
+      },
+      "signup": {
+        "text": "アカウントをお持ちでない？",
+        "link": "新しいアカウントを作成"
+      }
+    },
+    "error": {
+      "default": "ログインに失敗しました。後でもう一度お試しください！"
+    }
+  },
+  "signup": {
+    "hero": {
+      "badge": "MRYOKOUに参加",
+      "title": "新しい旅を始めよう！",
+      "subtitle": "素晴らしい体験で旅行の世界を解き放つためにサインアップ",
+      "benefits": {
+        "security": {
+          "title": "絶対的なセキュリティ",
+          "subtitle": "情報は安全に暗号化されています"
+        },
+        "destinations": {
+          "title": "多様な目的地",
+          "subtitle": "ベトナム全土で1,200以上のツアー"
+        },
+        "support": {
+          "title": "24/7サポート",
+          "subtitle": "いつでも無料相談"
+        },
+        "safety": {
+          "title": "安全保証",
+          "subtitle": "約束が守られない場合や事故が発生した場合の100%返金保証。"
+        }
+      },
+      "testimonial": {
+        "quote": "素晴らしいサービス！人生で最も思い出深い旅行をしました",
+        "author": {
+          "name": "グエン・ドゥック・ミン",
+          "title": "VIPメンバー"
+        }
+      }
+    },
+    "form": {
+      "title": "新しいアカウントを作成",
+      "subtitle": "探索を始めるために情報を入力してください",
+      "fullname": {
+        "label": "氏名",
+        "placeholder": "グエン・バン・A"
+      },
+      "email": {
+        "label": "メールアドレス",
+        "placeholder": "example@email.com"
+      },
+      "password": {
+        "label": "パスワード",
+        "placeholder": "••••••••"
+      },
+      "confirmPassword": {
+        "label": "パスワード確認",
+        "placeholder": "••••••••"
+      },
+      "passwordStrength": {
+        "weak": "弱い",
+        "medium": "普通",
+        "strong": "強い",
+        "strongPassword": "強いパスワード",
+        "passwordHint": "大文字、数字、特殊文字を使用してください",
+        "passwordMatch": "パスワードが一致します",
+        "passwordMismatch": "パスワードが一致しません"
+      },
+      "terms": {
+        "agreement": "私は",
+        "termsOfService": "利用規約",
+        "and": "と",
+        "privacyPolicy": "プライバシーポリシー"
+      },
+      "submit": {
+        "loading": "アカウント作成中...",
+        "default": "今すぐサインアップ"
+      },
+      "social": {
+        "divider": "または以下でサインアップ",
+        "google": "Google",
+        "facebook": "Facebook"
+      },
+      "login": {
+        "text": "すでにアカウントをお持ちですか？",
+        "link": "今すぐサインイン"
+      }
+    },
+    "error": {
+      "passwordMismatch": "パスワード確認が一致しません",
+      "termsNotAgreed": "利用規約に同意してください",
+      "weakPassword": "パスワードが弱すぎます。より強いパスワードを作成してください",
+      "default": "登録に失敗しました。後でもう一度お試しください！"
+    }
+  },
+  "profile": {
+    "loading": {
+      "text": "プロフィール情報を読み込み中..."
+    },
+    "error": {
+      "title": "情報を読み込めません",
+      "retry": "再試行",
+      "loginRequired": "ログイン情報が見つかりません。再度ログインしてください。",
+      "fetchError": "プロフィール情報を読み込めません",
+      "updateError": "プロフィール更新に失敗しました: ",
+      "unknownError": "不明なエラー"
+    },
+    "notFound": {
+      "title": "プロフィールが見つかりません",
+      "description": "このプロフィールは存在しないか削除されています。"
+    },
+    "header": {
+      "editProfile": "プロフィール編集",
+      "saveChanges": "変更を保存",
+      "cancel": "キャンセル",
+      "defaultName": "ユーザー",
+      "countryPlaceholder": "国を入力",
+      "defaultCountry": "国が更新されていません",
+      "namePlaceholder": "名前を入力"
+    },
+    "sections": {
+      "about": {
+        "title": "自己紹介",
+        "placeholder": "自分について何か書いてください...",
+        "defaultDescription": "自己紹介情報がありません。"
+      },
+      "contact": {
+        "title": "連絡先情報",
+        "phone": {
+          "label": "電話番号",
+          "placeholder": "電話番号を入力",
+          "defaultValue": "更新されていません"
+        }
+      },
+      "stats": {
+        "title": "統計",
+        "ratings": "評価",
+        "bookings": "予約したツアー",
+        "helpfulRatings": "役立つ評価"
+      }
+    }
+  }
+} 

@@ -1,6 +1,7 @@
 // src/components/FeaturedTours.jsx
 import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './FeaturedTour.css';
 import axios from 'axios';
 
@@ -56,6 +57,7 @@ import axios from 'axios';
 // ];
 
 const FeaturedTours = () => {
+  const { t } = useTranslation();
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -71,7 +73,7 @@ const FeaturedTours = () => {
         });
         setTours(response.data.data);
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to load featured tours');
+        setError(err.response?.data?.message || t('featured.content.error'));
       } finally {
         setLoading(false);
       }
@@ -115,7 +117,7 @@ const FeaturedTours = () => {
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p className="mt-3 text-muted">Đang tải tour nổi bật...</p>
+          <p className="mt-3 text-muted">{t('featured.content.loading')}</p>
         </div>
       </section>
     );
@@ -140,13 +142,13 @@ const FeaturedTours = () => {
         <div className="row">
           <div className="col-12 text-center mb-5">
             <span className="badge bg-primary bg-gradient px-3 py-2 mb-3 rounded-pill">
-              ✈️ Tour Nổi Bật
+              ✈️ {t('featured.header.badge')}
             </span>
             <h2 className="display-5 fw-bold text-dark mb-3">
-              Điểm Đến <span className="text-primary">Hấp Dẫn</span>
+              {t('featured.header.title')} <span className="text-primary">{t('featured.header.highlight')}</span>
             </h2>
             <p className="lead text-muted mx-auto" style={{maxWidth: '600px'}}>
-              Khám phá những điểm đến tuyệt vời nhất Việt Nam với các tour du lịch được tuyển chọn kỹ lưỡng
+              {t('featured.header.subtitle')}
             </p>
           </div>
         </div>
@@ -180,7 +182,7 @@ const FeaturedTours = () => {
                     <h5 className="tour-title">{tour.title}</h5>
                     <div className="duration-badge">
                       <i className="fas fa-clock me-1"></i>
-                      {tour.duration} ngày
+                      {tour.duration} {t('featured.content.days')}
                     </div>
                   </div>
 
@@ -211,13 +213,13 @@ const FeaturedTours = () => {
                       <div className="price-info me-3">
                         <div className="current-price fw-bold text-primary fs-5">
                           {formatPrice(tour.price)}
-                          <small className="text-muted"> /người</small>
+                          <small className="text-muted"> {t('featured.content.perPerson')}</small>
                         </div>
                       </div>
                       <Link target='blank' to={`/tours/${tour._id}`}>
                         <button className="btn btn-primary btn-book px-4 py-2">
                           <i className="fas fa-calendar-check me-2"></i>
-                          Đặt Tour
+                          {t('featured.content.bookTour')}
                         </button>
                       </Link>
                     </div>
@@ -232,7 +234,7 @@ const FeaturedTours = () => {
           <div className="col-12 text-center">
             <Link to='/tour' className='btn btn-outline-primary btn-lg px-5 py-3'>
               <i className="fas fa-search me-2"></i>
-              Xem Tất Cả Tour
+              {t('featured.content.viewAllTours')}
             </Link>
           </div>
         </div>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { MapPin, Mountain, Waves, TreePine, Camera, ChevronDown, Star, Clock, Users } from 'lucide-react';
 import './ExploreVN.css'
 
 const ExploreVietnam = () => {
+  const { t } = useTranslation();
   const [region, setRegion] = useState('north');
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,22 +20,22 @@ const ExploreVietnam = () => {
 
   const regions = {
     north: {
-      name: 'Miền Bắc',
+      name: t('explore.regions.north.name'),
       icon: <Mountain className="icon-size" />,
       color: 'primary',
-      description: 'Vùng đất của những ngọn núi hùng vĩ'
+      description: t('explore.regions.north.description')
     },
     central: {
-      name: 'Miền Trung',
+      name: t('explore.regions.central.name'),
       icon: <TreePine className="icon-size" />,
       color: 'success', 
-      description: 'Cái nôi văn hóa và lịch sử Việt Nam'
+      description: t('explore.regions.central.description')
     },
     south: {
-      name: 'Miền Nam',
+      name: t('explore.regions.south.name'),
       icon: <Waves className="icon-size" />,
       color: 'info',
-      description: 'Đồng bằng sông Cửu Long phì nhiêu'
+      description: t('explore.regions.south.description')
     }
   };
 
@@ -81,10 +83,10 @@ const ExploreVietnam = () => {
               <MapPin size={40} color="white" />
             </div>
             <h1 className="main-header display-4 mb-4">
-              Khám Phá Việt Nam
+              {t('explore.header.title')}
             </h1>
             <p className="lead text-muted col-lg-8 mx-auto">
-              Hành trình khám phá vẻ đẹp thiên nhiên và văn hóa từ Bắc chí Nam
+              {t('explore.header.subtitle')}
             </p>
           </div>
 
@@ -120,7 +122,7 @@ const ExploreVietnam = () => {
           {loading && (
             <div className="text-center">
               <div className="loading-spinner"></div>
-              <p className="text-muted">Đang tải dữ liệu...</p>
+              <p className="text-muted">{t('explore.content.loading')}</p>
             </div>
           )}
 
@@ -131,7 +133,7 @@ const ExploreVietnam = () => {
                 {locationData[region].length === 0 ? (
                   <div className="text-center py-5">
                     <Camera size={48} className="text-muted mb-3" />
-                    <p className="text-muted">Chưa có dữ liệu cho khu vực này</p>
+                    <p className="text-muted">{t('explore.content.noData')}</p>
                   </div>
                 ) : (
                   locationData[region].map((location, index) => (
@@ -179,7 +181,7 @@ const ExploreVietnam = () => {
                             <div className="mb-4">
                               <h6 className="fw-bold mb-3 d-flex align-items-center">
                                 <Star size={16} className="text-warning me-2" />
-                                Điểm nổi bật
+                                {t('explore.content.highlights')}
                               </h6>
                               {location.fullDesc.map((desc, i) => (
                                 <div key={i} className="feature-item">
@@ -193,7 +195,7 @@ const ExploreVietnam = () => {
                           <div className="d-flex gap-2 flex-wrap">
                             <button className="btn btn-primary btn-sm">
                               <MapPin size={14} className="me-1" />
-                              Xem các tour du lịch ở {location.name}
+                              {t('explore.content.viewTours')} {location.name}
                             </button>
                           </div>
                         </div>
@@ -216,21 +218,21 @@ const ExploreVietnam = () => {
                       100 +
                     </h4>
                   </div>
-                  <small className="text-muted">Điểm du lịch</small>
+                  <small className="text-muted">{t('explore.stats.destinations')}</small>
                 </div>
                 <div className="col-md-4">
                   <div className="d-flex align-items-center justify-content-center mb-2">
                     <Users size={24} className="text-success me-2" />
                     <h4 className="mb-0 fw-bold text-success">10 000+</h4>
                   </div>
-                  <small className="text-muted">Du khách đã ghé thăm</small>
+                  <small className="text-muted">{t('explore.stats.visitors')}</small>
                 </div>
                 <div className="col-md-4">
                   <div className="d-flex align-items-center justify-content-center mb-2">
                     <Star size={24} className="text-warning me-2" />
                     <h4 className="mb-0 fw-bold text-warning">4.8</h4>
                   </div>
-                  <small className="text-muted">Đánh giá trung bình</small>
+                  <small className="text-muted">{t('explore.stats.rating')}</small>
                 </div>
               </div>
             </div>

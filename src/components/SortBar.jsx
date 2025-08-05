@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './SortBar.css';
 import { 
   FaSortAmountDownAlt, 
@@ -11,13 +12,14 @@ import {
 import { GiPriceTag } from 'react-icons/gi';
 
 const SortBar = ({ onSortChange }) => {
+  const { t } = useTranslation();
   const [activeSort, setActiveSort] = useState('');
 
   const sortOptions = [
-    { value: 'price-asc', label: 'Giá thấp đến cao', icon: <FaSortAmountDownAlt /> },
-    { value: 'price-desc', label: 'Giá cao đến thấp', icon: <FaSortAmountUp /> },
-    { value: 'rating', label: 'Đánh giá cao nhất', icon: <FaStar /> },
-    { value: 'newest', label: 'Mới nhất', icon: <FaCalendarAlt /> }
+    { value: 'price-asc', label: t('sort.options.priceAsc'), icon: <FaSortAmountDownAlt /> },
+    { value: 'price-desc', label: t('sort.options.priceDesc'), icon: <FaSortAmountUp /> },
+    { value: 'rating', label: t('sort.options.rating'), icon: <FaStar /> },
+    { value: 'newest', label: t('sort.options.newest'), icon: <FaCalendarAlt /> }
   ];
 
   const handleSortChange = (value) => {
@@ -30,7 +32,7 @@ const SortBar = ({ onSortChange }) => {
       <div className="container">
         <div className="sortbar-container">
           <div className="sortbar-main">
-            <h5 className="sortbar-title">Sắp xếp theo:</h5>
+            <h5 className="sortbar-title">{t('sort.title')}</h5>
             <div className="sortbar-options">
               {sortOptions.map((option) => (
                 <button

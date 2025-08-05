@@ -1,5 +1,6 @@
 // src/components/CustomerReviews.jsx
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Reviews.css';
 import { BsStarFill, BsStar, BsQuote, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
@@ -74,6 +75,7 @@ const reviews = [
 ];
 
 const CustomerReviews = () => {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedRating, setSelectedRating] = useState('all');
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -142,10 +144,10 @@ const CustomerReviews = () => {
         {/* Section Header */}
         <div className="reviews-header text-center mb-5">
           <h2 className="section-title">
-            <span className="title-highlight">Khách Hàng</span> Nói Gì Về Chúng Tôi
+            <span className="title-highlight">{t('reviews.header.title')}</span> {t('reviews.header.highlight')}
           </h2>
           <p className="section-subtitle">
-            Những trải nghiệm thực tế từ khách hàng đã tin tưởng sử dụng dịch vụ
+            {t('reviews.header.subtitle')}
           </p>
           
           {/* Overall Rating */}
@@ -155,7 +157,7 @@ const CustomerReviews = () => {
               <div className="score-stars">
                 {renderStars(Math.round(parseFloat(calculateAverageRating())))}
               </div>
-              <span className="score-text">({reviews.length} đánh giá)</span>
+              <span className="score-text">({reviews.length} {t('reviews.rating.reviews')})</span>
             </div>
           </div>
         </div>
@@ -167,7 +169,7 @@ const CustomerReviews = () => {
               className={`filter-btn ${selectedRating === 'all' ? 'active' : ''}`}
               onClick={() => setSelectedRating('all')}
             >
-              Tất cả ({reviews.length})
+              {t('reviews.rating.all')} ({reviews.length})
             </button>
             {[5, 4, 3, 2, 1].map(rating => (
               <button 
@@ -265,7 +267,7 @@ const CustomerReviews = () => {
                                 <div className="helpful-section">
                                   <button className="helpful-btn">
                                     <i className="bi bi-hand-thumbs-up"></i>
-                                    Hữu ích
+                                    {t('reviews.rating.helpful')}
                                   </button>
                                   <span className="helpful-count">12</span>
                                 </div>
@@ -296,12 +298,12 @@ const CustomerReviews = () => {
 
         {/* Call to Action */}
         <div className="reviews-cta text-center my-5">
-          <h4>Bạn đã từng trải nghiệm dịch vụ của chúng tôi?</h4>
-          <p>Chia sẻ cảm nhận của bạn để giúp những khách hàng khác</p>
+          <h4>{t('reviews.cta.title')}</h4>
+          <p>{t('reviews.cta.subtitle')}</p>
           <Link to='/bookings' >
             <button className="btn btn-primary btn-lg cta-btn">
               <i className="bi bi-star-fill me-2"></i>
-              Viết đánh giá
+              {t('reviews.cta.button')}
             </button>
           </Link>
         </div>

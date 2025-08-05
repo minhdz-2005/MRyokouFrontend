@@ -1,6 +1,7 @@
 // src/pages/SignUp.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { 
   FaUser, 
@@ -27,6 +28,7 @@ import Footer from '../components/Footer';
 import './SignUp.css';
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -73,11 +75,11 @@ const SignUp = () => {
   const getPasswordStrengthText = () => {
     switch (passwordStrength) {
       case 0:
-      case 1: return { text: 'Yếu', class: 'weak' };
+      case 1: return { text: t('signup.form.passwordStrength.weak'), class: 'weak' };
       case 2:
-      case 3: return { text: 'Trung bình', class: 'medium' };
+      case 3: return { text: t('signup.form.passwordStrength.medium'), class: 'medium' };
       case 4:
-      case 5: return { text: 'Mạnh', class: 'strong' };
+      case 5: return { text: t('signup.form.passwordStrength.strong'), class: 'strong' };
       default: return { text: '', class: '' };
     }
   };
@@ -88,19 +90,19 @@ const SignUp = () => {
 
     // Validate password match
     if (formData.password !== formData.confirmPassword) {
-      setErrMsg('Mật khẩu xác nhận không khớp');
+      setErrMsg(t('signup.error.passwordMismatch'));
       return;
     }
 
     // Validate terms agreement
     if (!termsAgreed) {
-      setErrMsg('Vui lòng đồng ý với điều khoản dịch vụ');
+      setErrMsg(t('signup.error.termsNotAgreed'));
       return;
     }
 
     // Validate password strength
     if (passwordStrength < 2) {
-      setErrMsg('Mật khẩu quá yếu. Vui lòng tạo mật khẩu mạnh hơn');
+      setErrMsg(t('signup.error.weakPassword'));
       return;
     }
 
@@ -140,7 +142,7 @@ const SignUp = () => {
       }, 1000);
 
     } catch (err) {
-      const msg = err.response?.data?.message || 'Đăng ký thất bại. Vui lòng thử lại sau!';
+      const msg = err.response?.data?.message || t('signup.error.default');
       setErrMsg(msg);
     } finally {
       setLoading(false);
@@ -175,16 +177,16 @@ const SignUp = () => {
                 <div className="hero-content">
                   <div className="hero-badge">
                     <MdTravelExplore className="me-2" />
-                    <span>Tham gia MRYOKOU</span>
+                    <span>{t('signup.hero.badge')}</span>
                   </div>
                   
                   <h1 className="hero-title">
-                    Bắt đầu hành trình mới!
+                    {t('signup.hero.title')}
                     <span className="title-accent">🌟</span>
                   </h1>
                   
                   <p className="hero-subtitle">
-                    Đăng ký để mở khóa thế giới du lịch với những trải nghiệm tuyệt vời
+                    {t('signup.hero.subtitle')}
                   </p>
 
                   <div className="hero-benefits">
@@ -193,8 +195,8 @@ const SignUp = () => {
                         <FaShieldAlt />
                       </div>
                       <div className="benefit-text">
-                        <h6>Bảo mật tuyệt đối</h6>
-                        <p>Thông tin được mã hóa an toàn</p>
+                        <h6>{t('signup.hero.benefits.security.title')}</h6>
+                        <p>{t('signup.hero.benefits.security.subtitle')}</p>
                       </div>
                     </div>
                     
@@ -203,8 +205,8 @@ const SignUp = () => {
                         <RiVipCrownFill />
                       </div>
                       <div className="benefit-text">
-                        <h6>Đa dạng điểm đến</h6>
-                        <p>Hơn 1,200 tour du lịch khắp Việt Nam</p>
+                        <h6>{t('signup.hero.benefits.destinations.title')}</h6>
+                        <p>{t('signup.hero.benefits.destinations.subtitle')}</p>
                       </div>
                     </div>
 
@@ -213,8 +215,8 @@ const SignUp = () => {
                         <FaHeadset />
                       </div>
                       <div className="benefit-text">
-                        <h6>Hỗ trợ 24/7</h6>
-                        <p>Tư vấn miễn phí mọi lúc</p>
+                        <h6>{t('signup.hero.benefits.support.title')}</h6>
+                        <p>{t('signup.hero.benefits.support.subtitle')}</p>
                       </div>
                     </div>
 
@@ -223,8 +225,8 @@ const SignUp = () => {
                         <FaGift />
                       </div>
                       <div className="benefit-text">
-                        <h6>Bảo đảm an toàn</h6>
-                        <p>Chính sách hoàn tiền 100% nếu không đúng cam kết hoặc có sự cố phát sinh.</p>
+                        <h6>{t('signup.hero.benefits.safety.title')}</h6>
+                        <p>{t('signup.hero.benefits.safety.subtitle')}</p>
                       </div>
                     </div>
                   </div>
@@ -234,10 +236,10 @@ const SignUp = () => {
                       <div className="stars">
                         <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                       </div>
-                      <p>"Dịch vụ tuyệt vời! Đã có những chuyến đi đáng nhớ nhất đời"</p>
+                      <p>"{t('signup.hero.testimonial.quote')}"</p>
                       <div className="testimonial-author">
-                        <strong>Nguyễn Đức Minh</strong>
-                        <span>Thành viên VIP</span>
+                        <strong>{t('signup.hero.testimonial.author.name')}</strong>
+                        <span>{t('signup.hero.testimonial.author.title')}</span>
                       </div>
                     </div>
                   </div>
@@ -255,8 +257,8 @@ const SignUp = () => {
                         <MdVerifiedUser size={24} />
                       </div>
                     </div>
-                    <h3 className="form-title">Tạo tài khoản mới</h3>
-                    <p className="form-subtitle">Điền thông tin để bắt đầu khám phá</p>
+                    <h3 className="form-title">{t('signup.form.title')}</h3>
+                    <p className="form-subtitle">{t('signup.form.subtitle')}</p>
                   </div>
 
                   {errMsg && (
@@ -267,7 +269,7 @@ const SignUp = () => {
                   )}
 
                   <div className="form-group mb-3">
-                    <label className="form-label">Họ và tên</label>
+                    <label className="form-label">{t('signup.form.fullname.label')}</label>
                     <div className="input-group-custom">
                       <span className="input-icon">
                         <FaUser />
@@ -279,13 +281,13 @@ const SignUp = () => {
                         required
                         value={formData.fullname}
                         onChange={handleChange}
-                        placeholder="Nguyễn Văn A"
+                        placeholder={t('signup.form.fullname.placeholder')}
                       />
                     </div>
                   </div>
 
                   <div className="form-group mb-3">
-                    <label className="form-label">Email</label>
+                    <label className="form-label">{t('signup.form.email.label')}</label>
                     <div className="input-group-custom">
                       <span className="input-icon">
                         <FaEnvelope />
@@ -297,13 +299,13 @@ const SignUp = () => {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="example@email.com"
+                        placeholder={t('signup.form.email.placeholder')}
                       />
                     </div>
                   </div>
 
                   <div className="form-group mb-3">
-                    <label className="form-label">Mật khẩu</label>
+                    <label className="form-label">{t('signup.form.password.label')}</label>
                     <div className="input-group-custom">
                       <span className="input-icon">
                         <FaLock />
@@ -316,7 +318,7 @@ const SignUp = () => {
                         minLength="6"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="••••••••"
+                        placeholder={t('signup.form.password.placeholder')}
                       />
                       <button 
                         type="button" 
@@ -342,10 +344,10 @@ const SignUp = () => {
                             {passwordStrength >= 3 ? (
                               <span className="text-success">
                                 <FaCheckCircle className="me-1" />
-                                Mật khẩu mạnh
+                                {t('signup.form.passwordStrength.strongPassword')}
                               </span>
                             ) : (
-                              'Sử dụng chữ hoa, số và ký tự đặc biệt'
+                              t('signup.form.passwordStrength.passwordHint')
                             )}
                           </small>
                         </div>
@@ -354,7 +356,7 @@ const SignUp = () => {
                   </div>
 
                   <div className="form-group mb-3">
-                    <label className="form-label">Xác nhận mật khẩu</label>
+                    <label className="form-label">{t('signup.form.confirmPassword.label')}</label>
                     <div className="input-group-custom">
                       <span className="input-icon">
                         <FaLock />
@@ -372,7 +374,7 @@ const SignUp = () => {
                         required
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        placeholder="••••••••"
+                        placeholder={t('signup.form.confirmPassword.placeholder')}
                       />
                       <button 
                         type="button" 
@@ -387,11 +389,11 @@ const SignUp = () => {
                         {formData.password === formData.confirmPassword ? (
                           <small className="text-success">
                             <FaCheckCircle className="me-1" />
-                            Mật khẩu khớp
+                            {t('signup.form.passwordStrength.passwordMatch')}
                           </small>
                         ) : (
                           <small className="text-danger">
-                            Mật khẩu không khớp
+                            {t('signup.form.passwordStrength.passwordMismatch')}
                           </small>
                         )}
                       </div>
@@ -408,10 +410,10 @@ const SignUp = () => {
                         onChange={(e) => setTermsAgreed(e.target.checked)}
                       />
                       <label className="form-check-label" htmlFor="termsAgreed">
-                        Tôi đồng ý với{' '}
-                        <Link to="/terms" className="terms-link">Điều khoản dịch vụ</Link>
-                        {' '}và{' '}
-                        <Link to="/privacy" className="terms-link">Chính sách bảo mật</Link>
+                        {t('signup.form.terms.agreement')}{' '}
+                        <Link to="/terms" className="terms-link">{t('signup.form.terms.termsOfService')}</Link>
+                        {' '}{t('signup.form.terms.and')}{' '}
+                        <Link to="/privacy" className="terms-link">{t('signup.form.terms.privacyPolicy')}</Link>
                       </label>
                     </div>
                   </div>
@@ -424,11 +426,11 @@ const SignUp = () => {
                     {loading ? (
                       <>
                         <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                        Đang tạo tài khoản...
+                        {t('signup.form.submit.loading')}
                       </>
                     ) : (
                       <>
-                        <span>Đăng ký ngay</span>
+                        <span>{t('signup.form.submit.default')}</span>
                         <i className="fas fa-rocket ms-2"></i>
                       </>
                     )}
@@ -436,7 +438,7 @@ const SignUp = () => {
 
                   <div className="social-signup">
                     <div className="divider-custom">
-                      <span>Hoặc đăng ký bằng</span>
+                      <span>{t('signup.form.social.divider')}</span>
                     </div>
                     
                     <div className="row g-3">
@@ -447,7 +449,7 @@ const SignUp = () => {
                           onClick={() => handleSocialSignup('google')}
                         >
                           <FaGoogle className="me-2" />
-                          Google
+                          {t('signup.form.social.google')}
                         </button>
                       </div>
                       <div className="col-6">
@@ -457,7 +459,7 @@ const SignUp = () => {
                           onClick={() => handleSocialSignup('facebook')}
                         >
                           <FaFacebookF className="me-2" />
-                          Facebook
+                          {t('signup.form.social.facebook')}
                         </button>
                       </div>
                     </div>
@@ -465,9 +467,9 @@ const SignUp = () => {
 
                   <div className="login-link text-center mt-4">
                     <p className="mb-0">
-                      Đã có tài khoản? 
+                      {t('signup.form.login.text')} 
                       <Link to="/login" className="login-link-text ms-1">
-                        Đăng nhập ngay
+                        {t('signup.form.login.link')}
                       </Link>
                     </p>
                   </div>

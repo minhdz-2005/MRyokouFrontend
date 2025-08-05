@@ -386,10 +386,10 @@ const Explores = () => {
                                 </button>
                             )}
                         </div>
-                        <button className="add-btn" onClick={handleAddExplore}>
-                            <i className="fas fa-plus"></i>
+                <button className="add-btn" onClick={handleAddExplore}>
+                    <i className="fas fa-plus"></i>
                             Thêm khám phá mới
-                        </button>
+                </button>
                     </div>
                 </div>
             </div>
@@ -453,7 +453,7 @@ const Explores = () => {
                                         </div>
                                         
                                         <div className="explore-details">
-                                            <div className="explore-description">
+                                        <div className="explore-description">
                                                 {formatDescription(explore.fullDesc)}
                                             </div>
                                             <div className="explore-images">
@@ -486,7 +486,7 @@ const Explores = () => {
                                         </button>
                                     </div>
                                 </div>
-                            ))}
+                        ))}
                         </div>
                     </>
                 )}

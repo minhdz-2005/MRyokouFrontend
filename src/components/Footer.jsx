@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './Footer.css';
 import { 
   FaFacebookF, 
@@ -14,6 +15,7 @@ import {
 import { TbPlaneDeparture } from 'react-icons/tb';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -29,7 +31,7 @@ const Footer = () => {
                 <span className="brand-name">MTRAVEL</span>
               </div>
               <p className="footer-description">
-                Nền tảng đặt tour du lịch tiện lợi, uy tín và giá tốt hàng đầu Việt Nam.
+                {t('footer.brand.description')}
               </p>
               <div className="social-links">
                 <a href="#" className="social-link facebook"><FaFacebookF /></a>
@@ -43,23 +45,23 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div className="col-lg-2 col-md-6">
-              <h5 className="footer-title">Liên kết nhanh</h5>
+              <h5 className="footer-title">{t('footer.quickLinks.title')}</h5>
               <ul className="footer-links">
                 <li>
                   <FaChevronRight className="link-icon" />
-                  <a href="/">Trang chủ</a>
+                  <a href="/">{t('footer.quickLinks.home')}</a>
                 </li>
                 <li>
                   <FaChevronRight className="link-icon" />
-                  <a href="/tour">Tour du lịch</a>
+                  <a href="/tour">{t('footer.quickLinks.tours')}</a>
                 </li>
                 <li>
                   <FaChevronRight className="link-icon" />
-                  <a href="/explore">Khám phá</a>
+                  <a href="/explore">{t('footer.quickLinks.explore')}</a>
                 </li>
                 <li>
                   <FaChevronRight className="link-icon" />
-                  <a href="/about">Về chúng tôi</a>
+                  <a href="/about">{t('footer.quickLinks.about')}</a>
                 </li>
               </ul>
             </div>
@@ -68,34 +70,34 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div className="col-lg-5 col-md-6">
-              <h5 className="footer-title">Liên hệ</h5>
+              <h5 className="footer-title">{t('footer.contact.title')}</h5>
               <ul className="footer-contact">
                 <li>
                   <FaMapMarkerAlt className="contact-icon" />
-                  <span>54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</span>
+                  <span>{t('footer.contact.address')}</span>
                 </li>
                 <li>
                   <FaPhoneAlt className="contact-icon" />
-                  <span>0388 108 368</span>
+                  <span>{t('footer.contact.phone')}</span>
                 </li>
                 <li>
                   <FaEnvelope className="contact-icon" />
-                  <span>support@mtravel.vn</span>
+                  <span>{t('footer.contact.email')}</span>
                 </li>
               </ul>
 
               {/* Newsletter Subscription */}
               <div className="newsletter">
-                <h6>Đăng ký nhận tin</h6>
-                <p>Nhận ưu đãi và thông tin tour mới nhất</p>
+                <h6>{t('footer.newsletter.title')}</h6>
+                <p>{t('footer.newsletter.description')}</p>
                 <form className="newsletter-form">
                   <input 
                     type="email" 
-                    placeholder="Nhập email của bạn" 
+                    placeholder={t('footer.newsletter.placeholder')} 
                     className="form-control" 
                   />
                   <button type="submit" className="btn-subscribe">
-                    Đăng ký
+                    {t('footer.newsletter.button')}
                   </button>
                 </form>
               </div>
@@ -110,7 +112,7 @@ const Footer = () => {
           <div className="row">
             <div className="col-md-6 text-center text-md-start">
               <p className="copyright">
-                &copy; {currentYear} <strong>MTRAVEL</strong>. All Rights Reserved
+                &copy; {currentYear} <strong>MTRAVEL</strong>. {t('footer.copyright')}
               </p>
             </div>
           </div>

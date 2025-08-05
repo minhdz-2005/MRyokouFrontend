@@ -1,6 +1,7 @@
 // src/pages/Login.jsx
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaGoogle, FaFacebookF, FaPlane, FaMapMarkerAlt, FaHeart } from 'react-icons/fa';
 import { MdEmail, MdTravelExplore } from 'react-icons/md';
@@ -11,6 +12,7 @@ import { useUser } from '../contexts/UserContext';
 import './Login.css';
 
 const Login = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -85,7 +87,7 @@ const Login = () => {
       }, 800);
 
     } catch (err) {
-      const msg = err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng thử lại sau!';
+      const msg = err.response?.data?.message || t('login.error.default');
       setErrMsg(msg);
     } finally {
       setLoading(false);
@@ -120,17 +122,16 @@ const Login = () => {
                 <div className="hero-content">
                   <div className="hero-badge">
                     <MdTravelExplore className="me-2" />
-                    <span>MRYOKOU</span>
+                    <span>{t('login.hero.badge')}</span>
                   </div>
                   
                   <h1 className="hero-title">
-                    Chào mừng trở lại!
+                    {t('login.hero.title')}
                     <span className="title-accent">✈️</span>
                   </h1>
                   
                   <p className="hero-subtitle">
-                    Đăng nhập để khám phá những điểm đến tuyệt vời và tạo nên 
-                    những kỷ niệm không thể nào quên cùng chúng tôi
+                    {t('login.hero.subtitle')}
                   </p>
 
                   <div className="hero-features">
@@ -139,8 +140,8 @@ const Login = () => {
                         <FaMapMarkerAlt />
                       </div>
                       <div className="feature-text">
-                        <h6>1000+ Điểm đến</h6>
-                        <p>Khám phá thế giới</p>
+                        <h6>{t('login.hero.features.destinations.title')}</h6>
+                        <p>{t('login.hero.features.destinations.subtitle')}</p>
                       </div>
                     </div>
                     
@@ -149,20 +150,20 @@ const Login = () => {
                         <FaHeart />
                       </div>
                       <div className="feature-text">
-                        <h6>Trải nghiệm đáng nhớ</h6>
-                        <p>Kỷ niệm trọn đời</p>
+                        <h6>{t('login.hero.features.experience.title')}</h6>
+                        <p>{t('login.hero.features.experience.subtitle')}</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="hero-stats">
                     <div className="stat-item">
-                      <h4>50k+</h4>
-                      <p>Khách hàng hài lòng</p>
+                      <h4>{t('login.hero.stats.customers.value')}</h4>
+                      <p>{t('login.hero.stats.customers.label')}</p>
                     </div>
                     <div className="stat-item">
-                      <h4>4.9★</h4>
-                      <p>Đánh giá trung bình</p>
+                      <h4>{t('login.hero.stats.rating.value')}</h4>
+                      <p>{t('login.hero.stats.rating.label')}</p>
                     </div>
                   </div>
                 </div>
@@ -179,8 +180,8 @@ const Login = () => {
                         <MdTravelExplore size={24} />
                       </div>
                     </div>
-                    <h3 className="form-title">Đăng nhập tài khoản</h3>
-                    <p className="form-subtitle">Nhập thông tin để tiếp tục hành trình</p>
+                    <h3 className="form-title">{t('login.form.title')}</h3>
+                    <p className="form-subtitle">{t('login.form.subtitle')}</p>
                   </div>
 
                   {errMsg && (
@@ -191,7 +192,7 @@ const Login = () => {
                   )}
 
                   <div className="form-group mb-3">
-                    <label className="form-label">Email</label>
+                    <label className="form-label">{t('login.form.email.label')}</label>
                     <div className="input-group-custom">
                       <span className="input-icon">
                         <MdEmail />
@@ -202,13 +203,13 @@ const Login = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="example@email.com"
+                        placeholder={t('login.form.email.placeholder')}
                       />
                     </div>
                   </div>
 
                   <div className="form-group mb-3">
-                    <label className="form-label">Mật khẩu</label>
+                    <label className="form-label">{t('login.form.password.label')}</label>
                     <div className="input-group-custom">
                       <span className="input-icon">
                         <FaLock />
@@ -219,7 +220,7 @@ const Login = () => {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••"
+                        placeholder={t('login.form.password.placeholder')}
                       />
                       <button 
                         type="button" 
@@ -241,11 +242,11 @@ const Login = () => {
                         onChange={(e) => setRememberMe(e.target.checked)}
                       />
                       <label className="form-check-label" htmlFor="rememberMe">
-                        Ghi nhớ tôi
+                        {t('login.form.options.rememberMe')}
                       </label>
                     </div>
                     <Link to="/forgot-password" className="forgot-password-link">
-                      Quên mật khẩu?
+                      {t('login.form.options.forgotPassword')}
                     </Link>
                   </div>
 
@@ -257,11 +258,11 @@ const Login = () => {
                     {loading ? (
                       <>
                         <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                        Đang xử lý...
+                        {t('login.form.submit.loading')}
                       </>
                     ) : (
                       <>
-                        <span>Đăng nhập</span>
+                        <span>{t('login.form.submit.default')}</span>
                         <i className="fas fa-arrow-right ms-2"></i>
                       </>
                     )}
@@ -269,7 +270,7 @@ const Login = () => {
 
                   <div className="social-login">
                     <div className="divider-custom">
-                      <span>Hoặc đăng nhập bằng</span>
+                      <span>{t('login.form.social.divider')}</span>
                     </div>
                     
                     <div className="row g-3">
@@ -280,7 +281,7 @@ const Login = () => {
                           onClick={() => handleSocialLogin('google')}
                         >
                           <FaGoogle className="me-2" />
-                          Google
+                          {t('login.form.social.google')}
                         </button>
                       </div>
                       <div className="col-6">
@@ -290,7 +291,7 @@ const Login = () => {
                           onClick={() => handleSocialLogin('facebook')}
                         >
                           <FaFacebookF className="me-2" />
-                          Facebook
+                          {t('login.form.social.facebook')}
                         </button>
                       </div>
                     </div>
@@ -298,9 +299,9 @@ const Login = () => {
 
                   <div className="signup-link text-center mt-4">
                     <p className="mb-0">
-                      Chưa có tài khoản? 
+                      {t('login.form.signup.text')} 
                       <Link to="/signup" className="signup-link-text ms-1">
-                        Tạo tài khoản mới
+                        {t('login.form.signup.link')}
                       </Link>
                     </p>
                   </div>

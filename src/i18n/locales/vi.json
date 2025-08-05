@@ -1,0 +1,564 @@
+{
+  "header": {
+    "language": "Ngôn ngữ",
+    "selectLanguage": "Chọn ngôn ngữ",
+    "vietnamese": "Tiếng Việt",
+    "english": "Tiếng Anh",
+    "japanese": "Tiếng Nhật",
+    "home": "Trang chủ",
+    "tours": "Tours",
+    "explore": "Khám phá",
+    "about": "Giới thiệu",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "profile": "Hồ sơ",
+    "myBookings": "Đặt tour của tôi",
+    "logout": "Đăng xuất"
+  },
+  "about": {
+    "story": {
+      "title": "Câu chuyện của MTRAVEL",
+      "subtitle": "Hành trình mang thế giới đến gần bạn hơn"
+    },
+    "intro": {
+      "title": "Chúng tôi là ai?",
+      "description1": "MTRAVEL là nền tảng đặt tour trực tuyến hàng đầu Việt Nam, ra đời với sứ mệnh cách mạng hóa trải nghiệm du lịch của người Việt trẻ.",
+      "description2": "Từ năm 2025, chúng tôi đã đồng hành cùng hơn 50.000 khách hàng trong những hành trình đáng nhớ, kết nối mọi người với những trải nghiệm địa phương chân thật nhất."
+    },
+    "stats": {
+      "customers": "Khách hàng",
+      "tours": "Tour du lịch",
+      "satisfaction": "Hài lòng"
+    },
+    "values": {
+      "title": "Giá trị cốt lõi",
+      "subtitle": "Những điều làm nên khác biệt của MTRAVEL",
+      "mission": {
+        "title": "Sứ mệnh",
+        "description": "Kết nối khách du lịch với những hành trình trải nghiệm đáng nhớ khắp Việt Nam, mang đến góc nhìn chân thực về mỗi điểm đến."
+      },
+      "commitment": {
+        "title": "Cam kết",
+        "description": "Tận tâm, minh bạch, đồng hành cùng khách hàng trong từng chặng đường. Đảm bảo chất lượng dịch vụ tốt nhất với giá cả hợp lý."
+      },
+      "vision": {
+        "title": "Tầm nhìn",
+        "description": "Trở thành nền tảng đặt tour đáng tin cậy nhất cho thế hệ trẻ yêu du lịch và trải nghiệm, tiên phong trong công nghệ du lịch thông minh."
+      },
+      "culture": {
+        "title": "Văn hóa",
+        "description": "Lấy khách hàng làm trung tâm, đề cao tinh thần đổi mới và làm việc nhóm. Mỗi thành viên là một đại sứ văn hóa Việt Nam."
+      },
+      "innovation": {
+        "title": "Sáng tạo",
+        "description": "Không ngừng đổi mới, tạo ra những trải nghiệm du lịch độc đáo, khác biệt và phù hợp với xu hướng của thế hệ trẻ."
+      },
+      "responsibility": {
+        "title": "Trách nhiệm",
+        "description": "Phát triển du lịch bền vững, tôn trọng văn hóa địa phương và bảo vệ môi trường tại mỗi điểm đến."
+      }
+    }
+  },
+  "banner": {
+    "hero": {
+      "title": "Khám Phá",
+      "highlight": "Việt Nam",
+      "subtitle": "Cùng Chúng Tôi",
+      "description": "Trải nghiệm những chuyến du lịch tuyệt vời với dịch vụ chuyên nghiệp"
+    },
+    "search": {
+      "destination": "Điểm đến",
+      "destinationPlaceholder": "Bạn muốn đi đâu?",
+      "date": "Ngày khởi hành",
+      "guests": "Số khách",
+      "guestOption": "khách",
+      "searchButton": "Tìm kiếm"
+    },
+    "stats": {
+      "destinations": "Điểm đến",
+      "satisfiedCustomers": "Khách hài lòng",
+      "support": "Hỗ trợ"
+    }
+  },
+  "explore": {
+    "header": {
+      "title": "Khám Phá Việt Nam",
+      "subtitle": "Hành trình khám phá vẻ đẹp thiên nhiên và văn hóa từ Bắc chí Nam"
+    },
+    "regions": {
+      "north": {
+        "name": "Miền Bắc",
+        "description": "Vùng đất của những ngọn núi hùng vĩ"
+      },
+      "central": {
+        "name": "Miền Trung",
+        "description": "Cái nôi văn hóa và lịch sử Việt Nam"
+      },
+      "south": {
+        "name": "Miền Nam",
+        "description": "Đồng bằng sông Cửu Long phì nhiêu"
+      }
+    },
+    "content": {
+      "loading": "Đang tải dữ liệu...",
+      "noData": "Chưa có dữ liệu cho khu vực này",
+      "highlights": "Điểm nổi bật",
+      "viewTours": "Xem các tour du lịch ở"
+    },
+    "stats": {
+      "destinations": "Điểm du lịch",
+      "visitors": "Du khách đã ghé thăm",
+      "rating": "Đánh giá trung bình"
+    }
+  },
+  "featured": {
+    "header": {
+      "badge": "Tour Nổi Bật",
+      "title": "Điểm Đến",
+      "highlight": "Hấp Dẫn",
+      "subtitle": "Khám phá những điểm đến tuyệt vời nhất Việt Nam với các tour du lịch được tuyển chọn kỹ lưỡng"
+    },
+    "content": {
+      "loading": "Đang tải tour nổi bật...",
+      "error": "Không thể tải tour nổi bật",
+      "days": "ngày",
+      "perPerson": "/người",
+      "bookTour": "Đặt Tour",
+      "viewAllTours": "Xem Tất Cả Tour"
+    }
+  },
+  "footer": {
+    "brand": {
+      "description": "Nền tảng đặt tour du lịch tiện lợi, uy tín và giá tốt hàng đầu Việt Nam."
+    },
+    "quickLinks": {
+      "title": "Liên kết nhanh",
+      "home": "Trang chủ",
+      "tours": "Tour du lịch",
+      "explore": "Khám phá",
+      "about": "Về chúng tôi"
+    },
+    "contact": {
+      "title": "Liên hệ",
+      "address": "54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng",
+      "phone": "0388 108 368",
+      "email": "support@mtravel.vn"
+    },
+    "newsletter": {
+      "title": "Đăng ký nhận tin",
+      "description": "Nhận ưu đãi và thông tin tour mới nhất",
+      "placeholder": "Nhập email của bạn",
+      "button": "Đăng ký"
+    },
+    "copyright": "All Rights Reserved"
+  },
+  "reviews": {
+    "header": {
+      "title": "Khách Hàng",
+      "highlight": "Nói Gì Về Chúng Tôi",
+      "subtitle": "Những trải nghiệm thực tế từ khách hàng đã tin tưởng sử dụng dịch vụ"
+    },
+    "rating": {
+      "reviews": "đánh giá",
+      "all": "Tất cả",
+      "helpful": "Hữu ích"
+    },
+    "cta": {
+      "title": "Bạn đã từng trải nghiệm dịch vụ của chúng tôi?",
+      "subtitle": "Chia sẻ cảm nhận của bạn để giúp những khách hàng khác",
+      "button": "Viết đánh giá"
+    }
+  },
+  "search": {
+    "main": {
+      "placeholder": "Bạn muốn đi đâu? Tìm kiếm điểm đến, tên tour...",
+      "searchButton": "Tìm kiếm",
+      "ariaLabel": "Tìm kiếm tour",
+      "inputAriaLabel": "Tìm điểm đến, tên tour"
+    },
+    "filters": {
+      "location": {
+        "label": "Chọn địa điểm",
+        "all": "Tất cả địa điểm"
+      },
+      "price": {
+        "label": "Chọn mức giá",
+        "all": "Mọi mức giá",
+        "low": "Dưới 3 triệu",
+        "mid": "3 - 5 triệu",
+        "high": "Trên 5 triệu",
+        "luxury": "Trên 10 triệu"
+      },
+      "date": {
+        "label": "Chọn ngày đi",
+        "placeholder": "Ngày đi"
+      },
+      "duration": {
+        "label": "Chọn thời lượng",
+        "all": "Thời lượng",
+        "short": "1-3 ngày",
+        "medium": "4-7 ngày",
+        "long": "Trên 7 ngày"
+      },
+      "toggle": {
+        "show": "Bộ lọc nâng cao",
+        "hide": "Ẩn bộ lọc"
+      }
+    },
+    "popular": {
+      "title": "Điểm đến phổ biến:",
+      "destinations": {
+        "daLat": "Đà Lạt",
+        "phuQuoc": "Phú Quốc",
+        "haNoi": "Hà Nội",
+        "hoiAn": "Hội An"
+      }
+    }
+  },
+  "sort": {
+    "title": "Sắp xếp theo:",
+    "options": {
+      "priceAsc": "Giá thấp đến cao",
+      "priceDesc": "Giá cao đến thấp",
+      "rating": "Đánh giá cao nhất",
+      "newest": "Mới nhất"
+    }
+  },
+  "tourList": {
+    "header": {
+      "title": "Khám Phá",
+      "highlight": "Các Tour Du Lịch",
+      "subtitle": "Hơn {count} tour tuyệt vời đang chờ bạn khám phá"
+    },
+    "loading": {
+      "text": "Đang tải các tour tuyệt vời..."
+    },
+    "error": {
+      "message": "Không thể tải dữ liệu tour!",
+      "retry": "Thử lại"
+    },
+    "tour": {
+      "perPerson": "/ Người",
+      "viewDetail": "Xem chi tiết",
+      "rating": "Đánh giá",
+      "duration": "Thời gian:",
+      "days": "ngày"
+    },
+    "empty": {
+      "title": "Không tìm thấy tour nào",
+      "subtitle": "Hãy thử điều chỉnh bộ lọc hoặc tìm kiếm với từ khóa khác"
+    },
+    "pagination": {
+      "page": "Trang",
+      "of": "/",
+      "total": "Tổng",
+      "tours": "tour"
+    }
+  },
+  "travelGuide": {
+    "header": {
+      "title": "Cẩm Nang Du Lịch",
+      "subtitle": "Những lời khuyên hữu ích giúp bạn có chuyến du lịch trọn vẹn và đáng nhớ"
+    },
+    "sections": {
+      "packing": {
+        "title": "Chuẩn bị hành lý khi đi du lịch",
+        "points": [
+          "Mang quần áo phù hợp với thời tiết và địa hình điểm đến.",
+          "Đem theo giấy tờ tùy thân, vé máy bay, booking tour/khách sạn.",
+          "Dụng cụ cá nhân cơ bản như kem đánh răng, khăn, sạc dự phòng.",
+          "Thuốc cơ bản: cảm, đau bụng, thuốc say xe,..."
+        ]
+      },
+      "weather": {
+        "title": "Lưu ý về thời gian và thời tiết",
+        "points": [
+          "Nên xem dự báo thời tiết trước khi đi 3–5 ngày.",
+          "Tránh mùa mưa lũ ở miền Trung (thường từ tháng 9–11).",
+          "Du lịch biển nên đi từ tháng 4–8 để có thời tiết đẹp."
+        ]
+      },
+      "budget": {
+        "title": "Mẹo tiết kiệm chi phí khi du lịch",
+        "points": [
+          "Đặt tour và vé máy bay sớm để có giá tốt.",
+          "Đi nhóm đông để chia sẻ chi phí xe, phòng, hướng dẫn viên.",
+          "Mang theo bình nước cá nhân và đồ ăn nhẹ để tiết kiệm chi tiêu lặt vặt."
+        ]
+      },
+      "tourType": {
+        "title": "Du lịch theo tour hay tự túc?",
+        "points": [
+          "Theo tour phù hợp cho người lớn tuổi, lịch trình có sẵn, ít lo lắng.",
+          "Tự túc linh hoạt, thích hợp với người trẻ muốn khám phá.",
+          "Có thể kết hợp: đặt tour ngắn ngày ở địa phương trong hành trình tự túc."
+        ]
+      }
+    },
+    "content": {
+      "viewMore": "Xem thêm",
+      "importantNotes": "Lưu ý quan trọng",
+      "bestTime": {
+        "title": "Thời gian tốt nhất",
+        "description": "Mỗi điểm đến có mùa du lịch riêng. Nghiên cứu kỹ trước khi đặt tour để có trải nghiệm tuyệt vời nhất."
+      },
+      "safety": {
+        "title": "An toàn và sức khỏe",
+        "description": "Luôn mua bảo hiểm du lịch và thông báo lịch trình với người thân để đảm bảo an toàn."
+      },
+      "cta": {
+        "title": "Sẵn sàng cho chuyến du lịch tiếp theo?",
+        "subtitle": "Khám phá các tour du lịch hấp dẫn được thiết kế dành riêng cho bạn",
+        "button": "Đặt Tour Ngay"
+      }
+    }
+  },
+  "whyChooseUs": {
+    "header": {
+      "title": "Tại sao chọn",
+      "highlight": "MTRAVEL",
+      "subtitle": "Những lý do khiến chúng tôi trở thành lựa chọn hàng đầu của du khách"
+    },
+    "features": {
+      "diverseDestinations": {
+        "title": "Đa dạng điểm đến",
+        "description": "Hơn 1,200 tour du lịch khắp Việt Nam và quốc tế với giá ưu đãi đặc biệt.",
+        "stat": "1,200+"
+      },
+      "quickBooking": {
+        "title": "Đặt tour nhanh chóng",
+        "description": "Quy trình đặt tour chỉ trong 3 phút với tỷ lệ xác nhận tức thì 99%.",
+        "stat": "3 phút"
+      },
+      "highRating": {
+        "title": "Đánh giá cao",
+        "description": "Được hơn 50,000 khách hàng tin tưởng với tỷ lệ hài lòng 98%.",
+        "stat": "98%"
+      },
+      "safetyGuarantee": {
+        "title": "Bảo đảm an toàn",
+        "description": "Chính sách hoàn tiền 100% nếu không đúng cam kết hoặc có sự cố phát sinh.",
+        "stat": "100%"
+      },
+      "professionalGuides": {
+        "title": "Hướng dẫn viên chuyên nghiệp",
+        "description": "Đội ngũ hướng dẫn viên nhiệt tình, giàu kinh nghiệm và am hiểu địa phương.",
+        "stat": "200+"
+      },
+      "competitivePricing": {
+        "title": "Giá cả cạnh tranh",
+        "description": "Cam kết giá tốt nhất thị trường với nhiều chương trình khuyến mãi quanh năm.",
+        "stat": "Tốt nhất"
+      },
+      "dedicatedService": {
+        "title": "Dịch vụ tận tâm",
+        "description": "Hỗ trợ 24/7 trong suốt hành trình du lịch của bạn.",
+        "stat": "24/7"
+      },
+      "prestigiousAwards": {
+        "title": "Giải thưởng uy tín",
+        "description": "Đạt giải \"Nền tảng du lịch trực tuyến tốt nhất 2024\" do khách hàng bình chọn.",
+        "stat": "Top 1"
+      }
+    },
+    "testimonial": {
+      "quote": "MTRAVEL đã mang đến cho gia đình tôi những chuyến đi tuyệt vời nhất. Dịch vụ chuyên nghiệp từ khâu tư vấn đến khi kết thúc tour. Chắc chắn sẽ tiếp tục đồng hành cùng MTRAVEL trong những hành trình tiếp theo!",
+      "customer": {
+        "name": "Nguyễn Đức Minh",
+        "title": "Khách hàng thân thiết"
+      }
+    }
+  },
+  "login": {
+    "hero": {
+      "badge": "MRYOKOU",
+      "title": "Chào mừng trở lại!",
+      "subtitle": "Đăng nhập để khám phá những điểm đến tuyệt vời và tạo nên những kỷ niệm không thể nào quên cùng chúng tôi",
+      "features": {
+        "destinations": {
+          "title": "1000+ Điểm đến",
+          "subtitle": "Khám phá thế giới"
+        },
+        "experience": {
+          "title": "Trải nghiệm đáng nhớ",
+          "subtitle": "Kỷ niệm trọn đời"
+        }
+      },
+      "stats": {
+        "customers": {
+          "value": "50k+",
+          "label": "Khách hàng hài lòng"
+        },
+        "rating": {
+          "value": "4.9★",
+          "label": "Đánh giá trung bình"
+        }
+      }
+    },
+    "form": {
+      "title": "Đăng nhập tài khoản",
+      "subtitle": "Nhập thông tin để tiếp tục hành trình",
+      "email": {
+        "label": "Email",
+        "placeholder": "example@email.com"
+      },
+      "password": {
+        "label": "Mật khẩu",
+        "placeholder": "••••••••"
+      },
+      "options": {
+        "rememberMe": "Ghi nhớ tôi",
+        "forgotPassword": "Quên mật khẩu?"
+      },
+      "submit": {
+        "loading": "Đang xử lý...",
+        "default": "Đăng nhập"
+      },
+      "social": {
+        "divider": "Hoặc đăng nhập bằng",
+        "google": "Google",
+        "facebook": "Facebook"
+      },
+      "signup": {
+        "text": "Chưa có tài khoản?",
+        "link": "Tạo tài khoản mới"
+      }
+    },
+    "error": {
+      "default": "Đăng nhập thất bại. Vui lòng thử lại sau!"
+    }
+  },
+  "signup": {
+    "hero": {
+      "badge": "Tham gia MRYOKOU",
+      "title": "Bắt đầu hành trình mới!",
+      "subtitle": "Đăng ký để mở khóa thế giới du lịch với những trải nghiệm tuyệt vời",
+      "benefits": {
+        "security": {
+          "title": "Bảo mật tuyệt đối",
+          "subtitle": "Thông tin được mã hóa an toàn"
+        },
+        "destinations": {
+          "title": "Đa dạng điểm đến",
+          "subtitle": "Hơn 1,200 tour du lịch khắp Việt Nam"
+        },
+        "support": {
+          "title": "Hỗ trợ 24/7",
+          "subtitle": "Tư vấn miễn phí mọi lúc"
+        },
+        "safety": {
+          "title": "Bảo đảm an toàn",
+          "subtitle": "Chính sách hoàn tiền 100% nếu không đúng cam kết hoặc có sự cố phát sinh."
+        }
+      },
+      "testimonial": {
+        "quote": "Dịch vụ tuyệt vời! Đã có những chuyến đi đáng nhớ nhất đời",
+        "author": {
+          "name": "Nguyễn Đức Minh",
+          "title": "Thành viên VIP"
+        }
+      }
+    },
+    "form": {
+      "title": "Tạo tài khoản mới",
+      "subtitle": "Điền thông tin để bắt đầu khám phá",
+      "fullname": {
+        "label": "Họ và tên",
+        "placeholder": "Nguyễn Văn A"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "example@email.com"
+      },
+      "password": {
+        "label": "Mật khẩu",
+        "placeholder": "••••••••"
+      },
+      "confirmPassword": {
+        "label": "Xác nhận mật khẩu",
+        "placeholder": "••••••••"
+      },
+      "passwordStrength": {
+        "weak": "Yếu",
+        "medium": "Trung bình",
+        "strong": "Mạnh",
+        "strongPassword": "Mật khẩu mạnh",
+        "passwordHint": "Sử dụng chữ hoa, số và ký tự đặc biệt",
+        "passwordMatch": "Mật khẩu khớp",
+        "passwordMismatch": "Mật khẩu không khớp"
+      },
+      "terms": {
+        "agreement": "Tôi đồng ý với",
+        "termsOfService": "Điều khoản dịch vụ",
+        "and": "và",
+        "privacyPolicy": "Chính sách bảo mật"
+      },
+      "submit": {
+        "loading": "Đang tạo tài khoản...",
+        "default": "Đăng ký ngay"
+      },
+      "social": {
+        "divider": "Hoặc đăng ký bằng",
+        "google": "Google",
+        "facebook": "Facebook"
+      },
+      "login": {
+        "text": "Đã có tài khoản?",
+        "link": "Đăng nhập ngay"
+      }
+    },
+    "error": {
+      "passwordMismatch": "Mật khẩu xác nhận không khớp",
+      "termsNotAgreed": "Vui lòng đồng ý với điều khoản dịch vụ",
+      "weakPassword": "Mật khẩu quá yếu. Vui lòng tạo mật khẩu mạnh hơn",
+      "default": "Đăng ký thất bại. Vui lòng thử lại sau!"
+    }
+  },
+  "profile": {
+    "loading": {
+      "text": "Đang tải thông tin profile..."
+    },
+    "error": {
+      "title": "Không thể tải thông tin",
+      "retry": "Thử lại",
+      "loginRequired": "Không tìm thấy thông tin đăng nhập. Vui lòng đăng nhập lại.",
+      "fetchError": "Không thể tải thông tin profile",
+      "updateError": "Cập nhật profile thất bại: ",
+      "unknownError": "Lỗi không xác định"
+    },
+    "notFound": {
+      "title": "Không tìm thấy profile",
+      "description": "Profile này không tồn tại hoặc đã bị xóa."
+    },
+    "header": {
+      "editProfile": "Chỉnh sửa Profile",
+      "saveChanges": "Lưu thay đổi",
+      "cancel": "Hủy",
+      "defaultName": "Người dùng",
+      "countryPlaceholder": "Nhập quốc gia",
+      "defaultCountry": "Chưa cập nhật quốc gia",
+      "namePlaceholder": "Nhập tên"
+    },
+    "sections": {
+      "about": {
+        "title": "Giới thiệu",
+        "placeholder": "Viết gì đó về bản thân...",
+        "defaultDescription": "Chưa có thông tin giới thiệu."
+      },
+      "contact": {
+        "title": "Thông tin liên hệ",
+        "phone": {
+          "label": "Số điện thoại",
+          "placeholder": "Nhập số điện thoại",
+          "defaultValue": "Chưa cập nhật"
+        }
+      },
+      "stats": {
+        "title": "Thống kê",
+        "ratings": "Đánh giá",
+        "bookings": "Tour đã đặt",
+        "helpfulRatings": "Đánh giá hữu ích"
+      }
+    }
+  }
+} 

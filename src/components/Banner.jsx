@@ -1,8 +1,10 @@
 // src/components/Banner.jsx
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Banner.css';
 
 const Banner = () => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [guests, setGuests] = useState(1);
@@ -25,13 +27,13 @@ const Banner = () => {
         {/* Hero Text */}
         <div className="hero-text mb-5">
           <h1 className="banner-title animate-fade-in">
-            Khám Phá <span className="text-highlight">Việt Nam</span>
+            {t('banner.hero.title')} <span className="text-highlight">{t('banner.hero.highlight')}</span>
           </h1>
           <h2 className="banner-subtitle animate-fade-in-delay">
-            Cùng Chúng Tôi
+            {t('banner.hero.subtitle')}
           </h2>
           <p className="banner-description text-muted animate-fade-in-delay-2">
-            Trải nghiệm những chuyến du lịch tuyệt vời với dịch vụ chuyên nghiệp
+            {t('banner.hero.description')}
           </p>
         </div>
 
@@ -45,12 +47,12 @@ const Banner = () => {
                 <div className="search-field">
                   <label className="search-label">
                     <i className="bi bi-geo-alt text-primary me-2"></i>
-                    Điểm đến
+                    {t('banner.search.destination')}
                   </label>
                   <input 
                     type="text" 
                     className="form-control search-input" 
-                    placeholder="Bạn muốn đi đâu?"
+                    placeholder={t('banner.search.destinationPlaceholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
@@ -62,7 +64,7 @@ const Banner = () => {
                 <div className="search-field">
                   <label className="search-label">
                     <i className="bi bi-calendar text-primary me-2"></i>
-                    Ngày khởi hành
+                    {t('banner.search.date')}
                   </label>
                   <input 
                     type="date" 
@@ -78,7 +80,7 @@ const Banner = () => {
                 <div className="search-field">
                   <label className="search-label">
                     <i className="bi bi-people text-primary me-2"></i>
-                    Số khách
+                    {t('banner.search.guests')}
                   </label>
                   <select 
                     className="form-select search-input"
@@ -87,7 +89,7 @@ const Banner = () => {
                   >
                     {[...Array(10)].map((_, i) => (
                       <option key={i + 1} value={i + 1}>
-                        {i + 1} khách
+                        {i + 1} {t('banner.search.guestOption')}
                       </option>
                     ))}
                   </select>
@@ -102,7 +104,7 @@ const Banner = () => {
                     onClick={handleSearch}
                   >
                     <i className="bi bi-search me-2"></i>
-                    Tìm kiếm
+                    {t('banner.search.searchButton')}
                   </button>
                 </div>
               </div>
@@ -117,19 +119,19 @@ const Banner = () => {
             <div className="col-md-4 col-6 mb-3">
               <div className="stat-item">
                 <h3 className="stat-number text-danger">1000+</h3>
-                <p className="stat-label text-muted">Điểm đến</p>
+                <p className="stat-label text-muted">{t('banner.stats.destinations')}</p>
               </div>
             </div>
             <div className="col-md-4 col-6 mb-3">
               <div className="stat-item">
                 <h3 className="stat-number text-danger">50K+</h3>
-                <p className="stat-label text-muted">Khách hài lòng</p>
+                <p className="stat-label text-muted">{t('banner.stats.satisfiedCustomers')}</p>
               </div>
             </div>
             <div className="col-md-4 col-6 mb-3">
               <div className="stat-item">
                 <h3 className="stat-number text-danger">24/7</h3>
-                <p className="stat-label text-muted">Hỗ trợ</p>
+                <p className="stat-label text-muted">{t('banner.stats.support')}</p>
               </div>
             </div>
           </div>

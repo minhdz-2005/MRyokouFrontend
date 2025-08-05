@@ -98,6 +98,15 @@
   margin-left: 1rem;
 }
 
+/* Language selector integration */
+.navbar .auth-buttons .language-selector {
+  margin-right: 0.5rem;
+}
+
+.navbar .user-menu {
+  margin-left: 0.5rem;
+}
+
 .navbar .login-btn, 
 .navbar .signup-btn {
   display: flex;

@@ -9,12 +9,15 @@ import { PiPaperPlaneTilt} from 'react-icons/pi';
 import './Header.css';
 import { RiHome4Line } from 'react-icons/ri';
 import { useUser } from '../contexts/UserContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const { currentUser, userAccount, loadingUser, logout } = useUser();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   /* ───────────────── 1. Xử lý cuộn trang ───────────────── */
   useEffect(() => {
@@ -65,97 +68,101 @@ const Header = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/">
                 <RiHome4Line className='nav-icon' />      
-                <span className="nav-link-content">Home</span>
+                <span className="nav-link-content">{t('header.home')}</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/tour">
                 <PiPaperPlaneTilt className='nav-icon' />
-                <span className="nav-link-content">Tours</span>
+                <span className="nav-link-content">{t('header.tours')}</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/explore">
                 <MdOutlineTravelExplore className="nav-icon" />
-                <span className="nav-link-content">Explore</span>
+                <span className="nav-link-content">{t('header.explore')}</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">
                 <FaInfoCircle className='nav-icon' />
-                <span className="nav-link-content">About</span>
+                <span className="nav-link-content">{t('header.about')}</span>
               </Link>
             </li>
           </ul>
 
-          {/* ───────────── 4. Điều kiện hiển thị nút ───────────── */}
+                    {/* ───────────── 4. Điều kiện hiển thị nút ───────────── */}
           {loadingUser ? null : (
             !currentUser || currentUser.role === 'admin' ? (
-              <div className="d-flex auth-buttons">
+              <div className="d-flex auth-buttons align-items-center">
+                <LanguageSelector />
                 <Link to="/login" className="btn btn-outline-primary me-2 login-btn">
                   <BiLogIn className="btn-icon" />
-                  <span>Login</span>
+                  <span>{t('header.login')}</span>
                 </Link>
                 <Link to="/signup" className="btn btn-success signup-btn">
                   <BiUserPlus className="btn-icon" />
-                  <span>Sign up</span>
+                  <span>{t('header.signup')}</span>
                 </Link>
               </div>
             ) : (
-              <div className="user-menu position-relative">
-                <div 
-                  className="d-flex align-items-center user-info"
-                  onClick={toggleDropdown}
-                >
-                  {userAccount?.avatar ? (
-                    <img 
-                      src={`${import.meta.env.VITE_API_BASE_URL}/${userAccount.avatar}`} 
-                      alt="User avatar" 
-                      className="user-avatar rounded-circle"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'block';
-                      }}
+              <div className="d-flex align-items-center">
+                <LanguageSelector />
+                <div className="user-menu position-relative ms-3">
+                  <div 
+                    className="d-flex align-items-center user-info"
+                    onClick={toggleDropdown}
+                  >
+                    {userAccount?.avatar ? (
+                      <img 
+                        src={`${import.meta.env.VITE_API_BASE_URL}/${userAccount.avatar}`} 
+                        alt="User avatar" 
+                        className="user-avatar rounded-circle"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'block';
+                        }}
+                      />
+                    ) : null}
+                    <FaUserCircle 
+                      className="user-avatar" 
+                      size={28} 
+                      style={{ display: userAccount?.avatar ? 'none' : 'block' }}
                     />
-                  ) : null}
-                  <FaUserCircle 
-                    className="user-avatar" 
-                    size={28} 
-                    style={{ display: userAccount?.avatar ? 'none' : 'block' }}
-                  />
-                  <span className="user-name text-muted ms-2" title={currentUser.fullname}>
-                    {currentUser.fullname.length > 20 
-                      ? currentUser.fullname.slice(0, 20) + '...' 
-                      : currentUser.fullname}
-                  </span>
-                  <FaChevronDown className={`dropdown-arrow text-muted ms-1 ${showDropdown ? 'rotate' : ''}`} />
-                </div>
-                
-                {showDropdown && (
-                  <div className="user-dropdown shadow">
-                    <Link 
-                      to="/profile" 
-                      className="dropdown-item"
-                      onClick={() => setShowDropdown(false)}
-                    >
-                      Profile
-                    </Link>
-                    <Link 
-                      to="/bookings" 
-                      className="dropdown-item"
-                      onClick={() => setShowDropdown(false)}
-                    >
-                      My Bookings
-                    </Link>
-                    <div className="dropdown-divider"></div>
-                    <button 
-                      className="dropdown-item logout-item"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </button>
+                    <span className="user-name text-muted ms-2" title={currentUser.fullname}>
+                      {currentUser.fullname.length > 20 
+                        ? currentUser.fullname.slice(0, 20) + '...' 
+                        : currentUser.fullname}
+                    </span>
+                    <FaChevronDown className={`dropdown-arrow text-muted ms-1 ${showDropdown ? 'rotate' : ''}`} />
                   </div>
-                )}
+                
+                  {showDropdown && (
+                    <div className="user-dropdown shadow">
+                      <Link 
+                        to="/profile" 
+                        className="dropdown-item"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        {t('header.profile')}
+                      </Link>
+                      <Link 
+                        to="/bookings" 
+                        className="dropdown-item"
+                        onClick={() => setShowDropdown(false)}
+                      >
+                        {t('header.myBookings')}
+                      </Link>
+                      <div className="dropdown-divider"></div>
+                      <button 
+                        className="dropdown-item logout-item"
+                        onClick={handleLogout}
+                      >
+                        {t('header.logout')}
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             )
           )}
